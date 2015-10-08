@@ -9,4 +9,5 @@
     <string name="title_activity_donate_knowledge">DonateKnowledgeActivity</string>
     <string name="title_activity_get_recomend">GetRecomendActivity</string>
     <string name="title_activity_add_question">AddQuestionActivity</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
 </resources>
