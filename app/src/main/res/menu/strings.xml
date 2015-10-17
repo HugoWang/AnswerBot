@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AnswerBot</string>
+    <string name="question">PlaceholderQuestion</string>
+    <string name="questiondescription">PlaceholderQuestionDescription</string>
+    <string name="addCriteria">Add Criteria</string>
+    <string name="addOptions">Add Options</string>
+    <string name="donateKnowledge">Add Knowledge</string>
+    <string name="getanswers">Get Answers</string>
+</resources>
