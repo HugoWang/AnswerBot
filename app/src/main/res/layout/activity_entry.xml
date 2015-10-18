@@ -1,11 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".EntryActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".EntryPage">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:id="@+id/MalecheckBox"
+        android:checked="false"
+        android:layout_above="@+id/FemalecheckBox"
+        android:layout_alignLeft="@+id/FemalecheckBox"
+        android:layout_alignStart="@+id/FemalecheckBox" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        android:id="@+id/FemalecheckBox"
+        android:checked="false"
+        android:layout_above="@+id/editAgeText"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proceed!"
+        android:id="@+id/ProceedButton"
+        android:layout_marginBottom="63dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/TitleView"
+        android:layout_alignStart="@+id/TitleView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="AnswerBot"
+        android:id="@+id/TitleView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Please provide the requested information about yourself and click proceed."
+        android:id="@+id/textView2"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/TitleView"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editAgeText"
+        android:text="Age"
+        android:layout_marginBottom="38dp"
+        android:layout_above="@+id/ProceedButton"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
