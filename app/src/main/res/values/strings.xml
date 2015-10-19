@@ -10,4 +10,12 @@
     <string name="title_activity_get_recomend">GetRecomendActivity</string>
     <string name="title_activity_add_question">AddQuestionActivity</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+
+
+    <string name="question">PlaceholderQuestion</string>
+    <string name="questiondescription">PlaceholderQuestionDescription</string>
+    <string name="addCriteria">Add Criteria</string>
+    <string name="addOptions">Add Options</string>
+    <string name="donateKnowledge">Add Knowledge</string>
+    <string name="getanswers">Get Answers</string>
 </resources>
