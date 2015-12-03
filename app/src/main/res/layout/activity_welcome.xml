@@ -35,11 +35,15 @@
         android:textColor="#ffffff" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Explore the World"
         android:id="@+id/explore"
+        android:background="@drawable/button_blue_style"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="15dp"
+        android:textSize="20dp" />
 
 </RelativeLayout>

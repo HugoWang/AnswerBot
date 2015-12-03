@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -21,14 +23,18 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        ActionBar myActionBar=getSupportActionBar();
+        myActionBar.hide();
 
         Typeface tf = Typeface.createFromAsset(getAssets(),"RobotoCondensed-Regular.ttf");
         TextView tv = (TextView)findViewById(R.id.welcome_font);
         tv.setTypeface(tf);
 
         explore = (Button)findViewById(R.id.explore);
+        Typeface explore_button = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
+        explore.setTypeface(explore_button);
+
+
         explore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
