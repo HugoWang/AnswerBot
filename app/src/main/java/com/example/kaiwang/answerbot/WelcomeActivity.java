@@ -8,9 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class WelcomeActivity extends AppCompatActivity {
+
+    Button explore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +24,20 @@ public class WelcomeActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        Typeface tf = Typeface.createFromAsset(getAssets(),"Lemon Regular.ttf");
+        Typeface tf = Typeface.createFromAsset(getAssets(),"RobotoCondensed-Regular.ttf");
         TextView tv = (TextView)findViewById(R.id.welcome_font);
         tv.setTypeface(tf);
 
+        explore = (Button)findViewById(R.id.explore);
+        explore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toEntry = new Intent(getApplicationContext(), EntryActivity.class);
+                startActivity(toEntry);
+            }
+        });
+
+        /*
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -32,5 +46,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 WelcomeActivity.this.finish();
             }
         }, 1500);
+        */
     }
 }
