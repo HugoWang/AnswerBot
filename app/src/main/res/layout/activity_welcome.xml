@@ -12,7 +12,7 @@
         android:id="@+id/welcome_font"
         android:textIsSelectable="false"
         android:textColor="#ffffff"
-        android:textSize="34dp"
+        android:textSize="34sp"
         android:layout_marginTop="70dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -44,6 +44,6 @@
         android:layout_centerHorizontal="true"
         android:textColor="#ffffff"
         android:layout_marginBottom="15dp"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
 </RelativeLayout>

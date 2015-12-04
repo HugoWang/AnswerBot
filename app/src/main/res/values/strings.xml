@@ -18,4 +18,6 @@
     <string name="addOptions">Add Options</string>
     <string name="donateKnowledge">Add Knowledge</string>
     <string name="getanswers">Get Answers</string>
+    <string name="welcome_text">"Welcome! Now, let's get started!"</string>
+
 </resources>

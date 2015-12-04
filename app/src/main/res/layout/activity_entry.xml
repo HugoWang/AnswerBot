@@ -9,10 +9,7 @@
         android:layout_width="105dp"
         android:layout_height="105dp"
         android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
         android:src="@drawable/logo"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp" />
 
@@ -20,13 +17,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Welcome! Now, let&apos;s get started!"
+        android:text="@string/welcome_text"
         android:id="@+id/start_text"
         android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:textColor="#ffffff"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -40,13 +36,9 @@
             android:text="Male"
             android:id="@+id/male_check"
             android:checked="false"
-            android:layout_above="@+id/FemalecheckBox"
-            android:layout_alignLeft="@+id/FemalecheckBox"
-            android:layout_alignStart="@+id/FemalecheckBox"
             android:layout_marginRight="15dp"
             android:textColor="#FFFFFF"
-            android:textSize="25dp"
-            android:buttonTint="#ffffff" />
+            android:textSize="25sp" />
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -54,10 +46,8 @@
             android:text="Female"
             android:id="@+id/female_check"
             android:checked="false"
-            android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
-            android:textSize="25dp"
-            android:buttonTint="#ffffff" />
+            android:textSize="25sp" />
 
     </LinearLayout>
 
@@ -65,10 +55,10 @@
         android:layout_width="111dp"
         android:layout_height="wrap_content"
         android:id="@+id/editAge"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:hint="Your Age"
         android:gravity="center"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textColor="#ffffff"
         android:textColorHint="#ebeaea"
         android:inputType="number" />
@@ -87,7 +77,7 @@
             android:id="@+id/start_btn"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="#337AB7"
             android:layout_marginBottom="35dp" />
     </LinearLayout>
