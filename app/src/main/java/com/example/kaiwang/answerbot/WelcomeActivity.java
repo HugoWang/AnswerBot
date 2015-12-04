@@ -31,8 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
         tv.setTypeface(tf);
 
         explore = (Button)findViewById(R.id.explore);
-        Typeface explore_button = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
-        explore.setTypeface(explore_button);
+        explore.setTypeface(tf);
 
 
         explore.setOnClickListener(new View.OnClickListener() {
