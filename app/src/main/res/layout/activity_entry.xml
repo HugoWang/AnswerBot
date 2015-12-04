@@ -75,8 +75,8 @@
             android:text="Get Started"
             android:background="@drawable/register_button"
             android:id="@+id/start_btn"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             android:textSize="20sp"
             android:textColor="#337AB7"
             android:layout_marginBottom="35dp" />

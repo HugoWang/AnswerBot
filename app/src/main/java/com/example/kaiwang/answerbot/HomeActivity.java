@@ -1,5 +1,10 @@
 package com.example.kaiwang.answerbot;
 
+import android.app.ActionBar;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +20,7 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
     ArrayList<String> placeHolders = new ArrayList<String>();
     ListView myListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +36,16 @@ public class HomeActivity extends AppCompatActivity {
                 EditText edit = (EditText)findViewById(R.id.input);
                 placeHolders.add(edit.getText().toString());
                 edit.setText("");
+            }
+        });
+
+        //Add question button
+        FloatingActionButton FAB = (FloatingActionButton) findViewById(R.id.fab);
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toAddQuestion = new Intent(getApplicationContext(), AddQuestionActivity.class);
+                startActivity(toAddQuestion);
             }
         });
 

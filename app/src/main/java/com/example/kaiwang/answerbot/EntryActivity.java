@@ -28,6 +28,7 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
 
+        //Hide ActionBar
         ActionBar myActionBar=getSupportActionBar();
         myActionBar.hide();
 
