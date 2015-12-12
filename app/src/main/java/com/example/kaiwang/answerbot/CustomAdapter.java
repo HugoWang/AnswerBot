@@ -31,12 +31,6 @@ class CustomAdapter extends ArrayAdapter<String>{
 
         String plQuestion = getItem(position);
         TextView MainQuestion = (TextView) customView.findViewById(R.id.qquestion);
-        TextView Description = (TextView) customView.findViewById(R.id.qdescription);
-
-        Button criteria = (Button) customView.findViewById(R.id.criteria);
-        Button options = (Button) customView.findViewById(R.id.options);
-        Button donation = (Button) customView.findViewById(R.id.donate);
-        Button getanswers = (Button) customView.findViewById(R.id.answers);
 
         final LinearLayout buttonPanel = (LinearLayout) customView.findViewById(R.id.buttonPanel);
         customView.setOnClickListener(new View.OnClickListener() {
