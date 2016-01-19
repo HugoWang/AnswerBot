@@ -36,6 +36,7 @@
             android:name=".GetRecomendActivity"
             android:label="@string/title_activity_get_recomend"
             android:screenOrientation="portrait">
+
         </activity>
         <activity
             android:name=".AddQuestionActivity"

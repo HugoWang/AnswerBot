@@ -81,7 +81,8 @@ public class HomeActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent toRecommend = new Intent(getApplicationContext(), GetRecomendActivity.class);
+            startActivity(toRecommend);
         }
 
         return super.onOptionsItemSelected(item);
