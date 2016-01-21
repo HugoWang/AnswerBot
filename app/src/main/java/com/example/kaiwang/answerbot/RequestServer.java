@@ -1,21 +1,30 @@
 package com.example.kaiwang.answerbot;
+
 /**
  * Created by Juho on 12.12.2015.
  */
 /**Still working with this*/
-/*
-import org.json.*;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceActivity;
+import android.util.Log;
+import android.widget.Toast;
 import com.loopj.android.http.*;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-class RequestServer{
+import java.io.UnsupportedEncodingException;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
+
+public class RequestServer{
     private static final String BASE_URL = "http://dss.simohosio.com/api/";
     private static final String GET_ALL_QUESTIONS_URL = BASE_URL + "getquestions.php";
     private static final String GET_QUESTION_URL = BASE_URL + "getquestion.php?"; //need question_id
@@ -23,74 +32,81 @@ class RequestServer{
     private static final String GET_SOLUTIONS_URL = BASE_URL + "getsolutions.php?"; //need question_id
     private static final String GET_RECOMMENDATIONS_URL = "http://dss.simohosio.com/getsupport.php?"; //need qid ?
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    AsyncHttpClient client = new AsyncHttpClient();
+    RequestParams params = new RequestParams();
+    client.get("http://dss.simohosio.com/api/postsolution.php", new AsyncHttpResponseHandler() {
 
-    public static void getQuestion(int question_id, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.get(GET_QUESTION_URL + question_id, params, responseHandler);
-
-    }
-
-    public static String getQuestions(RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.get(GET_ALL_QUESTIONS_URL, params, responseHandler);
-        {
-            protected String doInBackground(String...params)
-            {
-                HttpURLConnection con = null;
-                BufferedReader reader = null;
-                try {
-                    URL url = new URL(GET_ALL_QUESTIONS_URL);
-                    con = (HttpURLConnection) url.openConnection();
-                    con.connect();
-                    InputStream is = con.getInputStream();
-
-                    reader = new BufferedReader(new InputStreamReader(is));
-                    StringBuffer buffer = new StringBuffer();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        buffer.append(line);
-
-                    }
-                    return buffer.toString();
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (con != null) {
-                        con.disconnect();
-                    }
-                    try {
-                        if (reader != null) {
-                            reader.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                return null;
+            @Override
+            public void onStart() {
+                // called before request is started
             }
 
             @Override
-            protected void onPostExecute (String s){
-                super.onPostExecute(s);
-                txt.setText(s.toString());
-        }
-        }
-    }
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                try {
+                    JSONObject jsonParams = new JSONObject();
+                    jsonParams.put("notes", "Test api support");
+                    StringEntity entity = new StringEntity(jsonParams.toString());
+                    client.post(entity);
+                   /** String response = (new String(responseBody, "UTF-8"));
+                    Log.d("dfgh", response);
+                    JSONObject jObject = new JSONObject(response);
+                    String user_id = jObject.getString("user_id");
+                    String question_id = jObject.getString("question_id");
 
-    public static void getCriterias(int question_id, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.get(GET_CRITERIAS_URL + question_id, params, responseHandler);
-    }
+                    if (!jObject.has("flic_id")) {
+                        Intent i = new Intent();
+                        Log.d("gdsg", "no flic_id");
+                    } else {
+                        String flic_id = jObject.getString("flic_id");
+                        String status = jObject.getString("status");
+                        Log.d("gdsg", "has flic_id: " + flic_id + " " + status);
+                        Intent info = new Intent();
+                        info.putExtra("flic_id", flic_id);
+                        info.putExtra("status", status);
+                    }
+                    **/
+                } catch (UnsupportedEncodingException e1) {
+                    e1.printStackTrace();
 
-    public static void getAnswers(int question_id, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.get(GET_SOLUTIONS_URL + question_id, params, responseHandler);
-    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-    public static void getRecommendations(RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        client.get(GET_RECOMMENDATIONS_URL, params, responseHandler);
-    }
+            }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+             // do something
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+
+
+/**
+ );
+ public static void getQuestion(int question_id, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+ client.get(GET_QUESTION_URL + question_id, params, responseHandler);
+
+ }
+ public static void getQuestions(RequestParams params, AsyncHttpResponseHandler responseHandler) {
+ client.get(GET_ALL_QUESTIONS_URL, params, responseHandler);
+ }
+ public static void getCriterias(int question_id, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+ client.get(GET_CRITERIAS_URL + question_id, params, responseHandler);
+ }
+ public static void getAnswers(int question_id, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+ client.get(GET_SOLUTIONS_URL + question_id, params, responseHandler);
+ }
+ public static void getRecommendations(RequestParams params, AsyncHttpResponseHandler responseHandler) {
+ client.get(GET_RECOMMENDATIONS_URL, params, responseHandler);
+ }
+ }
+ **/}
 }
-  */
