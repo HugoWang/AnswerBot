@@ -12,6 +12,7 @@
         android:orientation="horizontal">
         <EditText
             android:layout_width="0dp"
+            android:hint="@string/searchHint"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:id="@+id/input"/>
@@ -33,7 +34,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="488dp"
-            android:id="@+id/myListView"></ListView>
+            android:id="@+id/myListView"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

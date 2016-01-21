@@ -13,18 +13,38 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
-    ArrayList<String> placeHolders = new ArrayList<String>();
-    ListView myListView;
 
+    JSONArray stuff = RequestServer("getQuestions.php");
+    ListView myListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ArrayList<Questions> values = new ArrayList<>();
+        for (int i=0;i<stuff.length();i++){
+            try{
+                Questions ques = new Questions();
+                JSONObject buffer = stuff.getJSONObject(i);
+                ques.setQuality_score(buffer.getInt("quality_score"));
+                ques.setUser_id(buffer.getString("user_id"));
+                ques.setQuestion_id(buffer.getInt("question_id"));
+                ques.setQuestion_body(buffer.getString("question_body"));
+                ques.setQuestion_details(buffer.getString("question_details"));
+                ques.setMeta(buffer.getString("meta"));
 
-        final ListAdapter myAdapter = new CustomAdapter(this, placeHolders);
+                values.add(ques);
+                }catch (JSONException e){
+                    e.printStackTrace();
+            }
+        }
+        final ListAdapter myAdapter = new CustomAdapter(this, values);
         myListView = (ListView)findViewById(R.id.myListView);
         myListView.setAdapter(myAdapter);
         Button btn = (Button) findViewById(R.id.askNewQuestion);
@@ -32,7 +52,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText edit = (EditText)findViewById(R.id.input);
-                placeHolders.add(edit.getText().toString());
                 edit.setText("");
             }
         });
@@ -47,18 +66,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void addCriteria(View view) {
-    }
-
-    public void addOptions(View view) {
-    }
-
-    public void donateKnowledge(View view) {
-    }
-
-    public void getAnswers(View view) {
     }
 
     public void newQuestion(View view) {

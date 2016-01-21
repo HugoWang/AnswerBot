@@ -1,10 +1,9 @@
 package com.example.kaiwang.answerbot;
-
 /**
  * Created by Juho on 12.12.2015.
  */
 /**Still working with this*/
-
+/*
 import org.json.*;
 import com.loopj.android.http.*;
 
@@ -92,4 +91,6 @@ class RequestServer{
     public static void getRecommendations(RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(GET_RECOMMENDATIONS_URL, params, responseHandler);
     }
+
 }
+  */

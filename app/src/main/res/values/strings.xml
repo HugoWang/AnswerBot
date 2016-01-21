@@ -21,5 +21,6 @@
     <string name="welcome_text">"Welcome! Now, let's get started!"</string>
 
     <string name="placeHolderQuestion">placeHolderQuestion</string>
+    <string name="searchHint">Search</string>
 
 </resources>
