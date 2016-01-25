@@ -5,13 +5,8 @@ package com.example.kaiwang.answerbot;
  */
 /**Still working with this*/
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceActivity;
-import android.util.Log;
-import android.widget.Toast;
-import com.loopj.android.http.*;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -24,17 +19,22 @@ import java.io.UnsupportedEncodingException;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
-public class RequestServer{
+public class RequestServer extends Activity{
     private static final String BASE_URL = "http://dss.simohosio.com/api/";
     private static final String GET_ALL_QUESTIONS_URL = BASE_URL + "getquestions.php";
     private static final String GET_QUESTION_URL = BASE_URL + "getquestion.php?"; //need question_id
     private static final String GET_CRITERIAS_URL = BASE_URL + "getcriteria.php?"; //need question_id
     private static final String GET_SOLUTIONS_URL = BASE_URL + "getsolutions.php?"; //need question_id
     private static final String GET_RECOMMENDATIONS_URL = "http://dss.simohosio.com/getsupport.php?"; //need qid ?
+    private AsyncHttpClient client;
+    private StringEntity entity;
+
+    public RequestServer(String s) {
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    AsyncHttpClient client = new AsyncHttpClient();
+    client = new AsyncHttpClient();
     RequestParams params = new RequestParams();
     client.get("http://dss.simohosio.com/api/postsolution.php", new AsyncHttpResponseHandler() {
 
@@ -48,8 +48,8 @@ public class RequestServer{
                 try {
                     JSONObject jsonParams = new JSONObject();
                     jsonParams.put("notes", "Test api support");
-                    StringEntity entity = new StringEntity(jsonParams.toString());
-                    client.post(entity);
+                    entity = new StringEntity(jsonParams.toString());
+                    //client.post(entity);
                    /** String response = (new String(responseBody, "UTF-8"));
                     Log.d("dfgh", response);
                     JSONObject jObject = new JSONObject(response);

@@ -3,9 +3,7 @@ package com.example.kaiwang.answerbot;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Typeface;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +30,8 @@ public class CustomRatesAdapter extends ArrayAdapter<Rate> {
          tvBody.setTypeface(tf);
          tvDetail.setTypeface(tf);
         // Populate the data into the template view using the data object
-         tvBody.setText(rate.body);
-         tvDetail.setText(rate.details);
+         tvBody.setText(rate.rate_body);
+         tvDetail.setText(rate.rate_details);
         // Return the completed view to render on screen
          return convertView;
     }

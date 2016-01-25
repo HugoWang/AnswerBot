@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.kaiwang.answerbot.GetRecomendActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/add_criteria" android:title="@string/addCriteria"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/add_answer" android:title="@string/addOptions"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/rate_answer" android:title="@string/rateAnswer"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/share_question" android:title="@string/shareQuestion"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

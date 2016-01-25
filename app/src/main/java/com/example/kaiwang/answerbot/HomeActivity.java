@@ -21,12 +21,13 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
-    JSONArray stuff = RequestServer("getQuestions.php");
+    //JSONArray stuff = RequestServer("getQuestions.php");
     ListView myListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        /*
         ArrayList<Questions> values = new ArrayList<>();
         for (int i=0;i<stuff.length();i++){
             try{
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
                 }catch (JSONException e){
                     e.printStackTrace();
             }
+
         }
         final ListAdapter myAdapter = new CustomAdapter(this, values);
         myListView = (ListView)findViewById(R.id.myListView);
@@ -55,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
                 edit.setText("");
             }
         });
-
+        */
         //Add question button
         FloatingActionButton FAB = (FloatingActionButton) findViewById(R.id.fab);
         FAB.setOnClickListener(new View.OnClickListener() {

@@ -4,18 +4,20 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_home">AnswerBot</string>
-    <string name="title_activity_add_criteria">AddCriteriaActivity</string>
-    <string name="title_activity_add_options">AddOptionsActivity</string>
-    <string name="title_activity_donate_knowledge">DonateKnowledgeActivity</string>
-    <string name="title_activity_get_recomend">GetRecomendActivity</string>
-    <string name="title_activity_add_question">AddQuestionActivity</string>
+    <string name="title_activity_add_criteria">Add Criterion</string>
+    <string name="title_activity_add_options">Add Answer</string>
+    <string name="title_activity_donate_knowledge">Donate Knowledge</string>
+    <string name="title_activity_get_recomend">Recommendation</string>
+    <string name="title_activity_add_question">Add Question</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
 
 
     <string name="question">PlaceholderQuestion</string>
     <string name="questiondescription">PlaceholderQuestionDescription</string>
     <string name="addCriteria">Add Criteria</string>
-    <string name="addOptions">Add Options</string>
+    <string name="addOptions">Add Answer</string>
+    <string name="rateAnswer">Rate Answer</string>
+    <string name="shareQuestion">Share Question</string>
     <string name="donateKnowledge">Add Knowledge</string>
     <string name="getanswers">Get Answers</string>
     <string name="welcome_text">"Welcome! Now, let's get started!"</string>
