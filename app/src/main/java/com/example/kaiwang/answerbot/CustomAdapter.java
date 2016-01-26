@@ -2,6 +2,7 @@ package com.example.kaiwang.answerbot;
 
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +28,12 @@ class CustomAdapter extends ArrayAdapter<Questions>{
         if(convertView==null){
             convertView=LayoutInflater.from(getContext()).inflate(R.layout.activity_home_question,parent,false);
         }
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(),"RobotoCondensed-Regular.ttf");
         Questions plQuestion = getItem(position);
         TextView MainQuestion = (TextView) convertView.findViewById(R.id.qquestion);
         String question= plQuestion.question_body;
         MainQuestion.setText(question);
+        MainQuestion.setTypeface(tf);
         return convertView;
     }
 }

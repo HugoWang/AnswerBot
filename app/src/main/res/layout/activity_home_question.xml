@@ -20,7 +20,9 @@
         android:id="@+id/qquestion"
         android:text="@string/question"
         android:textSize="@dimen/description"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
 
 </LinearLayout>

@@ -116,9 +116,13 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Questions question = (Questions)parent.getItemAtPosition(position);
         int q_id = question.question_id;
+        String q_body = question.question_body;
+        String q_details = question.question_details;
         Intent toRecommend = new Intent(getApplicationContext(),GetRecomendActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("position", q_id);
+        bundle.putString("question_body",q_body);
+        bundle.putString("question_details",q_details);
         toRecommend.putExtras(bundle);
         startActivity(toRecommend);
 

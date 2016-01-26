@@ -5,5 +5,5 @@
     <dimen name="question_horizontal">10dp</dimen>
     <dimen name="question_vertical">10dp</dimen>
     <dimen name="header">22dp</dimen>
-    <dimen name="description">16dp</dimen>
+    <dimen name="description">22dp</dimen>
 </resources>
