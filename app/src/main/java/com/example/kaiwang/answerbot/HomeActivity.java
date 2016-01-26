@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,20 +23,29 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+import cz.msebera.android.httpclient.Header;
 
-    //JSONArray stuff = RequestServer("getQuestions.php");
+public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
     ListView myListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        /*
+        final JSONArray[] stuff = new JSONArray[1];
         ArrayList<Questions> values = new ArrayList<>();
-        for (int i=0;i<stuff.length();i++){
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get("http://dss.simohosio.com/api/getquestions.php", new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
+                stuff[0] = responseBody;
+            }
+
+        });
+        for (int i=0;i<stuff[0].length();i++){
             try{
                 Questions ques = new Questions();
-                JSONObject buffer = stuff.getJSONObject(i);
+                JSONObject buffer = stuff[0].getJSONObject(i);
                 ques.setQuality_score(buffer.getInt("quality_score"));
                 ques.setUser_id(buffer.getString("user_id"));
                 ques.setQuestion_id(buffer.getInt("question_id"));
@@ -57,7 +70,8 @@ public class HomeActivity extends AppCompatActivity {
                 edit.setText("");
             }
         });
-        */
+
+        myListView.setOnItemClickListener(this);
         //Add question button
         FloatingActionButton FAB = (FloatingActionButton) findViewById(R.id.fab);
         FAB.setOnClickListener(new View.OnClickListener() {
@@ -95,5 +109,17 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Questions question = (Questions)parent.getItemAtPosition(position);
+        int q_id = question.question_id;
+        Intent toRecommend = new Intent(getApplicationContext(),GetRecomendActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", q_id);
+        toRecommend.putExtras(bundle);
+        startActivity(toRecommend);
+
     }
 }

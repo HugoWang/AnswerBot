@@ -29,7 +29,7 @@ class CustomAdapter extends ArrayAdapter<Questions>{
 
         Questions plQuestion = getItem(position);
         TextView MainQuestion = (TextView) customView.findViewById(R.id.qquestion);
-        String question = plQuestion.question_body;
+        String question= plQuestion.question_body;
         MainQuestion.setText(question);
         return customView;
     }
