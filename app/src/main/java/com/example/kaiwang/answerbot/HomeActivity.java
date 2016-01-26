@@ -32,46 +32,47 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        final JSONArray[] stuff = new JSONArray[1];
-        ArrayList<Questions> values = new ArrayList<>();
+        myListView = (ListView) findViewById(R.id.myListView);
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("http://dss.simohosio.com/api/getquestions.php", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
-                stuff[0] = responseBody;
+                ArrayList<Questions> values = new ArrayList<>();
+                for (int i = 0; i < responseBody.length(); i++) {
+                    try {
+                        Questions ques = new Questions();
+                        JSONObject buffer = responseBody.getJSONObject(i);
+                        ques.setQuality_score(buffer.getInt("quality_score"));
+                        ques.setUser_id(buffer.getString("user_id"));
+                        ques.setQuestion_id(buffer.getInt("question_id"));
+                        ques.setQuestion_body(buffer.getString("question_body"));
+                        ques.setQuestion_details(buffer.getString("question_details"));
+                        ques.setMeta(buffer.getString("meta"));
+
+                        values.add(ques);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    ListAdapter myAdapter = new CustomAdapter(HomeActivity.this, values);
+                    myListView.setAdapter(myAdapter);
+                    myListView.setOnItemClickListener(HomeActivity.this);
+                }
+
             }
 
         });
-        for (int i=0;i<stuff[0].length();i++){
-            try{
-                Questions ques = new Questions();
-                JSONObject buffer = stuff[0].getJSONObject(i);
-                ques.setQuality_score(buffer.getInt("quality_score"));
-                ques.setUser_id(buffer.getString("user_id"));
-                ques.setQuestion_id(buffer.getInt("question_id"));
-                ques.setQuestion_body(buffer.getString("question_body"));
-                ques.setQuestion_details(buffer.getString("question_details"));
-                ques.setMeta(buffer.getString("meta"));
 
-                values.add(ques);
-                }catch (JSONException e){
-                    e.printStackTrace();
-            }
 
-        }
-        final ListAdapter myAdapter = new CustomAdapter(this, values);
-        myListView = (ListView)findViewById(R.id.myListView);
-        myListView.setAdapter(myAdapter);
         Button btn = (Button) findViewById(R.id.askNewQuestion);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText edit = (EditText)findViewById(R.id.input);
+                EditText edit = (EditText) findViewById(R.id.input);
                 edit.setText("");
             }
         });
 
-        myListView.setOnItemClickListener(this);
+
         //Add question button
         FloatingActionButton FAB = (FloatingActionButton) findViewById(R.id.fab);
         FAB.setOnClickListener(new View.OnClickListener() {

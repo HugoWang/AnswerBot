@@ -24,13 +24,13 @@ class CustomAdapter extends ArrayAdapter<Questions>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater myInflater = LayoutInflater.from(getContext());
-        View customView = myInflater.inflate(R.layout.activity_home_question, parent, false);
-
+        if(convertView==null){
+            convertView=LayoutInflater.from(getContext()).inflate(R.layout.activity_home_question,parent,false);
+        }
         Questions plQuestion = getItem(position);
-        TextView MainQuestion = (TextView) customView.findViewById(R.id.qquestion);
+        TextView MainQuestion = (TextView) convertView.findViewById(R.id.qquestion);
         String question= plQuestion.question_body;
         MainQuestion.setText(question);
-        return customView;
+        return convertView;
     }
 }
