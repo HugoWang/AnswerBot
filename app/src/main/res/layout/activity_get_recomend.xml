@@ -26,15 +26,22 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="6dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="description of the question..."
-            android:id="@+id/recommend_detail"
-            android:layout_marginBottom="5dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/viewsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="6dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="description of the question..."
+                android:id="@+id/recommend_detail"
+                android:layout_marginBottom="5dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -74,7 +81,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="6dp"
         android:layout_marginBottom="10dp"
-        android:textColor="#a7a4a4"
+        android:textColor="#5CB85C"
         android:textSize="15dp" />
 
     <LinearLayout
@@ -100,8 +107,6 @@
             android:text="Get Recommendation"
             android:background="@drawable/blue_board_btn"
             android:id="@+id/get_recommend_btn"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:textSize="20sp"
             android:textColor="#1F497D"
             android:layout_marginTop="5dp" />

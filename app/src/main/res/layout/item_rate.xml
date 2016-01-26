@@ -2,55 +2,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:background="@drawable/background_view_rounded_single"
     android:orientation="vertical"
-    android:showDividers="none">
+    android:showDividers="none"
+    android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/tvBody"
-        android:layout_alignBaseline="@+id/ivUserIcon"
-        android:layout_toRightOf="@+id/ivUserIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="6dp"
-        android:text="Sarah"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="3dp"
-        android:textColor="#ffffff" />
-
-    <TextView
-        android:id="@+id/tvDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvName"
-        android:paddingLeft="10dp"
-        android:paddingRight="6dp"
-        android:text="San Marco"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginBottom="5dp"
-        android:textColor="#c7c4c4"
-        android:textSize="15dp"
-        android:textIsSelectable="false" />
-
-    <SeekBar
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
-        android:layout_below="@+id/tvRate"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:background="@drawable/background_view_rounded_single"
+        android:gravity="center_vertical"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:thumb="@drawable/thumb"
-        android:max="100"
-        android:progress="0"
-        android:progressDrawable="@drawable/progressbar"
-        android:secondaryProgress="0"/>
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:id="@+id/tvBody"
+            android:layout_alignBaseline="@+id/ivUserIcon"
+            android:layout_toRightOf="@+id/ivUserIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:text="Sarah"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="3dp"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/tvDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tvName"
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:text="San Marco"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginBottom="5dp"
+            android:textColor="#c7c4c4"
+            android:textSize="15dp"
+            android:textIsSelectable="false" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:layout_below="@+id/tvRate"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:thumb="@drawable/thumb"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/progressbar" />
+    </LinearLayout>
 
 </LinearLayout>

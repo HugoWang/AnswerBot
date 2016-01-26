@@ -25,7 +25,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +38,16 @@ public class GetRecomendActivity extends AppCompatActivity implements AdapterVie
     public int url_queston_id;
     public String ques_body;
     public String ques_details;
+    private boolean viewGroupIsVisible = false;
+    private View mViewGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_recomend);
+
+        mViewGroup = findViewById(R.id.viewsContainer);
+        mViewGroup.setVisibility(View.GONE);
 
         Typeface tf = Typeface.createFromAsset(getAssets(),"RobotoCondensed-Regular.ttf");
         recommend_ques = (TextView)findViewById(R.id.recommend_ques);
@@ -57,6 +61,18 @@ public class GetRecomendActivity extends AppCompatActivity implements AdapterVie
         tips1.setTypeface(tf);
         tips2.setTypeface(tf);
         get_recommend.setTypeface(tf);
+
+        recommend_ques.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!viewGroupIsVisible) {
+                    mViewGroup.setVisibility(View.VISIBLE);
+                } else {
+                    mViewGroup.setVisibility(View.GONE);
+                }
+                viewGroupIsVisible = !viewGroupIsVisible;
+            }
+        });
 
         AsyncHttpClient client = new AsyncHttpClient();
         Bundle bundle = getIntent().getExtras();
@@ -124,22 +140,6 @@ public class GetRecomendActivity extends AppCompatActivity implements AdapterVie
                 // called when request is retried
             }
         });
-
-
-
-        /*
-        send_criterion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                criteria = (SeekBar) send_criterion.getItemAtPosition(position);
-                criteria.setFocusable(true);
-                criteria.setEnabled(true);
-                int value = criteria.getProgress(); // get value here
-                Toast.makeText(getApplication(),value,Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        */
 
         get_recommend.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
