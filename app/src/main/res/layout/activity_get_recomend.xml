@@ -100,8 +100,8 @@
             android:text="Get Recommendation"
             android:background="@drawable/blue_board_btn"
             android:id="@+id/get_recommend_btn"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:textSize="20sp"
             android:textColor="#1F497D"
             android:layout_marginTop="5dp" />

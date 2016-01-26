@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -36,6 +37,60 @@ public class GetRecomendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_recomend);
         AsyncHttpClient client = new AsyncHttpClient();
+        client.get("http://dss.simohosio.com/api/getcriteria.php?question_id=1", new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                Log.d("TEST","1111");
+                try {
+                    String response = (new String(responseBody, "UTF-8"));
+                    JSONArray rateArray = new JSONArray(response);
+                    ArrayList<Rate> arrayOfRates = new ArrayList<>();
+                    Log.d("TEST","2222");
+                    for (int i=0;i<rateArray.length();i++){
+                        try{
+                            Log.d("TEST","3333");
+                            Rate rate = new Rate();
+                            JSONObject buffer = rateArray.getJSONObject(i);
+                            rate.setRate_body(buffer.getString("criterion_body"));
+                            rate.setRate_details(buffer.getString("criterion_details"));
+                            arrayOfRates.add(rate);
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                    CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
+
+                    // Attach the adapter to a ListView
+                    ListView listView = (ListView) findViewById(R.id.lvRates);
+                    listView.setAdapter(adapter);
+
+                } catch (UnsupportedEncodingException e1) {
+                    e1.printStackTrace();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
         /*
         JSONArray rateArray = null;
         ArrayList<Rate> arrayOfRates = new ArrayList<>();
