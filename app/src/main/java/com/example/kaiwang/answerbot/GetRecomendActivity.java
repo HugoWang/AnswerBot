@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetRecomendActivity extends AppCompatActivity {
+
+    Button get_recommend;
+    TextView recommend_ques, recommend_detail, tips1, tips2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +59,17 @@ public class GetRecomendActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         */
         Typeface tf = Typeface.createFromAsset(getAssets(),"RobotoCondensed-Regular.ttf");
-        TextView tips1 = (TextView)findViewById(R.id.tips1);
-        TextView tips2 = (TextView)findViewById(R.id.tips2);
+        recommend_ques = (TextView)findViewById(R.id.recommend_ques);
+        recommend_detail = (TextView)findViewById(R.id.recommend_detail);
+        tips1 = (TextView)findViewById(R.id.tips1);
+        tips2 = (TextView)findViewById(R.id.tips2);
+        get_recommend = (Button)findViewById(R.id.get_recommend_btn);
+
+        recommend_ques.setTypeface(tf);
+        recommend_detail.setTypeface(tf);
         tips1.setTypeface(tf);
         tips2.setTypeface(tf);
+        get_recommend.setTypeface(tf);
     }
 
     @Override
