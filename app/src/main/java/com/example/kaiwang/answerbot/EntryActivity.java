@@ -22,6 +22,7 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
     CheckBox male_check, female_check;
     EditText input_age;
     String my_age;
+    int my_age_value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +55,20 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
             @Override
             public void onClick(View v) {
                 my_age = input_age.getText().toString();
-                if((male_check.isChecked() || female_check.isChecked()) && (my_age.length() != 0)){
+                my_age_value = Integer.parseInt(input_age.getText().toString());
+                if ((male_check.isChecked() || female_check.isChecked()) && (my_age.length() != 0) && my_age_value < 110) {
                     Intent toEntry = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(toEntry);
+                } else if ((male_check.isChecked() || female_check.isChecked()) && (my_age.length() != 0) && my_age_value > 110) {
+                    Toast.makeText(getApplicationContext(), "Your age is unreliable!", Toast.LENGTH_SHORT).show();
+                } else if ((!(male_check.isChecked() || female_check.isChecked())) && (my_age.length() != 0)) {
+                    Toast.makeText(getApplicationContext(), "Your gender is missing!", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(getApplicationContext(),"Your gender or age information is missing!", Toast.LENGTH_SHORT).show();
+                else if ((male_check.isChecked() || female_check.isChecked()) && (!(my_age.length() == 0))) { //does not work properly
+                    Toast.makeText(getApplicationContext(), "Your age is missing!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Your age and gender are missing!", Toast.LENGTH_SHORT).show(); // does not work properly
                 }
             }
         });

@@ -50,7 +50,7 @@ public class RequestServer extends Activity{
                     jsonParams.put("notes", "Test api support");
                     entity = new StringEntity(jsonParams.toString());
                     //client.post(entity);
-                   /** String response = (new String(responseBody, "UTF-8"));
+                   /* String response = (new String(responseBody, "UTF-8"));
                     Log.d("dfgh", response);
                     JSONObject jObject = new JSONObject(response);
                     String user_id = jObject.getString("user_id");
@@ -67,7 +67,7 @@ public class RequestServer extends Activity{
                         info.putExtra("flic_id", flic_id);
                         info.putExtra("status", status);
                     }
-                    **/
+                    */
                 } catch (UnsupportedEncodingException e1) {
                     e1.printStackTrace();
 
@@ -89,7 +89,7 @@ public class RequestServer extends Activity{
         });
 
 
-/**
+/*
  );
  public static void getQuestion(int question_id, RequestParams params, AsyncHttpResponseHandler responseHandler) {
  client.get(GET_QUESTION_URL + question_id, params, responseHandler);
@@ -108,5 +108,5 @@ public class RequestServer extends Activity{
  client.get(GET_RECOMMENDATIONS_URL, params, responseHandler);
  }
  }
- **/}
+ */}
 }
