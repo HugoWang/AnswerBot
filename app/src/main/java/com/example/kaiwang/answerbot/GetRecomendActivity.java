@@ -177,7 +177,7 @@ public class GetRecomendActivity extends AppCompatActivity implements AdapterVie
             startActivity(toRateAnswer);
         }
         else if (id == R.id.share_question) {
-            String urlToShare = "http://dss.simohosio.com/new.php?type=s&qid=1";
+            String urlToShare = "http://dss.simohosio.com/new.php?type=s&qid="+url_queston_id;
 
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
