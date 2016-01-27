@@ -59,7 +59,8 @@
             android:thumb="@drawable/thumb"
             android:max="100"
             android:progress="0"
-            android:progressDrawable="@drawable/progressbar" />
+            android:progressDrawable="@drawable/progressbar"
+            android:indeterminate="false" />
     </LinearLayout>
 
 </LinearLayout>

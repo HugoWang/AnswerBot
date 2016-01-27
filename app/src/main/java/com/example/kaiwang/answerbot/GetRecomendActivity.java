@@ -164,40 +164,42 @@ public class GetRecomendActivity extends AppCompatActivity implements AdapterVie
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.add_criteria) {
-            Intent toAddCriteria = new Intent(getApplicationContext(), AddCriteriaActivity.class);
-            startActivity(toAddCriteria);
-        }
-        else if (id == R.id.add_answer) {
-            Intent toAddAnswer = new Intent(getApplicationContext(), AddOptionsActivity.class);
-            startActivity(toAddAnswer);
-        }
-        else if (id == R.id.rate_answer) {
-            Intent toRateAnswer = new Intent(getApplicationContext(), DonateKnowledgeActivity.class);
-            startActivity(toRateAnswer);
-        }
-        else if (id == R.id.share_question) {
-            String urlToShare = "http://dss.simohosio.com/new.php?type=s&qid="+url_queston_id;
+        switch (id){
+            case R.id.add_criteria:
+                Intent toAddCriteria = new Intent(getApplicationContext(), AddCriteriaActivity.class);
+                startActivity(toAddCriteria);
+                break;
+            case R.id.add_answer:
+                Intent toAddAnswer = new Intent(getApplicationContext(), AddOptionsActivity.class);
+                startActivity(toAddAnswer);
+                break;
+            case R.id.rate_answer:
+                Intent toRateAnswer = new Intent(getApplicationContext(), DonateKnowledgeActivity.class);
+                startActivity(toRateAnswer);
+                break;
+            case R.id.share_question:
+                String urlToShare = "http://dss.simohosio.com/new.php?type=s&qid="+url_queston_id;
 
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, urlToShare);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, urlToShare);
 
-            boolean facebookAppFound = false;
-            List<ResolveInfo> matches = getPackageManager().queryIntentActivities(intent, 0);
-            for (ResolveInfo info : matches) {
-                if (info.activityInfo.packageName.toLowerCase().startsWith("com.facebook.katana")) {
-                    intent.setPackage(info.activityInfo.packageName);
-                    facebookAppFound = true;
-                    break;
+                boolean facebookAppFound = false;
+                List<ResolveInfo> matches = getPackageManager().queryIntentActivities(intent, 0);
+                for (ResolveInfo info : matches) {
+                    if (info.activityInfo.packageName.toLowerCase().startsWith("com.facebook.katana")) {
+                        intent.setPackage(info.activityInfo.packageName);
+                        facebookAppFound = true;
+                        break;
+                    }
                 }
-            }
-            if (!facebookAppFound) {
-                String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + urlToShare;
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl));
-            }
+                if (!facebookAppFound) {
+                    String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + urlToShare;
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl));
+                }
 
-            startActivity(intent);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
