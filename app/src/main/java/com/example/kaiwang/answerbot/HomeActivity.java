@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -22,11 +23,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cz.msebera.android.httpclient.Header;
 
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-
+    ListAdapter myAdapter;
+    ArrayList<Questions> values;
     ListView myListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         client.get("http://dss.simohosio.com/api/getquestions.php", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
-                ArrayList<Questions> values = new ArrayList<>();
+                values = new ArrayList<>();
                 for (int i = 0; i < responseBody.length(); i++) {
                     try {
                         Questions ques = new Questions();
@@ -53,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    ListAdapter myAdapter = new CustomAdapter(HomeActivity.this, values);
+                    myAdapter = new CustomAdapter(HomeActivity.this, values);
                     myListView.setAdapter(myAdapter);
                     myListView.setOnItemClickListener(HomeActivity.this);
                 }
@@ -61,17 +65,34 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
         });
-
-
-        Button btn = (Button) findViewById(R.id.askNewQuestion);
-        btn.setOnClickListener(new View.OnClickListener() {
+        EditText search = (EditText) findViewById(R.id.input);
+        search.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                EditText edit = (EditText) findViewById(R.id.input);
-                edit.setText("");
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            private Timer timer = new Timer();
+            private final long DELAY=500;
+            @Override
+            public void afterTextChanged(Editable s) {
+                final String ss = s.toString();
+                timer.cancel();
+                timer = new Timer();
+                timer.schedule(
+                        new TimerTask() {
+                            @Override
+                            public void run() {
+                                if (ss.equals("")){
+                                    allVisible();
+                                }else{
+                                    doSearch(ss);
+                                }
+                            }
+                        },DELAY);
             }
         });
-
 
         //Add question button
         FloatingActionButton FAB = (FloatingActionButton) findViewById(R.id.fab);
@@ -84,8 +105,25 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
     }
-
-    public void newQuestion(View view) {
+    public void allVisible(){
+        for (int i=0;i<values.size();i++){
+            values.get(i).setSight(true);
+            synchronized (values.get(i)){
+                myAdapter.getItem(i).notify();
+            }
+        }
+    }
+    public void doSearch(String s) {
+        for (int i=0;i<values.size();i++){
+            if (values.get(i).question_body.toLowerCase().contains(s.toLowerCase())){
+                values.get(i).setSight(true);
+            } else {
+                values.get(i).setSight(false);
+            }
+            synchronized (values.get(i)){
+                myAdapter.getItem(i).notify();
+            }
+        }
     }
 
 

@@ -10,6 +10,7 @@ public class Questions {
     String question_details;
     int quality_score;
     String meta;
+    boolean sight;
 
     public Questions(){
         question_id=99999;
@@ -18,6 +19,7 @@ public class Questions {
         question_details="";
         quality_score=99999;
         meta="";
+        sight=true;
     }
     public void setQuestion_id(int id){
         question_id = id;
@@ -37,5 +39,6 @@ public class Questions {
     public void setMeta(String met){
         meta = met;
     }
+    public void setSight(boolean s){sight=s;}
 
 }
