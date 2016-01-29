@@ -73,3 +73,4 @@ public class AddCriteriaActivity extends AppCompatActivity {
         });
     }
 }
+
