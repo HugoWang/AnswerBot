@@ -59,13 +59,13 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
                 try {
                     my_age_value = Integer.parseInt(input_age.getText().toString());
                 }
-                catch (NumberFormatException e){ //Check if user has given age
+                catch (NumberFormatException e){
                     age_input_check = 1;
                 }
                 if ((male_check.isChecked() || female_check.isChecked()) && (my_age.length() != 0) && (my_age_value < 110)) {
                     Intent toEntry = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(toEntry);
-                } else if ((male_check.isChecked() || female_check.isChecked()) && (my_age.length() != 0) && (my_age_value > 110)) {
+                } else if ((age_input_check == 1) && (my_age_value > 110)) {
                     Toast.makeText(getApplicationContext(), "Your age is unreliable!", Toast.LENGTH_SHORT).show();
                 } else if ((!(male_check.isChecked() || female_check.isChecked())) && (my_age.length() != 0)) {
                     Toast.makeText(getApplicationContext(), "Your gender is missing!", Toast.LENGTH_SHORT).show();
