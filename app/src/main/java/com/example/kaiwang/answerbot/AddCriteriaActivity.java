@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -13,10 +14,16 @@ import com.loopj.android.http.RequestParams;
 
 public class AddCriteriaActivity extends AppCompatActivity {
 
+    String question_body = "Passed Question Body";
+    String question_id = "Passed Question ID";
+    String user_id = "Passed User_ID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_criteria);
+        TextView QuestionTextView = (TextView) findViewById(R.id.AddCriteriaQuestionTextView);
+        QuestionTextView.setText(question_body);
     }
 
     @Override
@@ -53,8 +60,8 @@ public class AddCriteriaActivity extends AppCompatActivity {
         EditText NCD = (EditText) findViewById(R.id.NewCriterionDetailsEditText);
         String NewCriterionDetails = NCD.getText().toString();
         com.loopj.android.http.RequestParams params = new RequestParams();
-        params.add("user_id", "12345");
-        params.add("question_id", "11");
+        params.add("user_id", user_id);
+        params.add("question_id", question_id);
         params.add("body", NewCriterionBody);
         params.add("details", NewCriterionDetails);
         params.add("meta", " ");

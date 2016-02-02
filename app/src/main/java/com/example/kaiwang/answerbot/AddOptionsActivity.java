@@ -7,16 +7,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.os.BaseBundle;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class AddOptionsActivity extends AppCompatActivity {
-    Bundle bundle = getIntent().getExtras();
-    String question_body;
-    String question_id;
-    String user_id;
+    String question_body = "Passed Question Body";
+    String question_id = "Passed Question ID";
+    String user_id = "Passed User_ID";
 /*
     if(!bundle.isEmpty()){
         question_id = bundle.getString("question_id");
@@ -27,6 +27,8 @@ public class AddOptionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_options);
+        TextView QuestionTextView = (TextView) findViewById(R.id.AddOptionsQuestionTextView);
+        QuestionTextView.setText(question_body);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class AddOptionsActivity extends AppCompatActivity {
         params.add("user_id", user_id);
         params.add("question_id", question_id);
         params.add("body", NewOptionBody);
-        params.add("details", NewOptionBody);
+        params.add("details", NewOptionDetails);
         params.add("meta", " ");
         client.post("http://dss.simohosio.com/api/postsolution.php", params, new JsonHttpResponseHandler() {
 //            @Override
