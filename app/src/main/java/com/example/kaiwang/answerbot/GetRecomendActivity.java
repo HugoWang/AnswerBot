@@ -28,9 +28,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetRecomendActivity extends AppCompatActivity {
+public class GetRecomendActivity extends AppCompatActivity{
 
-    SeekBar seekBar;
+    ListView send_criterion;
+    SeekBar criteria;
     Button get_recommend;
     TextView recommend_ques, recommend_detail, tips1, tips2;
     public String url;
@@ -39,19 +40,14 @@ public class GetRecomendActivity extends AppCompatActivity {
     public String ques_details;
     private boolean viewGroupIsVisible = false;
     private View mViewGroup;
-    public ListView listView;
-    ArrayList<Rate> arrayOfRates;
-    Rate rate;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_recomend);
 
         mViewGroup = findViewById(R.id.viewsContainer);
         mViewGroup.setVisibility(View.GONE);
-
-        listView = (ListView) findViewById(R.id.lvRates);
 
         Typeface tf = Typeface.createFromAsset(getAssets(),"RobotoCondensed-Regular.ttf");
         recommend_ques = (TextView)findViewById(R.id.recommend_ques);
@@ -97,16 +93,16 @@ public class GetRecomendActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
-                Log.d("TEST", "1111");
+                Log.d("TEST","1111");
                 try {
                     String response = (new String(responseBody, "UTF-8"));
                     JSONArray rateArray = new JSONArray(response);
-                    arrayOfRates = new ArrayList<>();
-                    Log.d("TEST", "2222");
-                    for (int i = 0; i < rateArray.length(); i++) {
-                        try {
-                            Log.d("TEST", "3333");
-                            rate = new Rate();
+                    ArrayList<Rate> arrayOfRates = new ArrayList<>();
+                    Log.d("TEST","2222");
+                    for (int i=0;i<rateArray.length();i++){
+                        try{
+                            Log.d("TEST","3333");
+                            Rate rate = new Rate();
                             JSONObject buffer = rateArray.getJSONObject(i);
                             rate.setRate_body(buffer.getString("criterion_body"));
                             rate.setRate_details(buffer.getString("criterion_details"));
@@ -114,15 +110,25 @@ public class GetRecomendActivity extends AppCompatActivity {
                             rate.setRate_Meta(buffer.getString("meta"));
                             arrayOfRates.add(rate);
 
-                        } catch (JSONException e) {
+                        }catch (JSONException e){
                             e.printStackTrace();
                         }
-                    }
 
+                    }
                     CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
 
                     // Attach the adapter to a ListView
+                    ListView listView = (ListView) findViewById(R.id.lvRates);
                     listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+                            SeekBar sb = (SeekBar) view.findViewById(R.id.seekBar);
+                            sb.setFocusable(true);
+                            sb.setEnabled(true);
+
+                        }
+                    });
 
                 } catch (UnsupportedEncodingException e1) {
                     e1.printStackTrace();
@@ -144,13 +150,10 @@ public class GetRecomendActivity extends AppCompatActivity {
             }
         });
 
-        get_recommend = (Button)findViewById(R.id.get_recommend_btn);
-        get_recommend.setOnClickListener(new View.OnClickListener() {
-            @Override
+        get_recommend.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                for (Rate r:arrayOfRates) {
-                    Toast.makeText(getApplicationContext(),"It is"+r.seek_value,Toast.LENGTH_SHORT).show();
-                }
+                // Perform action on click
+                criteria = (SeekBar)findViewById(R.id.seekBar);
             }
         });
     }
@@ -211,35 +214,5 @@ public class GetRecomendActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
-
-    /*
-
-    public void changeSeekBar(SeekBar seekbar){
-        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-                int progress = seekBar.getProgress();
-                int pos = listView.getPositionForView(seekBar);
-                if(pos!=ListView.INVALID_POSITION){
-                    Rate r = arrayOfRates.get(pos);
-                    r.setSeek_value(progress);
-                    Toast.makeText(getApplicationContext(),progress, Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-    }
-    */
 
 }
