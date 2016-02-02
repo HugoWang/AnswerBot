@@ -6,13 +6,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.os.BaseBundle;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class AddOptionsActivity extends AppCompatActivity {
-
+    Bundle bundle = getIntent().getExtras();
+    String question_body;
+    String question_id;
+    String user_id;
+/*
+    if(!bundle.isEmpty()){
+        question_id = bundle.getString("question_id");
+        question_body = bundle.getString("question_body");
+        user_id = bundle.getString("user_id");
+    }*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +63,8 @@ public class AddOptionsActivity extends AppCompatActivity {
         EditText NOD =  (EditText) findViewById(R.id.NewOptionDetailsEditText);
         String NewOptionDetails = NOD.getText().toString();
         com.loopj.android.http.RequestParams params = new RequestParams();
-        params.add("user_id", "12345");
-        params.add("question_id", "11");
+        params.add("user_id", user_id);
+        params.add("question_id", question_id);
         params.add("body", NewOptionBody);
         params.add("details", NewOptionBody);
         params.add("meta", " ");
