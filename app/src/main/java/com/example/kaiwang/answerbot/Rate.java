@@ -7,24 +7,35 @@ public class Rate {
 	public String rate_details;
 	public int rate_id;
 	public String meta;
+	public int seek_value;
 
 	public Rate() {
 		rate_id=11;
 		rate_body="";
 		rate_details = "";
 		meta="";
+		seek_value=0;
 	}
 
 	public void setRate_id(int id){
-		rate_id = id;
+		this.rate_id = id;
 	}
 	public void setRate_body(String body){
-		rate_body = body;
+		this.rate_body = body;
 	}
 	public void setRate_details(String details){
-		rate_details = details;
+		this.rate_details = details;
 	}
 	public void setRate_Meta(String met){
-		meta = met;
+		this.meta = met;
+	}
+	public void setSeek_value(int seek_value){
+		this.seek_value = seek_value;
+	}
+	public String getRate_body() {
+		return rate_body;
+	}
+	public String getRate_details() {
+		return rate_details;
 	}
 }

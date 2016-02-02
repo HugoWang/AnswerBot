@@ -5,15 +5,13 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -23,8 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -32,6 +28,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     ListAdapter myAdapter;
     ArrayList<Questions> values;
     ListView myListView;
+    ArrayList<Questions> newValues;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,40 +54,25 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    myAdapter = new CustomAdapter(HomeActivity.this, values);
-                    myListView.setAdapter(myAdapter);
-                    myListView.setOnItemClickListener(HomeActivity.this);
+                myAdapter = new CustomAdapter(HomeActivity.this, values);
+                myListView.setAdapter(myAdapter);
+                myListView.setOnItemClickListener(HomeActivity.this);
                 }
-
             }
 
         });
-        EditText search = (EditText) findViewById(R.id.input);
-        search.addTextChangedListener(new TextWatcher() {
+        SearchView search = (SearchView) findViewById(R.id.input);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-            private Timer timer = new Timer();
-            private final long DELAY=500;
-            @Override
-            public void afterTextChanged(Editable s) {
-                final String ss = s.toString();
-                timer.cancel();
-                timer = new Timer();
-                timer.schedule(
-                        new TimerTask() {
-                            @Override
-                            public void run() {
-                                if (ss.equals("")){
-                                    allVisible();
-                                }else{
-                                    doSearch(ss);
-                                }
-                            }
-                        },DELAY);
+            public boolean onQueryTextChange(String newText) {
+                doSearch(newText);
+                updateView();
+                return false;
             }
         });
 
@@ -105,27 +87,26 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
     }
-    public void allVisible(){
-        for (int i=0;i<values.size();i++){
-            values.get(i).setSight(true);
-            synchronized (values.get(i)){
-                myAdapter.getItem(i).notify();
-            }
-        }
-    }
+
     public void doSearch(String s) {
-        for (int i=0;i<values.size();i++){
-            if (values.get(i).question_body.toLowerCase().contains(s.toLowerCase())){
-                values.get(i).setSight(true);
-            } else {
-                values.get(i).setSight(false);
-            }
-            synchronized (values.get(i)){
-                myAdapter.getItem(i).notify();
+        newValues = new ArrayList<>();
+        if (s.equals("")){
+            newValues=values;
+        } else {
+            for (int i=0;i<values.size();i++){
+                if (values.get(i).question_body.toLowerCase().contains(s.toLowerCase())){
+                    newValues.add(values.get(i));
+                }
             }
         }
     }
 
+    public void updateView(){
+        myListView.setAdapter(null);
+        myAdapter=new CustomAdapter(HomeActivity.this,newValues);
+        myListView.setAdapter(myAdapter);
+        myListView.setOnItemClickListener(HomeActivity.this);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

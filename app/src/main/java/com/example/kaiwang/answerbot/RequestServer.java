@@ -4,7 +4,7 @@ package com.example.kaiwang.answerbot;
  * Created by Juho on 12.12.2015.
  */
 /**Still working with this*/
-
+/**
 import android.app.Activity;
 import android.os.Bundle;
 import com.loopj.android.http.AsyncHttpClient;
@@ -67,7 +67,7 @@ public class RequestServer extends Activity{
                         info.putExtra("flic_id", flic_id);
                         info.putExtra("status", status);
                     }
-                    */
+
                 } catch (UnsupportedEncodingException e1) {
                     e1.printStackTrace();
 
@@ -108,5 +108,6 @@ public class RequestServer extends Activity{
  client.get(GET_RECOMMENDATIONS_URL, params, responseHandler);
  }
  }
- */}
+ }
 }
+*/
