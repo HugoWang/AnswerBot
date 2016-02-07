@@ -4,13 +4,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.os.BaseBundle;
+import android.widget.TextView;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class AddOptionsActivity extends AppCompatActivity {
-
+    String question_body = "Passed Question Body";
+    String question_id = "Passed Question ID";
+    String user_id = "Passed User_ID";
+/*
+    if(!bundle.isEmpty()){
+        question_id = bundle.getString("question_id");
+        question_body = bundle.getString("question_body");
+        user_id = bundle.getString("user_id");
+    }*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_options);
+        TextView QuestionTextView = (TextView) findViewById(R.id.AddOptionsQuestionTextView);
+        QuestionTextView.setText(question_body);
     }
 
     @Override
@@ -34,4 +52,36 @@ public class AddOptionsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //Submit button click
+    public void SubmitOptionsBtnClick(View v) {
+        PostNewOptionsAsync();
+    }
+
+    private void PostNewOptionsAsync(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        EditText NOB =  (EditText) findViewById(R.id.NewOptionEditText);
+        String NewOptionBody = NOB.getText().toString();
+        EditText NOD =  (EditText) findViewById(R.id.NewOptionDetailsEditText);
+        String NewOptionDetails = NOD.getText().toString();
+        com.loopj.android.http.RequestParams params = new RequestParams();
+        params.add("user_id", user_id);
+        params.add("question_id", question_id);
+        params.add("body", NewOptionBody);
+        params.add("details", NewOptionDetails);
+        params.add("meta", " ");
+        client.post("http://dss.simohosio.com/api/postsolution.php", params, new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
+//                Button b = (Button) findViewById(R.id.SubmitNewQuestionBtn);
+//                b.setText("Kysymys lisätty");
+//
+//            }
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+//                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+//
+
+        });
+}
 }
