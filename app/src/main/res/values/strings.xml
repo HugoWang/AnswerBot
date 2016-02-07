@@ -24,5 +24,7 @@
 
     <string name="placeHolderQuestion">placeHolderQuestion</string>
     <string name="searchHint">Search</string>
+    <string name="title_activity_result">Result</string>
+    <string name="title_activity_custom_solution_adapter">CustomSolutionAdapter</string>
 
 </resources>

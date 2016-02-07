@@ -1,7 +1,5 @@
 package com.example.kaiwang.answerbot;
 
-import java.util.ArrayList;
-
 public class Rate {
 	public String rate_body;
 	public String rate_details;
@@ -31,11 +29,5 @@ public class Rate {
 	}
 	public void setSeek_value(int seek_value){
 		this.seek_value = seek_value;
-	}
-	public String getRate_body() {
-		return rate_body;
-	}
-	public String getRate_details() {
-		return rate_details;
 	}
 }

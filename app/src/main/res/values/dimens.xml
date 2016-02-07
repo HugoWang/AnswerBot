@@ -6,4 +6,5 @@
     <dimen name="question_vertical">10dp</dimen>
     <dimen name="header">22dp</dimen>
     <dimen name="description">22dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

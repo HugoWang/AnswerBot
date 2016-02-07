@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,10 +28,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetRecomendActivity extends AppCompatActivity{
+public class GetRecomendActivity extends AppCompatActivity {
 
-    ListView send_criterion;
-    SeekBar criteria;
     Button get_recommend;
     TextView recommend_ques, recommend_detail, tips1, tips2;
     public String url;
@@ -40,14 +38,32 @@ public class GetRecomendActivity extends AppCompatActivity{
     public String ques_details;
     private boolean viewGroupIsVisible = false;
     private View mViewGroup;
+    public ListView listView;
+    ArrayList<Rate> arrayOfRates;
+    Rate rate;
+    public String temp = "[";
+
+    public class Criteria {
+        private String c_id;
+        private String c_value;
+
+        public Criteria(String string_rate_id, String string_seek_value) {
+            this.c_id = string_rate_id;
+            this.c_value=string_seek_value;
+        }
+    }
+
+    public List<Criteria> allCriteria = new ArrayList<Criteria>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_recomend);
 
         mViewGroup = findViewById(R.id.viewsContainer);
         mViewGroup.setVisibility(View.GONE);
+
+        listView = (ListView) findViewById(R.id.lvRates);
 
         Typeface tf = Typeface.createFromAsset(getAssets(),"RobotoCondensed-Regular.ttf");
         recommend_ques = (TextView)findViewById(R.id.recommend_ques);
@@ -93,16 +109,16 @@ public class GetRecomendActivity extends AppCompatActivity{
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
-                Log.d("TEST","1111");
+                Log.d("TEST", "1111");
                 try {
                     String response = (new String(responseBody, "UTF-8"));
                     JSONArray rateArray = new JSONArray(response);
-                    ArrayList<Rate> arrayOfRates = new ArrayList<>();
-                    Log.d("TEST","2222");
-                    for (int i=0;i<rateArray.length();i++){
-                        try{
-                            Log.d("TEST","3333");
-                            Rate rate = new Rate();
+                    arrayOfRates = new ArrayList<>();
+                    Log.d("TEST", "2222");
+                    for (int i = 0; i < rateArray.length(); i++) {
+                        try {
+                            Log.d("TEST", "3333");
+                            rate = new Rate();
                             JSONObject buffer = rateArray.getJSONObject(i);
                             rate.setRate_body(buffer.getString("criterion_body"));
                             rate.setRate_details(buffer.getString("criterion_details"));
@@ -110,25 +126,15 @@ public class GetRecomendActivity extends AppCompatActivity{
                             rate.setRate_Meta(buffer.getString("meta"));
                             arrayOfRates.add(rate);
 
-                        }catch (JSONException e){
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
+
                     CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
 
                     // Attach the adapter to a ListView
-                    ListView listView = (ListView) findViewById(R.id.lvRates);
                     listView.setAdapter(adapter);
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        public void onItemClick(AdapterView<?> parent, View view,
-                                                int position, long id) {
-                            SeekBar sb = (SeekBar) view.findViewById(R.id.seekBar);
-                            sb.setFocusable(true);
-                            sb.setEnabled(true);
-
-                        }
-                    });
 
                 } catch (UnsupportedEncodingException e1) {
                     e1.printStackTrace();
@@ -150,10 +156,76 @@ public class GetRecomendActivity extends AppCompatActivity{
             }
         });
 
-        get_recommend.setOnClickListener(new View.OnClickListener(){
+        get_recommend = (Button)findViewById(R.id.get_recommend_btn);
+        get_recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                // Perform action on click
-                criteria = (SeekBar)findViewById(R.id.seekBar);
+                for (Rate r:arrayOfRates) {
+                    //Log.d("TS", r.rate_id + "is" + r.seek_value);
+                    String string_rate_id = String.valueOf(r.rate_id);
+                    String string_seek_value = String.valueOf(r.seek_value);
+                    allCriteria.add(new Criteria(string_rate_id, string_seek_value));
+                    Log.d("TS", "array is " + allCriteria);
+                }
+                for(Criteria c:allCriteria){
+                    //Log.d("TS","["+c.c_id+","+c.c_value+"]");
+                    temp += "[\""+c.c_id+"\",\""+c.c_value+"\"]"+",";
+                }
+                //Log all criteria:
+                temp = temp.substring(0,temp.length()-1)+"]";
+                Log.d("TEST",temp);
+                uploadCriteria();
+
+            }
+        });
+    }
+
+    private void uploadCriteria() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("criteria_importances", temp);
+        params.put("question_id",url_queston_id );
+        params.put("user_id","12333444" );
+        params.put("meta","");
+
+        client.get("http://dss.simohosio.com/api/getrecommendations.php", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                try {
+                    String response = (new String(responseBody, "UTF-8"));
+                    JSONArray rateArray = new JSONArray(response);
+                    arrayOfRates = new ArrayList<>();
+                    for (int i = 0; i < rateArray.length(); i++) {
+                        try {
+                            rate = new Rate();
+                            JSONObject buffer = rateArray.getJSONObject(i);
+                            rate.setRate_body(buffer.getString("criterion_body"));
+                            rate.setRate_details(buffer.getString("criterion_details"));
+                            rate.setRate_id(buffer.getInt("criterion_id"));
+                            rate.setRate_Meta(buffer.getString("meta"));
+                            arrayOfRates.add(rate);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
+
+                    // Attach the adapter to a ListView
+                    listView.setAdapter(adapter);
+
+                } catch (UnsupportedEncodingException e1) {
+                    e1.printStackTrace();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+
             }
         });
     }
@@ -214,5 +286,4 @@ public class GetRecomendActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
 
     }
-
 }

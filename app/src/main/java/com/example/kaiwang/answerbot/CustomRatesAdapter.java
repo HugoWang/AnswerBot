@@ -1,7 +1,5 @@
 package com.example.kaiwang.answerbot;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -10,38 +8,79 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomRatesAdapter extends ArrayAdapter<Rate> {
-    public CustomRatesAdapter(Context context, ArrayList<Rate> rates) {
-        super(context, 0, rates);
-     }
-    public SeekBar criteria;
-     @Override
-     public View getView(int position, View convertView, ViewGroup parent) {
+    private Context context;
+    List<Rate> rates = new ArrayList<>();
 
-         View row = convertView;
-        // Get the data item for this position
-         Rate rate = getItem(position);
-         final int ratePosition = position;
-        // Check if an existing view is being reused, otherwise inflate the view
-         if (row == null) {
-             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_rate, parent, false);
-
-         }
-
-         Typeface tf = Typeface.createFromAsset(getContext().getAssets(),"RobotoCondensed-Regular.ttf");
-        // Lookup view for data population
-         TextView tvBody = (TextView) convertView.findViewById(R.id.tvBody);
-         TextView tvDetail = (TextView) convertView.findViewById(R.id.tvDetails);
-         tvBody.setTypeface(tf);
-         tvDetail.setTypeface(tf);
-        // Populate the data into the template view using the data object
-         tvBody.setText(rate.rate_body);
-         tvDetail.setText(rate.rate_details);
-
-        // Return the completed view to render on screen
-         return row;
+    static class ViewHolder{
+        private SeekBar seekBar;
+        TextView tvBody;
+        TextView tvDetail;
     }
 
+    public CustomRatesAdapter(Context context, ArrayList<Rate> rates) {
+        super(context, R.layout.item_rate, rates);
+        this.context = context;
+        this.rates.addAll(rates);
+    }
+
+    @Override
+
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
+
+        ViewHolder holder;
+
+        if (convertView == null) {
+
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.item_rate, null);
+            holder = new ViewHolder();
+            holder.seekBar = (SeekBar) convertView.findViewById(R.id.seekBar);
+            holder.tvBody = (TextView) convertView.findViewById(R.id.tvBody);
+            holder.tvDetail = (TextView) convertView.findViewById(R.id.tvDetails);
+            convertView.setTag(holder);
+
+        }
+        else {
+
+            holder = (ViewHolder) convertView.getTag();
+
+        }
+
+
+
+        holder.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Rate r = rates.get(position);
+                r.setSeek_value(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(),"RobotoCondensed-Regular.ttf");
+
+        holder.seekBar.setProgress(rates.get(position).seek_value);
+        holder.seekBar.setMax(100);
+        holder.tvBody.setTypeface(tf);
+        holder.tvDetail.setTypeface(tf);
+        holder.tvBody.setText(rates.get(position).rate_body);
+        holder.tvDetail.setText(rates.get(position).rate_details);
+
+        return convertView;
+    }
 }
