@@ -22,6 +22,12 @@ public class AddCriteriaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_criteria);
+        Bundle bundle = getIntent().getExtras();
+        if(!bundle.isEmpty()) {
+            question_id = Integer.toString(bundle.getInt("position"));
+            question_body = bundle.getString("question_body");
+            user_id = bundle.getString("user_id");
+        }
         TextView QuestionTextView = (TextView) findViewById(R.id.AddCriteriaQuestionTextView);
         QuestionTextView.setText(question_body);
     }

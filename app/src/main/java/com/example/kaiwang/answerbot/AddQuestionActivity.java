@@ -19,6 +19,10 @@ public class AddQuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_question);
+        Bundle bundle = getIntent().getExtras();
+        if(!bundle.isEmpty()) {
+            user_id = bundle.getString("user_id");
+        }
     }
 
     //Submit button click
