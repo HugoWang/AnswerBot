@@ -2,6 +2,7 @@ package com.example.kaiwang.answerbot;
 
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,9 +30,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<Questions> values;
     ListView myListView;
     ArrayList<Questions> newValues;
+    String UserID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UserID= Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         setContentView(R.layout.activity_home);
         myListView = (ListView) findViewById(R.id.myListView);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -142,6 +145,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         bundle.putInt("position", q_id);
         bundle.putString("question_body",q_body);
         bundle.putString("question_details",q_details);
+        bundle.putString("user_id", UserID);
         toRecommend.putExtras(bundle);
         startActivity(toRecommend);
 

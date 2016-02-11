@@ -12,9 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -32,10 +30,11 @@ public class GetRecomendActivity extends AppCompatActivity {
 
     Button get_recommend;
     TextView recommend_ques, recommend_detail, tips1, tips2;
+    String user_id;
     public String url;
     public int url_queston_id;
-    public String ques_body;
-    public String ques_details;
+    public String ques_body,rques_body;
+    public String ques_details,rques_details;
     private boolean viewGroupIsVisible = false;
     private View mViewGroup;
     public ListView listView;
@@ -53,7 +52,7 @@ public class GetRecomendActivity extends AppCompatActivity {
         }
     }
 
-    public List<Criteria> allCriteria = new ArrayList<Criteria>();
+    public List<Criteria> allCriteria = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,10 +93,13 @@ public class GetRecomendActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(!bundle.isEmpty()){
             url_queston_id = bundle.getInt("position");
+            user_id= bundle.getString("user_id");
             ques_body = bundle.getString("question_body");
             ques_details = bundle.getString("question_details");
-            recommend_ques.setText("Question: "+ques_body);
-            recommend_detail.setText("Description: "+ques_details);
+            rques_body="Question: "+ques_body;
+            recommend_ques.setText(rques_body);
+            rques_details="Description: "+ques_details;
+            recommend_detail.setText(rques_details);
         }
         url = "http://dss.simohosio.com/api/getcriteria.php?question_id="+url_queston_id;
         client.get(url, new AsyncHttpResponseHandler() {
@@ -136,13 +138,10 @@ public class GetRecomendActivity extends AppCompatActivity {
                     // Attach the adapter to a ListView
                     listView.setAdapter(adapter);
 
-                } catch (UnsupportedEncodingException e1) {
+                } catch (UnsupportedEncodingException | JSONException e1) {
                     e1.printStackTrace();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-
             }
 
             @Override
@@ -185,7 +184,7 @@ public class GetRecomendActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("criteria_importances", temp);
         params.put("question_id",url_queston_id );
-        params.put("user_id","12333444" );
+        params.put("user_id",user_id);
         params.put("meta","");
 
         client.get("http://dss.simohosio.com/api/getrecommendations.php", params, new AsyncHttpResponseHandler() {
@@ -215,11 +214,9 @@ public class GetRecomendActivity extends AppCompatActivity {
                     // Attach the adapter to a ListView
                     listView.setAdapter(adapter);
 
-                } catch (UnsupportedEncodingException e1) {
+                } catch (UnsupportedEncodingException | JSONException e1) {
                     e1.printStackTrace();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
 
@@ -243,19 +240,26 @@ public class GetRecomendActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", url_queston_id);
+        bundle.putString("question_body",ques_body);
+        bundle.putString("question_details",ques_details);
+        bundle.putString("user_id", user_id);
         //noinspection SimplifiableIfStatement
         switch (id){
             case R.id.add_criteria:
                 Intent toAddCriteria = new Intent(getApplicationContext(), AddCriteriaActivity.class);
+                toAddCriteria.putExtras(bundle);
                 startActivity(toAddCriteria);
                 break;
             case R.id.add_answer:
                 Intent toAddAnswer = new Intent(getApplicationContext(), AddOptionsActivity.class);
+                toAddAnswer.putExtras(bundle);
                 startActivity(toAddAnswer);
                 break;
             case R.id.rate_answer:
                 Intent toRateAnswer = new Intent(getApplicationContext(), DonateKnowledgeActivity.class);
+                toRateAnswer.putExtras(bundle);
                 startActivity(toRateAnswer);
                 break;
             case R.id.share_question:

@@ -22,6 +22,8 @@
     <string name="getanswers">Get Answers</string>
     <string name="welcome_text">"Welcome! Now, let's get started!"</string>
 
+    <string name="ques">Question: </string>
+    <string name="description">Description: </string>
     <string name="placeHolderQuestion">placeHolderQuestion</string>
     <string name="searchHint">Search</string>
     <string name="title_activity_result">Result</string>

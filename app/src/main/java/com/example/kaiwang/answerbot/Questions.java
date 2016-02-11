@@ -1,8 +1,5 @@
 package com.example.kaiwang.answerbot;
 
-/**
- * Created by root on 21.1.2016.
- */
 public class Questions {
     int question_id;
     String question_body;
@@ -10,7 +7,7 @@ public class Questions {
     String question_details;
     int quality_score;
     String meta;
-    boolean sight;
+    Boolean sight;
 
     public Questions(){
         question_id=99999;
@@ -39,6 +36,4 @@ public class Questions {
     public void setMeta(String met){
         meta = met;
     }
-    public void setSight(boolean s){sight=s;}
-
 }
