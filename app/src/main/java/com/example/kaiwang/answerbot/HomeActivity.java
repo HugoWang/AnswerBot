@@ -85,6 +85,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 Intent toAddQuestion = new Intent(getApplicationContext(), AddQuestionActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("user_id", UserID);
+                toAddQuestion.putExtras(bundle);
                 startActivity(toAddQuestion);
             }
         });
