@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -85,6 +86,7 @@ public class AddCriteriaActivity extends AppCompatActivity {
 //
 
         });
+        Toast.makeText(AddCriteriaActivity.this, "New criterion added!", Toast.LENGTH_SHORT).show();
     }
 }
 

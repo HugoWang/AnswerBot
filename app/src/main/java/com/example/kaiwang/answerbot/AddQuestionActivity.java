@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -77,5 +77,6 @@ public class AddQuestionActivity extends AppCompatActivity {
 //                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
 //            }
         });
+        Toast.makeText(AddQuestionActivity.this, "Question added!", Toast.LENGTH_SHORT).show();
     }
 }

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -83,5 +84,6 @@ public class AddOptionsActivity extends AppCompatActivity {
 //
 
         });
+        Toast.makeText(AddOptionsActivity.this, "New option added!", Toast.LENGTH_SHORT).show();
 }
 }
