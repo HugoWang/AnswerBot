@@ -7,48 +7,6 @@
     android:background="#337AB7"
     tools:context="com.example.kaiwang.answerbot.AddCriteriaActivity">
 
-    <TextView
-        android:text="@string/placeHolderQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/abc_text_size_headline_material"
-        android:textColor="@color/black"
-        android:editable="false"
-        android:id="@+id/AddCriteriaQuestionTextView"
-        android:textAlignment="center"
-        android:background="@android:color/holo_blue_light"
-        android:layout_marginTop="47dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/abc_text_size_large_material"
-        android:textColor="@color/black"
-        android:editable="false"
-        android:id="@+id/textView4"
-        android:text="What is the new criterion?"
-        android:textAlignment="center"
-        android:background="@android:color/holo_blue_light"
-        android:layout_below="@+id/AddCriteriaQuestionTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/abc_text_size_large_material"
-        android:textColor="@color/black"
-        android:editable="false"
-        android:id="@+id/textView5"
-        android:text="Tell us more about the criterion"
-        android:textAlignment="center"
-        android:background="@android:color/holo_blue_light"
-        android:layout_below="@+id/NewCriterionEditText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="83dp" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,23 +17,112 @@
         android:background="@android:color/holo_green_light"
         android:onClick="SubmitCriterionBtnClick" />
 
-    <EditText
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/background_question_rounded_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/NewCriterionEditText"
-        android:editable="false"
-        android:layout_below="@+id/textView4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="Please add the criterion candidate here" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/linearLayout5">
 
-    <EditText
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Question: "
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:id="@+id/AddCriteriaQuestionTextView"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/background_question_rounded_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/NewCriterionDetailsEditText"
-        android:layout_below="@+id/textView5"
+        android:id="@+id/linearLayout4"
+        android:layout_marginTop="85dp"
+        android:layout_below="@+id/linearLayout5"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="Add a description for your criterion here" />
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="What is the new criterion?"
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:id="@+id/textView"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="6dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/NewCriterionEditText"
+                android:layout_marginBottom="5dp"
+                android:hint="Enter your new criterion here..." />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/background_question_rounded_single"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/SubmitNewCriterionBtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="55dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Tell us more about the criterion"
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:id="@+id/textView2"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="6dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/NewCriterionDetailsEditText"
+                android:layout_marginBottom="5dp"
+                android:hint="Enter a description for your criterion..." />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

@@ -7,34 +7,6 @@
     android:background="#337AB7"
     tools:context="com.example.kaiwang.answerbot.AddOptionsActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/abc_text_size_large_material"
-        android:textColor="@color/black"
-        android:editable="false"
-        android:id="@+id/textView6"
-        android:text="What is the new option?"
-        android:textAlignment="center"
-        android:background="@android:color/holo_blue_light"
-        android:layout_below="@+id/AddOptionsQuestionTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/abc_text_size_large_material"
-        android:textColor="@color/black"
-        android:editable="false"
-        android:id="@+id/textView7"
-        android:text="Tell us more about the option"
-        android:textAlignment="center"
-        android:background="@android:color/holo_blue_light"
-        android:layout_below="@+id/NewOptionEditText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,43 +17,111 @@
         android:background="@android:color/holo_green_light"
         android:onClick="SubmitOptionsBtnClick" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/background_question_rounded_single"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="What options there are for the following question?"
-        android:id="@+id/textView8"
+        android:id="@+id/linearLayout7"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@android:color/black" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Question"
-        android:id="@+id/AddOptionsQuestionTextView"
-        android:layout_marginTop="40dp"
-        android:textSize="@dimen/abc_text_size_headline_material"
-        android:background="@android:color/holo_blue_light"
-        android:layout_below="@+id/textView8"
-        android:layout_alignRight="@+id/SubmitNewOptionBtn"
-        android:layout_alignEnd="@+id/SubmitNewOptionBtn" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Question: "
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:id="@+id/AddOptionsQuestionTextView"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
 
-    <EditText
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/background_question_rounded_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/NewOptionEditText"
-        android:layout_below="@+id/textView6"
-        android:layout_centerHorizontal="true"
-        android:hint="Please add the option candidate here" />
+        android:id="@+id/linearLayout9"
+        android:layout_marginTop="85dp"
+        android:layout_below="@+id/linearLayout7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
-    <EditText
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="What is the new option?"
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:id="@+id/textView3"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayout8"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="6dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/NewOptionEditText"
+                android:layout_marginBottom="5dp"
+                android:hint="Enter your new option here..." />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/background_question_rounded_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/NewOptionDetailsEditText"
-        android:layout_alignTop="@+id/textView7"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:hint="Add a description for your option here" />
+        android:id="@+id/linearLayout11"
+        android:layout_above="@+id/SubmitNewOptionBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="55dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Tell us more about the option"
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:id="@+id/textView4"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayout10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="6dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/NewOptionDetailsEditText"
+                android:layout_marginBottom="5dp"
+                android:hint="Enter your option details here..." />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
