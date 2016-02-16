@@ -96,7 +96,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(toAddQuestion);
             }
         });
-
     }
 
     public void doSearch(String s) {
