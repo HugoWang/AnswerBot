@@ -78,5 +78,6 @@ public class AddQuestionActivity extends AppCompatActivity {
 //            }
         });
         Toast.makeText(AddQuestionActivity.this, "Question added!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

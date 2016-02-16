@@ -1,5 +1,6 @@
 package com.example.kaiwang.answerbot;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -87,6 +88,7 @@ public class AddCriteriaActivity extends AppCompatActivity {
 
         });
         Toast.makeText(AddCriteriaActivity.this, "New criterion added!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
 
