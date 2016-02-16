@@ -6,9 +6,12 @@ import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -57,14 +60,15 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                myAdapter = new CustomAdapter(HomeActivity.this, values);
-                myListView.setAdapter(myAdapter);
-                myListView.setOnItemClickListener(HomeActivity.this);
+                    myAdapter = new CustomAdapter(HomeActivity.this, values);
+                    myListView.setAdapter(myAdapter);
+                    myListView.setOnItemClickListener(HomeActivity.this);
                 }
             }
 
         });
         SearchView search = (SearchView) findViewById(R.id.input);
+        search.setQueryHint("Search");
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -73,6 +77,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                Log.i("Debugging:",newText);
                 doSearch(newText);
                 updateView();
                 return false;
@@ -151,6 +156,5 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         bundle.putString("user_id", UserID);
         toRecommend.putExtras(bundle);
         startActivity(toRecommend);
-
     }
 }

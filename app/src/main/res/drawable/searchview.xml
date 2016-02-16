@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset android:insetLeft="1.0px" android:insetRight="1.0px" android:insetTop="0.0px" android:insetBottom="1.0px"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <selector>
+        <item android:state_pressed="true">
+            <shape>
+                <solid android:color="#4d93d0"/>
+                <corners android:radius="11.0dip" />
+            </shape>
+        </item>
+        <item>
+            <shape>
+                <stroke android:width="4.0px" android:color="#1c598d" />
+                <solid android:color="#488ac3"/>
+                <corners android:radius="10.0dip" />
+
+            </shape>
+        </item>
+    </selector>
+</inset>
