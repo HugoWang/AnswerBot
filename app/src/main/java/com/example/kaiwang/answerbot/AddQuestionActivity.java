@@ -58,6 +58,10 @@ public class AddQuestionActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         EditText NQB =  (EditText) findViewById(R.id.NewQuestionEditText);
         String NewQuestionBody = NQB.getText().toString();
+        if (NewQuestionBody.length() == 0 || NewQuestionBody.equals(" ")|| NewQuestionBody.equals("\n")){
+            Toast.makeText(AddQuestionActivity.this, "Please specify a question!", Toast.LENGTH_SHORT).show();
+        }
+        else {
         EditText NQD =  (EditText) findViewById(R.id.NewQuestionDetailsEditText);
         String NewQuestionDetails = NQD.getText().toString();
         com.loopj.android.http.RequestParams params = new RequestParams();
@@ -79,5 +83,5 @@ public class AddQuestionActivity extends AppCompatActivity {
         });
         Toast.makeText(AddQuestionActivity.this, "Question added!", Toast.LENGTH_SHORT).show();
         finish();
-    }
+    }}
 }

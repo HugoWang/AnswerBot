@@ -20,6 +20,7 @@ public class AddCriteriaActivity extends AppCompatActivity {
     String question_body = "Passed Question Body";
     String question_id = "Passed Question ID";
     String user_id = "Passed User_ID";
+    int new_criterion_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,10 @@ public class AddCriteriaActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         EditText NCB = (EditText) findViewById(R.id.NewCriterionEditText);
         String NewCriterionBody = NCB.getText().toString();
+        if (NewCriterionBody.length() == 0 || NewCriterionBody.equals(" ") || NewCriterionBody.equals("\n")){
+            Toast.makeText(AddCriteriaActivity.this, "Please specify a criteria!", Toast.LENGTH_SHORT).show();
+        }
+        else {
         EditText NCD = (EditText) findViewById(R.id.NewCriterionDetailsEditText);
         String NewCriterionDetails = NCD.getText().toString();
         com.loopj.android.http.RequestParams params = new RequestParams();
@@ -90,5 +95,5 @@ public class AddCriteriaActivity extends AppCompatActivity {
         Toast.makeText(AddCriteriaActivity.this, "New criterion added!", Toast.LENGTH_SHORT).show();
         finish();
     }
-}
+}}
 

@@ -64,6 +64,10 @@ public class AddOptionsActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         EditText NOB =  (EditText) findViewById(R.id.NewOptionEditText);
         String NewOptionBody = NOB.getText().toString();
+        if (NewOptionBody.length() == 0 || NewOptionBody.equals(" ") || NewOptionBody.equals("\n")){
+            Toast.makeText(AddOptionsActivity.this, "Please specify an answer!", Toast.LENGTH_SHORT).show();
+        }
+        else {
         EditText NOD =  (EditText) findViewById(R.id.NewOptionDetailsEditText);
         String NewOptionDetails = NOD.getText().toString();
         com.loopj.android.http.RequestParams params = new RequestParams();
@@ -87,5 +91,5 @@ public class AddOptionsActivity extends AppCompatActivity {
         });
         Toast.makeText(AddOptionsActivity.this, "New option added!", Toast.LENGTH_SHORT).show();
         finish();
-}
+}}
 }
