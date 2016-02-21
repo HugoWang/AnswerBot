@@ -192,8 +192,10 @@ public class GetRecomendActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
                 try {
                     String response = (new String(responseBody, "UTF-8"));
-                    JSONArray rateArray = new JSONArray(response);
-                    arrayOfRates = new ArrayList<>();
+                    JSONArray resultArray = new JSONArray(response);
+                    Log.d("TEST",resultArray+"");
+                    //arrayOfRates = new ArrayList<>();
+                    /*
                     for (int i = 0; i < rateArray.length(); i++) {
                         try {
                             rate = new Rate();
@@ -208,11 +210,12 @@ public class GetRecomendActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
+                    */
 
-                    CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
+                    //CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
 
                     // Attach the adapter to a ListView
-                    listView.setAdapter(adapter);
+                   // listView.setAdapter(adapter);
 
                 } catch (UnsupportedEncodingException | JSONException e1) {
                     e1.printStackTrace();
@@ -278,6 +281,7 @@ public class GetRecomendActivity extends AppCompatActivity {
                         break;
                     }
                 }
+
                 if (!facebookAppFound) {
                     String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + urlToShare;
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl));
