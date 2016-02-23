@@ -26,6 +26,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
@@ -43,7 +44,6 @@ public class GetRecomendActivity extends AppCompatActivity {
     Button get_recommend;
     TextView recommend_ques, recommend_detail, tips1, tips2;
     String user_id;
-    ListView listResult = null;
     String upload_user_id;
     public String url;
     public int url_queston_id;
@@ -52,54 +52,14 @@ public class GetRecomendActivity extends AppCompatActivity {
     private boolean viewGroupIsVisible = false;
     private View mViewGroup;
     public ListView listView;
+    public ListView listResult=null;
     ArrayList<Rate> arrayOfRates;
+    ArrayList<Result> arrayOfResults;
+    ArrayList<String> arrayResults;
+    Result result;
     Rate rate;
+    String test[] = null;
     public String temp = "[";
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client2;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "GetRecomend Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.kaiwang.answerbot/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client2, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "GetRecomend Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.kaiwang.answerbot/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client2, viewAction);
-        client2.disconnect();
-    }
 
     public class Criteria {
         private String c_id;
@@ -122,6 +82,7 @@ public class GetRecomendActivity extends AppCompatActivity {
         mViewGroup.setVisibility(View.GONE);
 
         listView = (ListView) findViewById(R.id.lvRates);
+        //listResult = (ListView)findViewById(R.id.listview_result);
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         recommend_ques = (TextView) findViewById(R.id.recommend_ques);
@@ -239,25 +200,11 @@ public class GetRecomendActivity extends AppCompatActivity {
                 Log.d("TEST", temp);
                 uploadCriteria();
 
-                listView = new ListView(getApplication());
-                String[] items = {"Facebook", "Google+", "Twitter", "Digg"};
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_result, R.id.txtitem, items);
-                listView.setAdapter(adapter);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(GetRecomendActivity.this);
-                builder.setCancelable(true);
-                builder.setTitle("Results");
-                builder.setPositiveButton("OK", null);
-                builder.setView(listView);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
+                //String[] items = {"Facebook", "Google+", "Twitter", "Digg"};
 
             }
         });
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
 
     private void uploadCriteria() {
@@ -269,44 +216,52 @@ public class GetRecomendActivity extends AppCompatActivity {
         params.put("user_id", upload_user_id);
         params.put("meta", "");
 
-        client.get("http://dss.simohosio.com/api/getrecommendations.php", params, new AsyncHttpResponseHandler() {
+        client.post("http://dss.simohosio.com/api/getrecommendations.php", params, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    String response = (new String(responseBody, "UTF-8"));
-                    JSONArray resultArray = new JSONArray(response);
-                    Log.d("TEST", resultArray + "");
-                    //arrayOfRates = new ArrayList<>();
-                    /*
-                    for (int i = 0; i < rateArray.length(); i++) {
-                        try {
-                            rate = new Rate();
-                            JSONObject buffer = rateArray.getJSONObject(i);
-                            rate.setRate_body(buffer.getString("criterion_body"));
-                            rate.setRate_details(buffer.getString("criterion_details"));
-                            rate.setRate_id(buffer.getInt("criterion_id"));
-                            rate.setRate_Meta(buffer.getString("meta"));
-                            arrayOfRates.add(rate);
+            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
+                Log.d("TEST", responseBody + "");
+                arrayResults = new ArrayList<>();
+                for (int i = 0; i < responseBody.length(); i++) {
+                    try {
+                        result = new Result();
+                        JSONObject buffer = responseBody.getJSONObject(i);
+                        arrayResults.add(buffer.getString("solution_body"));
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        /*
+                        result.setSolution_body(buffer.getString("solution_body"));
+                        result.setSolution_details(buffer.getString("solution_details"));
+                        result.setSolution_id(buffer.getInt("solution_id"));
+                        arrayOfResults.add(result);
+                        Log.d("TEST",arrayOfResults+"");
+                        */
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    */
-
-                    //CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
-
-                    // Attach the adapter to a ListView
-                    // listView.setAdapter(adapter);
-
-                } catch (UnsupportedEncodingException | JSONException e1) {
-                    e1.printStackTrace();
-
                 }
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.d("TEST","test string array is "+arrayResults);
+
+                listResult = new ListView(getApplicationContext());
+
+                //CustomSolutionAdapter adapter = new CustomSolutionAdapter(getApplication(), arrayOfResults);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_result, R.id.result_item, arrayResults);
+                listResult.setAdapter(adapter);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(GetRecomendActivity.this);
+                builder.setCancelable(true);
+                builder.setTitle("Results");
+                builder.setPositiveButton("OK", null);
+                builder.setView(listResult);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+                //CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
+
+                // Attach the adapter to a ListView
+                // listView.setAdapter(adapter);
 
             }
         });
