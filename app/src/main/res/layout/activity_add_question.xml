@@ -53,7 +53,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/NewQuestionEditText"
                 android:layout_marginBottom="5dp"
-                android:hint="Enter the question you want to ask here..." />
+                android:hint="Enter the question you want to ask here..."
+                android:maxLines="3" />
         </LinearLayout>
     </LinearLayout>
 
@@ -86,14 +87,15 @@
             android:layout_height="match_parent" >
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="6dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/NewQuestionDetailsEditText"
                 android:layout_marginBottom="5dp"
-                android:hint="Enter details for your question here..." />
+                android:hint="Enter details for your question here..."
+                android:maxLines="3" />
         </LinearLayout>
     </LinearLayout>
 
