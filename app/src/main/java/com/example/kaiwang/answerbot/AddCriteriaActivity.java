@@ -20,7 +20,6 @@ public class AddCriteriaActivity extends AppCompatActivity {
     String question_body = "Passed Question Body";
     String question_id = "Passed Question ID";
     String user_id = "Passed User_ID";
-    int new_criterion_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,19 +66,24 @@ public class AddCriteriaActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         EditText NCB = (EditText) findViewById(R.id.NewCriterionEditText);
         String NewCriterionBody = NCB.getText().toString();
+
         if (NewCriterionBody.length() == 0 || NewCriterionBody.equals(" ") || NewCriterionBody.equals("\n")){
             Toast.makeText(AddCriteriaActivity.this, "Please specify a criteria!", Toast.LENGTH_SHORT).show();
         }
         else {
-        EditText NCD = (EditText) findViewById(R.id.NewCriterionDetailsEditText);
-        String NewCriterionDetails = NCD.getText().toString();
-        com.loopj.android.http.RequestParams params = new RequestParams();
-        params.add("user_id", user_id);
-        params.add("question_id", question_id);
-        params.add("body", NewCriterionBody);
-        params.add("details", NewCriterionDetails);
-        params.add("meta", " ");
-        client.post("http://dss.simohosio.com/api/postcriterion.php", params, new JsonHttpResponseHandler() {
+            NewCriterionBody = Character.toUpperCase(NewCriterionBody.charAt(0)) + NewCriterionBody.substring(1);
+            EditText NCD = (EditText) findViewById(R.id.NewCriterionDetailsEditText);
+            String NewCriterionDetails = NCD.getText().toString();
+            if (NewCriterionDetails.length() != 0){
+                NewCriterionDetails = Character.toUpperCase(NewCriterionDetails.charAt(0)) + NewCriterionDetails.substring(1);
+            }
+            com.loopj.android.http.RequestParams params = new RequestParams();
+            params.add("user_id", user_id);
+            params.add("question_id", question_id);
+            params.add("body", NewCriterionBody);
+            params.add("details", NewCriterionDetails);
+            params.add("meta", " ");
+            client.post("http://dss.simohosio.com/api/postcriterion.php", params, new JsonHttpResponseHandler() {
 //            @Override
 //            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
 //                Button b = (Button) findViewById(R.id.SubmitNewQuestionBtn);
