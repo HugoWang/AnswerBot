@@ -75,14 +75,15 @@
             android:layout_height="match_parent" >
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="6dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/NewCriterionEditText"
                 android:layout_marginBottom="5dp"
-                android:hint="Enter your new criterion here..." />
+                android:hint="Enter your new criterion here..."
+                android:maxLines="3" />
         </LinearLayout>
     </LinearLayout>
 
@@ -114,14 +115,15 @@
             android:layout_height="match_parent" >
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="6dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/NewCriterionDetailsEditText"
                 android:layout_marginBottom="5dp"
-                android:hint="Enter a description for your criterion..." />
+                android:hint="Enter a description for your criterion..."
+                android:maxLines="3" />
         </LinearLayout>
     </LinearLayout>
 
