@@ -1,5 +1,6 @@
 package com.example.kaiwang.answerbot;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -13,10 +14,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -239,6 +243,20 @@ public class GetRecomendActivity extends AppCompatActivity {
                 builder.setView(listResult);
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
+                listResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        ViewGroup vg = (ViewGroup) view;
+                        TextView txt = (TextView) vg.findViewById(R.id.result_item);
+                        String search_txt = txt.getText().toString();
+                        String search_text = search_txt.substring(4);
+                        Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
+                        search.putExtra(SearchManager.QUERY, search_text);
+                        startActivity(search);
+                       // Toast.makeText(getApplicationContext(), txt.getText().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });
