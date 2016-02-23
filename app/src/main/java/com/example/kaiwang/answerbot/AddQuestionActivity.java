@@ -15,10 +15,12 @@ import com.loopj.android.http.RequestParams;
 public class AddQuestionActivity extends AppCompatActivity {
 
     String user_id = "Passed user_id";
+    App app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        app = (App)getApplication();
         setContentView(R.layout.activity_add_question);
         Bundle bundle = getIntent().getExtras();
         if(!bundle.isEmpty()) {

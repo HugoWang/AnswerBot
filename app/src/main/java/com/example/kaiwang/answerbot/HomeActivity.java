@@ -30,12 +30,13 @@ import cz.msebera.android.httpclient.Header;
 
 public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListAdapter myAdapter;
-    ArrayList<Questions> values;
     ListView myListView;
     ArrayList<Questions> newValues;
     String UserID;
+    App app;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        app= (App)getApplication();
         super.onCreate(savedInstanceState);
         UserID= Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         setContentView(R.layout.activity_home);
@@ -44,7 +45,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         client.get("http://dss.simohosio.com/api/getquestions.php", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
-                values = new ArrayList<>();
+                app.allQuestions = new ArrayList<>();
                 for (int i = 0; i < responseBody.length(); i++) {
                     try {
                         Questions ques = new Questions();
@@ -56,11 +57,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                         ques.setQuestion_details(buffer.getString("question_details"));
                         ques.setMeta(buffer.getString("meta"));
 
-                        values.add(ques);
+                        app.allQuestions.add(ques);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    myAdapter = new CustomAdapter(HomeActivity.this, values);
+                    myAdapter = new CustomAdapter(HomeActivity.this, app.allQuestions);
                     myListView.setAdapter(myAdapter);
                     myListView.setOnItemClickListener(HomeActivity.this);
                 }
@@ -101,11 +102,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     public void doSearch(String s) {
         newValues = new ArrayList<>();
         if (s.equals("")){
-            newValues=values;
+            newValues=app.allQuestions;
         } else {
-            for (int i=0;i<values.size();i++){
-                if (values.get(i).question_body.toLowerCase().contains(s.toLowerCase())){
-                    newValues.add(values.get(i));
+            for (int i=0;i<app.allQuestions.size();i++){
+                if (app.allQuestions.get(i).question_body.toLowerCase().contains(s.toLowerCase())){
+                    newValues.add(app.allQuestions.get(i));
                 }
             }
         }
