@@ -1,7 +1,5 @@
 package com.example.kaiwang.answerbot;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -12,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +18,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -54,11 +48,9 @@ public class GetRecomendActivity extends AppCompatActivity {
     public ListView listView;
     public ListView listResult=null;
     ArrayList<Rate> arrayOfRates;
-    ArrayList<Result> arrayOfResults;
     ArrayList<String> arrayResults;
     Result result;
     Rate rate;
-    String test[] = null;
     public String temp = "[";
 
     public class Criteria {
@@ -200,8 +192,6 @@ public class GetRecomendActivity extends AppCompatActivity {
                 Log.d("TEST", temp);
                 uploadCriteria();
 
-                //String[] items = {"Facebook", "Google+", "Twitter", "Digg"};
-
             }
         });
 
@@ -228,14 +218,6 @@ public class GetRecomendActivity extends AppCompatActivity {
                         int t = i+1;
                         arrayResults.add("#"+t+": "+buffer.getString("solution_body"));
 
-                        /*
-                        result.setSolution_body(buffer.getString("solution_body"));
-                        result.setSolution_details(buffer.getString("solution_details"));
-                        result.setSolution_id(buffer.getInt("solution_id"));
-                        arrayOfResults.add(result);
-                        Log.d("TEST",arrayOfResults+"");
-                        */
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -257,12 +239,6 @@ public class GetRecomendActivity extends AppCompatActivity {
                 builder.setView(listResult);
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
-
-                //CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
-
-                // Attach the adapter to a ListView
-                // listView.setAdapter(adapter);
 
             }
         });
