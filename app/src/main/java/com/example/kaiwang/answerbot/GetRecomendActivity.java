@@ -225,7 +225,8 @@ public class GetRecomendActivity extends AppCompatActivity {
                     try {
                         result = new Result();
                         JSONObject buffer = responseBody.getJSONObject(i);
-                        arrayResults.add(buffer.getString("solution_body"));
+                        int t = i+1;
+                        arrayResults.add("#"+t+": "+buffer.getString("solution_body"));
 
                         /*
                         result.setSolution_body(buffer.getString("solution_body"));
