@@ -55,7 +55,6 @@ public class GetRecomendActivity extends AppCompatActivity {
     ArrayList<String> arrayResults;
     Result result;
     Rate rate;
-    public String temp = "[";
 
     public class Criteria {
         private String c_id;
@@ -187,6 +186,8 @@ public class GetRecomendActivity extends AppCompatActivity {
                     allCriteria.add(new Criteria(string_rate_id, string_seek_value));
                     Log.d("TS", "array is " + allCriteria);
                 }
+
+                String temp = "[";
                 for (Criteria c : allCriteria) {
                     //Log.d("TS","["+c.c_id+","+c.c_value+"]");
                     temp += "[\"" + c.c_id + "\",\"" + c.c_value + "\"]" + ",";
@@ -194,14 +195,16 @@ public class GetRecomendActivity extends AppCompatActivity {
                 //Log all criteria:
                 temp = temp.substring(0, temp.length() - 1) + "]";
                 Log.d("TEST", temp);
-                uploadCriteria();
+                uploadCriteria(temp);
+
+                allCriteria.clear();
 
             }
         });
 
     }
 
-    private void uploadCriteria() {
+    private void uploadCriteria(String temp) {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         Log.d("TEST", "here is id:" + upload_user_id);

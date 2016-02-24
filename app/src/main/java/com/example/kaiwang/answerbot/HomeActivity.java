@@ -69,6 +69,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
         });
+
         SearchView search = (SearchView) findViewById(R.id.input);
         search.setQueryHint("Search");
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -125,7 +126,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_main_actions, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
 
