@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class AddOptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_options);
         TextView QuestionTextView = (TextView) findViewById(R.id.AddOptionsQuestionTextView);
         TextView QuestionDetails = (TextView)findViewById(R.id.AddOQ_detail);
+        Button submit = (Button)findViewById(R.id.SubmitNewOptionBtn);
         TextView text1 = (TextView)findViewById(R.id.addO_1);
         TextView text2 = (TextView)findViewById(R.id.addO_2);
         tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
@@ -43,6 +45,7 @@ public class AddOptionsActivity extends AppCompatActivity {
         QuestionTextView.setTypeface(tf);
         text1.setTypeface(tf);
         text2.setTypeface(tf);
+        submit.setTypeface(tf);
         QuestionTextView.setText("Question: " + question_body);
         QuestionDetails.setText(question_details);
 

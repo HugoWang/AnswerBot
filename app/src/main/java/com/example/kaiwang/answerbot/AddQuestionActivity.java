@@ -1,12 +1,15 @@
 package com.example.kaiwang.answerbot;
 
 import android.app.ActionBar;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -19,6 +22,7 @@ public class AddQuestionActivity extends AppCompatActivity {
 
     String user_id = "Passed user_id";
     App app;
+    Typeface tf;
 
 
     @Override
@@ -29,6 +33,13 @@ public class AddQuestionActivity extends AppCompatActivity {
         if(!bundle.isEmpty()) {
             user_id = bundle.getString("user_id");
         }
+        TextView text1 = (TextView)findViewById(R.id.addQ_1);
+        TextView text2 = (TextView)findViewById(R.id.addQ_2);
+        Button submit = (Button)findViewById(R.id.SubmitNewQuestionBtn);
+        tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
+        text1.setTypeface(tf);
+        text2.setTypeface(tf);
+        submit.setTypeface(tf);
 
     }
 
@@ -37,28 +48,6 @@ public class AddQuestionActivity extends AppCompatActivity {
         PostNewQuestionAsync();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_question, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private boolean QuestionAlreadyExists(String question){
         app = (App)getApplication();
@@ -74,6 +63,7 @@ public class AddQuestionActivity extends AppCompatActivity {
     private void PostNewQuestionAsync(){
         AsyncHttpClient client = new AsyncHttpClient();
         EditText NQB =  (EditText) findViewById(R.id.NewQuestionEditText);
+        NQB.setTypeface(tf);
         String NewQuestionBody = NQB.getText().toString();
         if (NewQuestionBody.length() == 0 || NewQuestionBody.equals(" ")|| NewQuestionBody.equals("\n")){
             Toast.makeText(AddQuestionActivity.this, "Please specify a question!", Toast.LENGTH_SHORT).show();
@@ -81,6 +71,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         else {
             NewQuestionBody = Character.toUpperCase(NewQuestionBody.charAt(0)) + NewQuestionBody.substring(1);
             EditText NQD =  (EditText) findViewById(R.id.NewQuestionDetailsEditText);
+            NQD.setTypeface(tf);
             String NewQuestionDetails = NQD.getText().toString();
 
             if (NewQuestionDetails.length() != 0) {

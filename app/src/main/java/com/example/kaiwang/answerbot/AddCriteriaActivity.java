@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,11 +43,13 @@ public class AddCriteriaActivity extends AppCompatActivity {
         TextView QuestionDetails = (TextView)findViewById(R.id.AddCQ_detail);
         TextView text1 = (TextView)findViewById(R.id.add_c_1);
         TextView text2 = (TextView)findViewById(R.id.add_c_2);
+        Button submit = (Button)findViewById(R.id.SubmitNewCriterionBtn);
         tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         QuestionTextView.setTypeface(tf);
         QuestionDetails.setTypeface(tf);
         text1.setTypeface(tf);
         text2.setTypeface(tf);
+        submit.setTypeface(tf);
         QuestionTextView.setText("Question: " + question_body);
         QuestionDetails.setText(question_details);
 

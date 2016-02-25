@@ -43,7 +43,9 @@
         <activity
             android:name=".AddQuestionActivity"
             android:label="@string/title_activity_add_question"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".HomeActivity"/>
+
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

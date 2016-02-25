@@ -8,25 +8,29 @@
     tools:context="com.example.kaiwang.answerbot.AddQuestionActivity">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/SubmitNewQuestionBtn"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/holo_green_light"
+        android:layout_below="@+id/linearLayout15"
+        android:background="@drawable/buttongreen"
         android:onClick="SubmitQuestionBtnClick"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/background_question_rounded_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout13"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="3px">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_view_rounded_single"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,9 +39,11 @@
             android:text="What is your question?"
             android:paddingLeft="10dp"
             android:paddingRight="6dp"
-            android:id="@+id/textView5"
+            android:id="@+id/addQ_1"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -46,39 +52,45 @@
             android:layout_height="match_parent" >
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="6dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/NewQuestionEditText"
                 android:layout_marginBottom="5dp"
-                android:hint="Enter the question you want to ask here..."
-                android:maxLines="3" />
+                android:hint="Enter your question here..."
+                android:textColorHint="#B7B7B7"
+                android:maxLines="3"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/background_question_rounded_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout15"
         android:layout_below="@+id/linearLayout13"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="3px">
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/background_view_rounded_single"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Question details"
+            android:text="Question details:"
             android:paddingLeft="10dp"
             android:paddingRight="6dp"
-            android:id="@+id/textView6"
+            android:id="@+id/addQ_2"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -87,15 +99,18 @@
             android:layout_height="match_parent" >
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="6dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/NewQuestionDetailsEditText"
                 android:layout_marginBottom="5dp"
-                android:hint="Enter details for your question here..."
-                android:maxLines="3" />
+                android:hint="Enter your question details..."
+                android:textColorHint="#B7B7B7"
+                android:maxLines="3"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
         </LinearLayout>
     </LinearLayout>
 
