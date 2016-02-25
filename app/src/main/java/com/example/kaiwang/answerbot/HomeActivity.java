@@ -4,6 +4,7 @@ package com.example.kaiwang.answerbot;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<Questions> newValues;
     String UserID;
     SearchView searchView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     App app;
     @Override
@@ -45,6 +47,16 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         setContentView(R.layout.activity_home);
         myListView = (ListView) findViewById(R.id.myListView);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                finish();
+                startActivity(getIntent());
+            }
+        });
+
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("http://dss.simohosio.com/api/getquestions.php", new JsonHttpResponseHandler() {
             @Override

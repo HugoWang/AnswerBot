@@ -246,7 +246,7 @@ public class GetRecomendActivity extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(GetRecomendActivity.this);
                 builder.setCancelable(true);
-                builder.setTitle("Results");
+                builder.setTitle("Recommendations:");
                 builder.setPositiveButton("OK", null);
                 builder.setView(listResult);
                 AlertDialog dialog = builder.create();

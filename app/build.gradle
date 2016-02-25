@@ -43,5 +43,6 @@ dependencies {
         transitive = true;
     }
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile 'com.android.support:support-v4:23.0.+'
 }
 
