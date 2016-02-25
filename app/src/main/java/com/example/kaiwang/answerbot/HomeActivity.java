@@ -40,7 +40,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         app= (App)getApplication();
         super.onCreate(savedInstanceState);
         Bundle bun = getIntent().getExtras();
-        UserID = bun.getString("user_id");
+        if(bun != null){
+            UserID = bun.getString("user_id");
+        }
         setContentView(R.layout.activity_home);
         myListView = (ListView) findViewById(R.id.myListView);
         AsyncHttpClient client = new AsyncHttpClient();

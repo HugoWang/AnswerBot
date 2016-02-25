@@ -41,6 +41,9 @@ public class AddQuestionActivity extends AppCompatActivity {
         text2.setTypeface(tf);
         submit.setTypeface(tf);
 
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
     }
 
     //Submit button click

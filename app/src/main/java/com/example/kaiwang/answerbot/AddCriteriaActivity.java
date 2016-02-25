@@ -53,6 +53,9 @@ public class AddCriteriaActivity extends AppCompatActivity {
         QuestionTextView.setText("Question: " + question_body);
         QuestionDetails.setText(question_details);
 
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
     }
 
     //Submit button click

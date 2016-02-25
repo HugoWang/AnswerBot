@@ -1,15 +1,14 @@
 package com.example.kaiwang.answerbot;
 
-import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
@@ -23,9 +22,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -38,7 +34,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -113,7 +108,7 @@ public class GetRecomendActivity extends AppCompatActivity {
 
         AsyncHttpClient client = new AsyncHttpClient();
         Bundle bundle = getIntent().getExtras();
-        if (!bundle.isEmpty()) {
+        if (bundle != null) {
             url_queston_id = bundle.getInt("position");
             user_id = bundle.getString("user_id");
             ques_body = bundle.getString("question_body");
