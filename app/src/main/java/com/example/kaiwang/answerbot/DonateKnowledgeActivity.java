@@ -36,6 +36,7 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
     public String url2;
     ArrayList<String> arrayofSolutions;
     ArrayList<String> solutionId;
+    ArrayList<String> solutionDetails;
     private Random randomGenerator;
     ArrayList<Rate> arrayOfRates;
     Rate rate;
@@ -51,7 +52,6 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
         donate_knowledge = (Button)findViewById(R.id.donate_btn);
         listView = (ListView) findViewById(R.id.lvDonate);
 
-        String answer_details = answer_detail.getText().toString();
         Typeface tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         answer_content.setTypeface(tf);
         answer_detail.setTypeface(tf);
@@ -78,11 +78,13 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
                 arrayofSolutions = new ArrayList<>();
                 solutionId = new ArrayList<>();
+                solutionDetails = new ArrayList<>();
                 for (int i = 0; i < responseBody.length(); i++) {
                     try {
                         JSONObject buffer = responseBody.getJSONObject(i);
                         arrayofSolutions.add(buffer.getString("solution_body"));
                         solutionId.add(buffer.getString("solution_id"));
+                        solutionDetails.add(buffer.getString("solution_details"));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -95,8 +97,10 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
                 int index = randomGenerator.nextInt(arrayofSolutions.size());
                 String item = arrayofSolutions.get(index);
                 String item_id = solutionId.get(index);
+                String item_details = solutionDetails.get(index);
 
                 answer_content.setText("Answer: "+item);
+                answer_detail.setText(item_details);
 
                 Log.d("TEST", "item is "+item);
                 Log.d("TEST","item id is "+item_id);
@@ -155,13 +159,6 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
             }
         });
 
-        if(answer_details== null || answer_details.length() == 0 || answer_details.equals("")){
-            answer_detail.setVisibility(View.GONE);
-        } else {
-            answer_detail.setVisibility(View.VISIBLE);
-        }
-
-
     }
 
     @Override
@@ -180,7 +177,8 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            finish();
+            startActivity(getIntent());
         }
 
         return super.onOptionsItemSelected(item);
