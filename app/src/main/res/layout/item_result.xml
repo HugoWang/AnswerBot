@@ -3,10 +3,10 @@
     android:orientation= "vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/listview_result"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-    </ListView>
-
+    <TextView
+        android:id="@+id/result_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#111111"
+        android:padding="10dp" />
 </LinearLayout>

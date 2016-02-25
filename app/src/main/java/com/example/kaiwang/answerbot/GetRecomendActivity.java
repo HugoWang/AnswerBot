@@ -1,7 +1,6 @@
 package com.example.kaiwang.answerbot;
 
-import android.app.Activity;
-import android.app.Dialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -12,20 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
@@ -43,7 +42,6 @@ public class GetRecomendActivity extends AppCompatActivity {
     Button get_recommend;
     TextView recommend_ques, recommend_detail, tips1, tips2;
     String user_id;
-    ListView listResult = null;
     String upload_user_id;
     public String url;
     public int url_queston_id;
@@ -52,54 +50,11 @@ public class GetRecomendActivity extends AppCompatActivity {
     private boolean viewGroupIsVisible = false;
     private View mViewGroup;
     public ListView listView;
+    public ListView listResult=null;
     ArrayList<Rate> arrayOfRates;
+    ArrayList<String> arrayResults;
+    Result result;
     Rate rate;
-    public String temp = "[";
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client2;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "GetRecomend Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.kaiwang.answerbot/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client2, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "GetRecomend Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.kaiwang.answerbot/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client2, viewAction);
-        client2.disconnect();
-    }
 
     public class Criteria {
         private String c_id;
@@ -122,6 +77,7 @@ public class GetRecomendActivity extends AppCompatActivity {
         mViewGroup.setVisibility(View.GONE);
 
         listView = (ListView) findViewById(R.id.lvRates);
+        //listResult = (ListView)findViewById(R.id.listview_result);
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         recommend_ques = (TextView) findViewById(R.id.recommend_ques);
@@ -230,6 +186,8 @@ public class GetRecomendActivity extends AppCompatActivity {
                     allCriteria.add(new Criteria(string_rate_id, string_seek_value));
                     Log.d("TS", "array is " + allCriteria);
                 }
+
+                String temp = "[";
                 for (Criteria c : allCriteria) {
                     //Log.d("TS","["+c.c_id+","+c.c_value+"]");
                     temp += "[\"" + c.c_id + "\",\"" + c.c_value + "\"]" + ",";
@@ -237,30 +195,16 @@ public class GetRecomendActivity extends AppCompatActivity {
                 //Log all criteria:
                 temp = temp.substring(0, temp.length() - 1) + "]";
                 Log.d("TEST", temp);
-                uploadCriteria();
+                uploadCriteria(temp);
 
-                listView = new ListView(getApplication());
-                String[] items = {"Facebook", "Google+", "Twitter", "Digg"};
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_result, R.id.txtitem, items);
-                listView.setAdapter(adapter);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(GetRecomendActivity.this);
-                builder.setCancelable(true);
-                builder.setTitle("Results");
-                builder.setPositiveButton("OK", null);
-                builder.setView(listView);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
+                allCriteria.clear();
 
             }
         });
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
 
-    private void uploadCriteria() {
+    private void uploadCriteria(String temp) {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         Log.d("TEST", "here is id:" + upload_user_id);
@@ -269,44 +213,53 @@ public class GetRecomendActivity extends AppCompatActivity {
         params.put("user_id", upload_user_id);
         params.put("meta", "");
 
-        client.get("http://dss.simohosio.com/api/getrecommendations.php", params, new AsyncHttpResponseHandler() {
+        client.post("http://dss.simohosio.com/api/getrecommendations.php", params, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    String response = (new String(responseBody, "UTF-8"));
-                    JSONArray resultArray = new JSONArray(response);
-                    Log.d("TEST", resultArray + "");
-                    //arrayOfRates = new ArrayList<>();
-                    /*
-                    for (int i = 0; i < rateArray.length(); i++) {
-                        try {
-                            rate = new Rate();
-                            JSONObject buffer = rateArray.getJSONObject(i);
-                            rate.setRate_body(buffer.getString("criterion_body"));
-                            rate.setRate_details(buffer.getString("criterion_details"));
-                            rate.setRate_id(buffer.getInt("criterion_id"));
-                            rate.setRate_Meta(buffer.getString("meta"));
-                            arrayOfRates.add(rate);
+            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
+                Log.d("TEST", responseBody + "");
+                arrayResults = new ArrayList<>();
+                for (int i = 0; i < responseBody.length(); i++) {
+                    try {
+                        result = new Result();
+                        JSONObject buffer = responseBody.getJSONObject(i);
+                        int t = i+1;
+                        arrayResults.add("#"+t+": "+buffer.getString("solution_body"));
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    */
-
-                    //CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
-
-                    // Attach the adapter to a ListView
-                    // listView.setAdapter(adapter);
-
-                } catch (UnsupportedEncodingException | JSONException e1) {
-                    e1.printStackTrace();
-
                 }
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.d("TEST","test string array is "+arrayResults);
+
+                listResult = new ListView(getApplicationContext());
+
+                //CustomSolutionAdapter adapter = new CustomSolutionAdapter(getApplication(), arrayOfResults);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_result, R.id.result_item, arrayResults);
+                listResult.setAdapter(adapter);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(GetRecomendActivity.this);
+                builder.setCancelable(true);
+                builder.setTitle("Results");
+                builder.setPositiveButton("OK", null);
+                builder.setView(listResult);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                listResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        ViewGroup vg = (ViewGroup) view;
+                        TextView txt = (TextView) vg.findViewById(R.id.result_item);
+                        String search_txt = txt.getText().toString();
+                        String search_text = search_txt.substring(4);
+                        Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
+                        search.putExtra(SearchManager.QUERY, search_text);
+                        startActivity(search);
+                       // Toast.makeText(getApplicationContext(), txt.getText().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });

@@ -17,6 +17,7 @@ public class AddQuestionActivity extends AppCompatActivity {
     String user_id = "Passed user_id";
     App app;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,14 +65,18 @@ public class AddQuestionActivity extends AppCompatActivity {
             Toast.makeText(AddQuestionActivity.this, "Please specify a question!", Toast.LENGTH_SHORT).show();
         }
         else {
-        EditText NQD =  (EditText) findViewById(R.id.NewQuestionDetailsEditText);
-        String NewQuestionDetails = NQD.getText().toString();
-        com.loopj.android.http.RequestParams params = new RequestParams();
-        params.add("user_id", user_id);
-        params.add("body", NewQuestionBody);
-        params.add("details", NewQuestionDetails);
-        params.add("meta", " ");
-        client.post("http://dss.simohosio.com/api/postquestion.php", params, new JsonHttpResponseHandler() {
+            NewQuestionBody = Character.toUpperCase(NewQuestionBody.charAt(0)) + NewQuestionBody.substring(1);
+            EditText NQD =  (EditText) findViewById(R.id.NewQuestionDetailsEditText);
+            String NewQuestionDetails = NQD.getText().toString();
+            if (NewQuestionDetails.length() != 0) {
+                NewQuestionDetails = Character.toUpperCase(NewQuestionDetails.charAt(0)) + NewQuestionDetails.substring(1);
+            }
+            com.loopj.android.http.RequestParams params = new RequestParams();
+            params.add("user_id", user_id);
+            params.add("body", NewQuestionBody);
+            params.add("details", NewQuestionDetails);
+            params.add("meta", " ");
+            client.post("http://dss.simohosio.com/api/postquestion.php", params, new JsonHttpResponseHandler() {
 //            @Override
 //            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
 //                Button b = (Button) findViewById(R.id.SubmitNewQuestionBtn);

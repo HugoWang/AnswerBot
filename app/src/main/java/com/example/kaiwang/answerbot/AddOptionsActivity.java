@@ -68,15 +68,19 @@ public class AddOptionsActivity extends AppCompatActivity {
             Toast.makeText(AddOptionsActivity.this, "Please specify an answer!", Toast.LENGTH_SHORT).show();
         }
         else {
-        EditText NOD =  (EditText) findViewById(R.id.NewOptionDetailsEditText);
-        String NewOptionDetails = NOD.getText().toString();
-        com.loopj.android.http.RequestParams params = new RequestParams();
-        params.add("user_id", user_id);
-        params.add("question_id", question_id);
-        params.add("body", NewOptionBody);
-        params.add("details", NewOptionDetails);
-        params.add("meta", " ");
-        client.post("http://dss.simohosio.com/api/postsolution.php", params, new JsonHttpResponseHandler() {
+            NewOptionBody = Character.toUpperCase(NewOptionBody.charAt(0)) + NewOptionBody.substring(1);
+            EditText NOD =  (EditText) findViewById(R.id.NewOptionDetailsEditText);
+            String NewOptionDetails = NOD.getText().toString();
+            if (NewOptionDetails.length() != 0){
+                NewOptionDetails = Character.toUpperCase(NewOptionDetails.charAt(0)) + NewOptionDetails.substring(1);
+            }
+            com.loopj.android.http.RequestParams params = new RequestParams();
+            params.add("user_id", user_id);
+            params.add("question_id", question_id);
+            params.add("body", NewOptionBody);
+            params.add("details", NewOptionDetails);
+            params.add("meta", " ");
+            client.post("http://dss.simohosio.com/api/postsolution.php", params, new JsonHttpResponseHandler() {
 //            @Override
 //            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
 //                Button b = (Button) findViewById(R.id.SubmitNewQuestionBtn);

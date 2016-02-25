@@ -54,15 +54,6 @@
             android:name="io.fabric.ApiKey"
             android:value="f1e381de1285a51e338cdba402b63af47aad844f" />
 
-        <activity
-            android:name=".CustomSolutionAdapter"
-            android:label="@string/title_activity_custom_solution_adapter"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

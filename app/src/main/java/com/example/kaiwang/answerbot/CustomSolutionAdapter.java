@@ -1,29 +1,36 @@
 package com.example.kaiwang.answerbot;
 
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.content.Context;
+import android.graphics.Typeface;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
-public class CustomSolutionAdapter extends AppCompatActivity {
+import java.util.ArrayList;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_custom_solution_adapter);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+public class CustomSolutionAdapter extends ArrayAdapter<Result> {
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+    public CustomSolutionAdapter(Context context, ArrayList<Result> placeHolders) {
+        super(context, R.layout.item_result, placeHolders);
     }
 
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if(convertView==null){
+            convertView= LayoutInflater.from(getContext()).inflate(R.layout.list_result,parent,false);
+        }
+        Result result = getItem(position);
+
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "RobotoCondensed-Regular.ttf");
+
+        TextView show_result = (TextView) convertView.findViewById(R.id.result_item);
+        String result_body = result.solution_body;
+        show_result.setText(result_body);
+        show_result.setTypeface(tf);
+
+        return convertView;
+    }
 }
