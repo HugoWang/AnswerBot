@@ -72,7 +72,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Get Started"
+            android:text="Continue"
             android:background="@drawable/register_button"
             android:id="@+id/start_btn"
             android:layout_marginLeft="25dp"
