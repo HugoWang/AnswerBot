@@ -2,20 +2,19 @@ package com.example.kaiwang.answerbot;
 
 
 import android.content.Intent;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SearchView;
+
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -33,6 +32,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     ListView myListView;
     ArrayList<Questions> newValues;
     String UserID;
+    SearchView searchView;
+
     App app;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
         });
+        /*
         SearchView search = (SearchView) findViewById(R.id.input);
         search.setQueryHint("Search");
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -85,6 +87,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 return false;
             }
         });
+        */
 
         //Add question button
         FloatingActionButton FAB = (FloatingActionButton) findViewById(R.id.fab);
@@ -124,6 +127,22 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.i("Debugging:",newText);
+                doSearch(newText);
+                updateView();
+                return false;
+            }
+        });
         return true;
     }
 
@@ -136,10 +155,10 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
-            onSearchRequested();
+
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override
