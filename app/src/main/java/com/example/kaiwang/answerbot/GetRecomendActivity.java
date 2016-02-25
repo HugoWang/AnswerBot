@@ -150,8 +150,12 @@ public class GetRecomendActivity extends AppCompatActivity {
 
                     CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
 
-                    // Attach the adapter to a ListView
-                    listView.setAdapter(adapter);
+                    if(adapter.getCount()!=0){
+                        listView.setAdapter(adapter);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "No Items Available",Toast.LENGTH_SHORT).show();
+                        get_recommend.setEnabled(false);
+                    }
 
                 } catch (UnsupportedEncodingException | JSONException e1) {
                     e1.printStackTrace();

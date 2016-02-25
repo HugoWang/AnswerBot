@@ -104,11 +104,11 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Get Recommendation"
-            android:background="@drawable/blue_board_btn"
+            android:text="Get Recommendations"
+            android:background="@drawable/buttongreen"
             android:id="@+id/get_recommend_btn"
             android:textSize="20sp"
-            android:textColor="#1F497D"
+            android:textColor="#ffffff"
             android:layout_marginTop="5dp" />
     </LinearLayout>
 

@@ -4,7 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Update Info</string>
     <string name="title_activity_home">AnswerBot</string>
-    <string name="title_activity_add_criteria">Add Criterion</string>
+    <string name="title_activity_add_criteria">Add Criteria</string>
     <string name="title_activity_add_options">Add Answer</string>
     <string name="title_activity_donate_knowledge">Donate Knowledge</string>
     <string name="title_activity_get_recomend">Recommendation</string>

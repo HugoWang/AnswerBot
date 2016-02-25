@@ -113,17 +113,24 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
                 Log.d("TEST","solutions are "+arrayofSolutions);
                 Log.d("TEST","Id are "+solutionId);
 
-                randomGenerator = new Random();
-                int index = randomGenerator.nextInt(arrayofSolutions.size());
-                String item = arrayofSolutions.get(index);
-                item_id = solutionId.get(index);
-                String item_details = solutionDetails.get(index);
+                if(arrayofSolutions.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"No answers yet.",Toast.LENGTH_SHORT).show();
+                    donate_knowledge.setEnabled(false);
+                }
+                else{
+                    randomGenerator = new Random();
+                    int index = randomGenerator.nextInt(arrayofSolutions.size());
+                    String item = arrayofSolutions.get(index);
+                    item_id = solutionId.get(index);
+                    String item_details = solutionDetails.get(index);
 
-                answer_content.setText("Answer: "+item);
-                answer_detail.setText(item_details);
+                    answer_content.setText("Answer: "+item);
+                    answer_detail.setText(item_details);
 
-                Log.d("TEST", "item is "+item);
-                Log.d("TEST","item id is "+item_id);
+                    Log.d("TEST", "item is "+item);
+                    Log.d("TEST","item id is "+item_id);
+                }
+
             }
 
         });
@@ -219,10 +226,12 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
         client.post("http://dss.simohosio.com/api/postrating.php", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
-                Toast.makeText(getApplicationContext(),"Thank you for your contribution!",Toast.LENGTH_SHORT).show();
-                finish();
+
             }
         });
+        Toast.makeText(getApplicationContext(),"Thank you for your contribution!",Toast.LENGTH_SHORT).show();
+        finish();
+        startActivity(getIntent());
     }
 
     @Override
