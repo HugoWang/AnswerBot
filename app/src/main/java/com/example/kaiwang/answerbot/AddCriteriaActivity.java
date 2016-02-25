@@ -1,6 +1,7 @@
 package com.example.kaiwang.answerbot;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,12 +15,16 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.w3c.dom.Text;
+
 
 public class AddCriteriaActivity extends AppCompatActivity {
 
     String question_body = "Passed Question Body";
+    String question_details;
     String question_id = "Passed Question ID";
     String user_id = "Passed User_ID";
+    public Typeface tf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,32 +34,20 @@ public class AddCriteriaActivity extends AppCompatActivity {
         if(!bundle.isEmpty()) {
             question_id = Integer.toString(bundle.getInt("position"));
             question_body = bundle.getString("question_body");
+            question_details = bundle.getString("question_details");
             user_id = bundle.getString("user_id");
         }
         TextView QuestionTextView = (TextView) findViewById(R.id.AddCriteriaQuestionTextView);
-        QuestionTextView.setText(question_body);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_criteria, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        TextView QuestionDetails = (TextView)findViewById(R.id.AddCQ_detail);
+        TextView text1 = (TextView)findViewById(R.id.add_c_1);
+        TextView text2 = (TextView)findViewById(R.id.add_c_2);
+        tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
+        QuestionTextView.setTypeface(tf);
+        QuestionDetails.setTypeface(tf);
+        text1.setTypeface(tf);
+        text2.setTypeface(tf);
+        QuestionTextView.setText("Question: "+question_body);
+        QuestionDetails.setText(question_details);
     }
 
     //Submit button click
@@ -65,6 +58,7 @@ public class AddCriteriaActivity extends AppCompatActivity {
     private void PostNewCriterionAsync() {
         AsyncHttpClient client = new AsyncHttpClient();
         EditText NCB = (EditText) findViewById(R.id.NewCriterionEditText);
+        NCB.setTypeface(tf);
         String NewCriterionBody = NCB.getText().toString();
 
         if (NewCriterionBody.length() == 0 || NewCriterionBody.equals(" ") || NewCriterionBody.equals("\n")){
@@ -73,6 +67,7 @@ public class AddCriteriaActivity extends AppCompatActivity {
         else {
             NewCriterionBody = Character.toUpperCase(NewCriterionBody.charAt(0)) + NewCriterionBody.substring(1);
             EditText NCD = (EditText) findViewById(R.id.NewCriterionDetailsEditText);
+            NCD.setTypeface(tf);
             String NewCriterionDetails = NCD.getText().toString();
             if (NewCriterionDetails.length() != 0){
                 NewCriterionDetails = Character.toUpperCase(NewCriterionDetails.charAt(0)) + NewCriterionDetails.substring(1);
