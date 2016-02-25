@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -77,7 +78,6 @@ public class GetRecomendActivity extends AppCompatActivity {
         mViewGroup.setVisibility(View.GONE);
 
         listView = (ListView) findViewById(R.id.lvRates);
-        //listResult = (ListView)findViewById(R.id.listview_result);
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         recommend_ques = (TextView) findViewById(R.id.recommend_ques);

@@ -28,5 +28,6 @@
     <string name="searchHint">Search</string>
     <string name="title_activity_result">Result</string>
     <string name="title_activity_custom_solution_adapter">CustomSolutionAdapter</string>
+    <string name="title_activity_all_answers">Answers</string>
 
 </resources>
