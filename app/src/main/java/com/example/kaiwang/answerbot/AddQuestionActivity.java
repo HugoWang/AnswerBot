@@ -12,6 +12,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.util.ArrayList;
+
 public class AddQuestionActivity extends AppCompatActivity {
 
     String user_id = "Passed user_id";
@@ -21,7 +23,6 @@ public class AddQuestionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        app = (App)getApplication();
         setContentView(R.layout.activity_add_question);
         Bundle bundle = getIntent().getExtras();
         if(!bundle.isEmpty()) {
@@ -57,6 +58,17 @@ public class AddQuestionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean QuestionAlreadyExists(String question){
+        app = (App)getApplication();
+        ArrayList<Questions> ListOfQuestions = app.allQuestions;
+        for (int i = 0; i < ListOfQuestions.size(); i++) {
+            if (ListOfQuestions.get(i).question_body.equals(question)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void PostNewQuestionAsync(){
         AsyncHttpClient client = new AsyncHttpClient();
         EditText NQB =  (EditText) findViewById(R.id.NewQuestionEditText);
@@ -68,17 +80,27 @@ public class AddQuestionActivity extends AppCompatActivity {
             NewQuestionBody = Character.toUpperCase(NewQuestionBody.charAt(0)) + NewQuestionBody.substring(1);
             EditText NQD =  (EditText) findViewById(R.id.NewQuestionDetailsEditText);
             String NewQuestionDetails = NQD.getText().toString();
+
             if (NewQuestionDetails.length() != 0) {
                 NewQuestionDetails = Character.toUpperCase(NewQuestionDetails.charAt(0)) + NewQuestionDetails.substring(1);
             }
-            com.loopj.android.http.RequestParams params = new RequestParams();
-            params.add("user_id", user_id);
-            params.add("body", NewQuestionBody);
-            params.add("details", NewQuestionDetails);
-            params.add("meta", " ");
-            client.post("http://dss.simohosio.com/api/postquestion.php", params, new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
+
+            if (NewQuestionBody.charAt((NewQuestionBody.length()-1)) != '?') {
+                NewQuestionBody = NewQuestionBody + "?";
+            }
+
+            if (QuestionAlreadyExists(NewQuestionBody)) {
+                Toast.makeText(AddQuestionActivity.this, "This question already exists!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                com.loopj.android.http.RequestParams params = new RequestParams();
+                params.add("user_id", user_id);
+                params.add("body", NewQuestionBody);
+                params.add("details", NewQuestionDetails);
+                params.add("meta", " ");
+                client.post("http://dss.simohosio.com/api/postquestion.php", params, new JsonHttpResponseHandler() {
+//              @Override
+//              public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
 //                Button b = (Button) findViewById(R.id.SubmitNewQuestionBtn);
 //                b.setText("Kysymys lisätty");
 //
@@ -87,8 +109,11 @@ public class AddQuestionActivity extends AppCompatActivity {
 //            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
 //                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
 //            }
-        });
-        Toast.makeText(AddQuestionActivity.this, "Question added!", Toast.LENGTH_SHORT).show();
-        finish();
+
+                });
+
+                Toast.makeText(AddQuestionActivity.this, "Question added!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
     }}
 }

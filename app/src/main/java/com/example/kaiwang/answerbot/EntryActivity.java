@@ -1,7 +1,9 @@
 package com.example.kaiwang.answerbot;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
+import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,10 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
     TextView start_text;
     CheckBox male_check, female_check;
     EditText input_age;
+    DataBaseOperations MyDb;
+    String Gender;
+    String UserID;
+    Boolean isNew;
     String my_age;
     int my_age_value, age_input_check;
 
@@ -28,10 +34,17 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
-
+        MyDb = new DataBaseOperations(this);
+        UserID= Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        Cursor res = MyDb.getAllData();
+        isNew=(res.getCount()==0);
         //Hide ActionBar
         ActionBar myActionBar=getSupportActionBar();
-        myActionBar.hide();
+        try {
+            if (myActionBar != null) {
+                myActionBar.hide();
+            }
+        }catch (NullPointerException e){ e.printStackTrace();}
 
         Typeface tf = Typeface.createFromAsset(getAssets(),"RobotoCondensed-Regular.ttf");
         start_text = (TextView)findViewById(R.id.start_text);
@@ -63,8 +76,22 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
                     age_input_check = 1;
                 }
                 if ((male_check.isChecked() || female_check.isChecked()) && (my_age.length() != 0) && (my_age_value < 110)) {
-                    Intent toEntry = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(toEntry);
+                    if (isNew){
+                        Boolean isSuccessful=MyDb.putInfo(UserID,Gender, my_age_value);
+                        if (isSuccessful) {
+                            Intent toEntry = new Intent(getApplicationContext(), HomeActivity.class);
+                            Bundle bun = new Bundle();
+                            bun.putString("user_id", UserID);
+                            toEntry.putExtras(bun);
+                            startActivity(toEntry);
+                        } else {
+                            Toast.makeText(getApplicationContext(),"Something went wrong...",Toast.LENGTH_SHORT);
+                        }
+                    } else {
+                        MyDb.updateInfo("1",UserID,Gender,my_age_value);
+                        finish();
+                    }
+
                 } else if ((age_input_check == 1) && (my_age_value > 110)) {
                     Toast.makeText(getApplicationContext(), "Your age is unreliable!", Toast.LENGTH_SHORT).show();
                 } else if ((!(male_check.isChecked() || female_check.isChecked())) && (my_age.length() != 0)) {
@@ -84,6 +111,7 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
             case R.id.male_check:
                 if (male_check.isChecked() && isChecked) {
                     female_check.setChecked(false);
+                    Gender = "male";
                     Log.d("TEST","male is checked");
                     return;
                 }
@@ -91,6 +119,7 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
             case R.id.female_check:
                 if (female_check.isChecked() && isChecked) {
                     male_check.setChecked(false);
+                    Gender = "female";
                     Log.d("TEST", "female is checked");
                     return;
                 }

@@ -25,7 +25,8 @@
         android:id="@+id/linearLayout7"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="3px">
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,10 +52,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout9"
-        android:layout_marginTop="85dp"
         android:layout_below="@+id/linearLayout7"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="3px">
 
         <TextView
             android:layout_width="wrap_content"
@@ -92,10 +93,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout11"
-        android:layout_above="@+id/SubmitNewOptionBtn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="55dp">
+        android:layout_below="@+id/linearLayout9"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="3px">
 
         <TextView
             android:layout_width="wrap_content"

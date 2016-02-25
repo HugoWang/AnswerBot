@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -39,7 +38,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         app= (App)getApplication();
         super.onCreate(savedInstanceState);
-        UserID= Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        Bundle bun = getIntent().getExtras();
+        UserID = bun.getString("user_id");
         setContentView(R.layout.activity_home);
         myListView = (ListView) findViewById(R.id.myListView);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -69,7 +69,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
         });
-
         SearchView search = (SearchView) findViewById(R.id.input);
         search.setQueryHint("Search");
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -124,11 +123,25 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_main_actions, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent toEntry = new Intent(getApplicationContext(), EntryActivity.class);
+            startActivity(toEntry);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -2,23 +2,27 @@ package com.example.kaiwang.answerbot;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * Created by root on 23.2.2016.
- */
 public class DataBaseOperations extends SQLiteOpenHelper {
 
+    public static final String DATABASE_NAME="USER_INFO";
+    public static final String TABLE_NAME = "USER_TABLE";
+    public static final String COL_1 = "ID";
+    public static final String COL_2 = "USER_ID";
+    public static final String COL_3 = "USER_GENDER";
+    public static final String COL_4 = "USER_AGE";
+
     public static final int database_version = 1;
-    public String CREATE_QUERY = "CREATE TABLE " + SavedData.SavedInfo.TABLE_NAME+"("+
-            SavedData.SavedInfo.USER_ID+" TEXT,"+ SavedData.SavedInfo.GENDER+" TEXT,"+
-            SavedData.SavedInfo.Age+")";
+    public String CREATE_QUERY = "CREATE TABLE " + TABLE_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT, USER_ID TEXT," +
+            "USER_GENDER TEXT, USER_AGE INTEGER)";
 
     public DataBaseOperations(Context context) {
-        super(context, SavedData.SavedInfo.TABLE_NAME,null,database_version);
-        Log.d("Database Operations","Created Table");
+        super(context, DATABASE_NAME, null, database_version);
+        Log.d("Database Operations", "Created Table");
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -26,15 +30,29 @@ public class DataBaseOperations extends SQLiteOpenHelper {
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS"+TABLE_NAME);
     }
 
-    public void putInfo(DataBaseOperations dbo, String user_id, String gender, int age){
-        SQLiteDatabase SQ = dbo.getWritableDatabase();
+    public boolean putInfo(String user_id, String gender, int age){
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(SavedData.SavedInfo.USER_ID,user_id);
-        cv.put(SavedData.SavedInfo.GENDER,gender);
-        cv.put(SavedData.SavedInfo.Age,age);
-        SQ.insert(SavedData.SavedInfo.TABLE_NAME,null, cv);
+        cv.put(COL_2,user_id);
+        cv.put(COL_3, gender);
+        cv.put(COL_4, age);
+        long res = db.insert(TABLE_NAME,null, cv);
+        return res != -1;
+    }
+    public Cursor getAllData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery("select * from " + TABLE_NAME, null);
+    }
+    public void updateInfo(String id,String user_id, String gender, int age){
+        SQLiteDatabase sq = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_1,id);
+        cv.put(COL_2,user_id);
+        cv.put(COL_3,gender);
+        cv.put(COL_4,age);
+        sq.update(TABLE_NAME,cv,"ID=?",new String[] {id});
     }
 }
