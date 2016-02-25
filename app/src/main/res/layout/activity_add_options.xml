@@ -8,14 +8,16 @@
     tools:context="com.example.kaiwang.answerbot.AddOptionsActivity">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:id="@+id/SubmitNewOptionBtn"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/linearLayout11"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/holo_green_light"
-        android:onClick="SubmitOptionsBtnClick" />
+        android:background="@drawable/buttongreen"
+        android:onClick="SubmitOptionsBtnClick"
+        android:textSize="20dp"
+        android:textColor="#ffffff" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -41,32 +43,45 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:id="@+id/linearLayout6"
+            android:id="@+id/viewsContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="6dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="description of the question..."
+                android:id="@+id/AddOQ_detail"
+                android:layout_marginBottom="5dp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/background_question_rounded_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout9"
         android:layout_below="@+id/linearLayout7"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="3px">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="What is the new option?"
+            android:text="Insert your new option:"
             android:paddingLeft="10dp"
             android:paddingRight="6dp"
-            android:id="@+id/textView3"
+            android:id="@+id/addO_1"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -83,31 +98,34 @@
                 android:id="@+id/NewOptionEditText"
                 android:layout_marginBottom="5dp"
                 android:hint="Enter your new option here..."
-                android:maxLines="3" />
+                android:maxLines="3"
+                android:textSize="20dp"
+                android:textColor="#ffffff" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/background_question_rounded_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout11"
         android:layout_below="@+id/linearLayout9"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="3px">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Tell us more about the option"
+            android:text="Tell us more about the option:"
             android:paddingLeft="10dp"
             android:paddingRight="6dp"
-            android:id="@+id/textView4"
+            android:id="@+id/addO_2"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -124,7 +142,9 @@
                 android:id="@+id/NewOptionDetailsEditText"
                 android:layout_marginBottom="5dp"
                 android:hint="Enter your option details here..."
-                android:maxLines="3" />
+                android:maxLines="3"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -46,7 +46,7 @@ public class AddCriteriaActivity extends AppCompatActivity {
         QuestionDetails.setTypeface(tf);
         text1.setTypeface(tf);
         text2.setTypeface(tf);
-        QuestionTextView.setText("Question: "+question_body);
+        QuestionTextView.setText("Question: " + question_body);
         QuestionDetails.setText(question_details);
     }
 
@@ -57,6 +57,7 @@ public class AddCriteriaActivity extends AppCompatActivity {
 
     private void PostNewCriterionAsync() {
         AsyncHttpClient client = new AsyncHttpClient();
+        tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         EditText NCB = (EditText) findViewById(R.id.NewCriterionEditText);
         NCB.setTypeface(tf);
         String NewCriterionBody = NCB.getText().toString();

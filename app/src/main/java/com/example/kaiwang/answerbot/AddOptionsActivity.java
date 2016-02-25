@@ -1,6 +1,7 @@
 package com.example.kaiwang.answerbot;
 
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,41 +19,31 @@ public class AddOptionsActivity extends AppCompatActivity {
     String question_body = "Passed Question Body";
     String question_id = "Passed Question ID";
     String user_id = "Passed User_ID";
+    String question_details;
+    public Typeface tf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_options);
         TextView QuestionTextView = (TextView) findViewById(R.id.AddOptionsQuestionTextView);
+        TextView QuestionDetails = (TextView)findViewById(R.id.AddOQ_detail);
+        TextView text1 = (TextView)findViewById(R.id.addO_1);
+        TextView text2 = (TextView)findViewById(R.id.addO_2);
+        tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         Bundle bundle = getIntent().getExtras();
         if(!bundle.isEmpty()) {
             question_id = Integer.toString(bundle.getInt("position"));
             question_body = bundle.getString("question_body");
+            question_details = bundle.getString("question_details");
             user_id = bundle.getString("user_id");
         }
-        QuestionTextView.setText(question_body);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_options, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        QuestionDetails.setTypeface(tf);
+        QuestionTextView.setTypeface(tf);
+        text1.setTypeface(tf);
+        text2.setTypeface(tf);
+        QuestionTextView.setText("Question: " + question_body);
+        QuestionDetails.setText(question_details);
     }
 
     //Submit button click
@@ -62,7 +53,9 @@ public class AddOptionsActivity extends AppCompatActivity {
 
     private void PostNewOptionsAsync(){
         AsyncHttpClient client = new AsyncHttpClient();
+        tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         EditText NOB =  (EditText) findViewById(R.id.NewOptionEditText);
+        NOB.setTypeface(tf);
         String NewOptionBody = NOB.getText().toString();
         if (NewOptionBody.length() == 0 || NewOptionBody.equals(" ") || NewOptionBody.equals("\n")){
             Toast.makeText(AddOptionsActivity.this, "Please specify an answer!", Toast.LENGTH_SHORT).show();
@@ -70,6 +63,7 @@ public class AddOptionsActivity extends AppCompatActivity {
         else {
             NewOptionBody = Character.toUpperCase(NewOptionBody.charAt(0)) + NewOptionBody.substring(1);
             EditText NOD =  (EditText) findViewById(R.id.NewOptionDetailsEditText);
+            NOD.setTypeface(tf);
             String NewOptionDetails = NOD.getText().toString();
             if (NewOptionDetails.length() != 0){
                 NewOptionDetails = Character.toUpperCase(NewOptionDetails.charAt(0)) + NewOptionDetails.substring(1);
