@@ -11,6 +11,8 @@
     <string name="title_activity_add_question">Add Question</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
 
+    <string name="action_search">Search</string>
+
 
     <string name="question">PlaceholderQuestion</string>
     <string name="questiondescription">PlaceholderQuestionDescription</string>

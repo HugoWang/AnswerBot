@@ -1,6 +1,7 @@
 package com.example.kaiwang.answerbot;
 
 
+import android.app.ActionBar;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class AddOptionsActivity extends AppCompatActivity {
         text2.setTypeface(tf);
         QuestionTextView.setText("Question: " + question_body);
         QuestionDetails.setText(question_details);
+
     }
 
     //Submit button click

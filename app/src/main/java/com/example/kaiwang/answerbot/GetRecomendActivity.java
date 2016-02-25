@@ -1,5 +1,6 @@
 package com.example.kaiwang.answerbot;
 
+import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -51,7 +55,7 @@ public class GetRecomendActivity extends AppCompatActivity {
     private boolean viewGroupIsVisible = false;
     private View mViewGroup;
     public ListView listView;
-    public ListView listResult=null;
+    public ListView listResult = null;
     ArrayList<Rate> arrayOfRates;
     ArrayList<String> arrayResults;
     Result result;
@@ -73,6 +77,9 @@ public class GetRecomendActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_recomend);
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         mViewGroup = findViewById(R.id.viewsContainer);
         mViewGroup.setVisibility(View.GONE);
@@ -150,10 +157,10 @@ public class GetRecomendActivity extends AppCompatActivity {
 
                     CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
 
-                    if(adapter.getCount()!=0){
+                    if (adapter.getCount() != 0) {
                         listView.setAdapter(adapter);
-                    }else{
-                        Toast.makeText(getApplicationContext(), "No Items Available",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No Items Available", Toast.LENGTH_SHORT).show();
                         get_recommend.setEnabled(false);
                     }
 
@@ -205,7 +212,6 @@ public class GetRecomendActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void uploadCriteria(String temp) {
@@ -226,15 +232,15 @@ public class GetRecomendActivity extends AppCompatActivity {
                     try {
                         result = new Result();
                         JSONObject buffer = responseBody.getJSONObject(i);
-                        int t = i+1;
-                        arrayResults.add("#"+t+": "+buffer.getString("solution_body"));
+                        int t = i + 1;
+                        arrayResults.add("#" + t + ": " + buffer.getString("solution_body"));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                Log.d("TEST","test string array is "+arrayResults);
+                Log.d("TEST", "test string array is " + arrayResults);
 
                 listResult = new ListView(getApplicationContext());
 
@@ -261,7 +267,7 @@ public class GetRecomendActivity extends AppCompatActivity {
                         Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
                         search.putExtra(SearchManager.QUERY, search_text);
                         startActivity(search);
-                       // Toast.makeText(getApplicationContext(), txt.getText().toString(), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getApplicationContext(), txt.getText().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

@@ -135,9 +135,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent toEntry = new Intent(getApplicationContext(), EntryActivity.class);
-            startActivity(toEntry);
+        if (id == R.id.action_search) {
+            onSearchRequested();
         }
 
         return super.onOptionsItemSelected(item);

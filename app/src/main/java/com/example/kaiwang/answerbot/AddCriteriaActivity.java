@@ -1,5 +1,6 @@
 package com.example.kaiwang.answerbot;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +49,7 @@ public class AddCriteriaActivity extends AppCompatActivity {
         text2.setTypeface(tf);
         QuestionTextView.setText("Question: " + question_body);
         QuestionDetails.setText(question_details);
+
     }
 
     //Submit button click

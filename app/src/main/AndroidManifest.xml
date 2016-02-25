@@ -23,19 +23,23 @@
         <activity
             android:name=".AddCriteriaActivity"
             android:label="@string/title_activity_add_criteria"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".GetRecomendActivity"/>
         <activity
             android:name=".AddOptionsActivity"
             android:label="@string/title_activity_add_options"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".GetRecomendActivity"/>
         <activity
             android:name=".DonateKnowledgeActivity"
             android:label="@string/title_activity_donate_knowledge"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".GetRecomendActivity"/>
         <activity
             android:name=".GetRecomendActivity"
             android:label="@string/title_activity_get_recomend"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".HomeActivity"/>
         <activity
             android:name=".AddQuestionActivity"
             android:label="@string/title_activity_add_question"
@@ -43,7 +47,6 @@
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category
                     android:name="android.intent.category.LAUNCHER"
                     android:screenOrientation="portrait" />

@@ -1,5 +1,6 @@
 package com.example.kaiwang.answerbot;
 
+import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,6 +29,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         if(!bundle.isEmpty()) {
             user_id = bundle.getString("user_id");
         }
+
     }
 
     //Submit button click
