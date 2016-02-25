@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +24,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
@@ -30,7 +33,7 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
 
     TextView answer_content, answer_detail;
     Button donate_knowledge;
-    String user_id;
+    public String user_id;
     public int url_queston_id;
     public String url;
     public String url2;
@@ -41,6 +44,23 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
     ArrayList<Rate> arrayOfRates;
     Rate rate;
     public ListView listView;
+    public String item_id;
+
+    public class Rating {
+        private int r_question_id;
+        private String r_solution_id;
+        private String r_criterion_id;
+        private String r_rating;
+
+        public Rating(int int_question_id, String string_solution_id, String string_criterion_id, String string_rating) {
+            this.r_question_id = int_question_id;
+            this.r_solution_id = string_solution_id;
+            this.r_criterion_id = string_criterion_id;
+            this.r_rating = string_rating;
+        }
+    }
+
+    public List<Rating> allRating = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +116,7 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
                 randomGenerator = new Random();
                 int index = randomGenerator.nextInt(arrayofSolutions.size());
                 String item = arrayofSolutions.get(index);
-                String item_id = solutionId.get(index);
+                item_id = solutionId.get(index);
                 String item_details = solutionDetails.get(index);
 
                 answer_content.setText("Answer: "+item);
@@ -159,6 +179,50 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
             }
         });
 
+        donate_knowledge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (Rate r : arrayOfRates) {
+                    //Log.d("TS", r.rate_id + "is" + r.seek_value);
+                    int donate_q_id = url_queston_id;
+                    String donate_s_id = item_id;
+                    String string_rate_id = String.valueOf(r.rate_id);
+                    String string_seek_value = String.valueOf(r.seek_value);
+                    allRating.add(new Rating(donate_q_id, donate_s_id, string_rate_id, string_seek_value));
+                    Log.d("TS", "rating is " + allRating);
+                }
+
+                String temp = "[";
+                for (Rating r : allRating) {
+                    temp += "[\"" + r.r_question_id + "\",\"" + r.r_solution_id + "\",\"" + r.r_criterion_id + "\",\"" + r.r_rating + "\"]" + ",";
+                }
+                //Log all criteria:
+                temp = temp.substring(0, temp.length() - 1) + "]";
+                Log.d("TEST", temp);
+
+                donateKnowledge(temp);
+
+                allRating.clear();
+            }
+        });
+
+    }
+
+    private void donateKnowledge(String temp) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.add("json_ratings", temp);
+        params.add("user_id", user_id);
+        params.add("meta", "");
+
+        client.post("http://dss.simohosio.com/api/postrating.php", params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
+                Toast.makeText(getApplicationContext(),"Thank you for your contribution!",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
 
     @Override
@@ -176,7 +240,7 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_refresh) {
             finish();
             startActivity(getIntent());
         }
