@@ -8,9 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -18,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,9 +33,13 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
     String user_id;
     public int url_queston_id;
     public String url;
+    public String url2;
     ArrayList<String> arrayofSolutions;
     ArrayList<String> solutionId;
     private Random randomGenerator;
+    ArrayList<Rate> arrayOfRates;
+    Rate rate;
+    public ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,7 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
         answer_content = (TextView)findViewById(R.id.answer_content);
         answer_detail = (TextView)findViewById(R.id.answer_details);
         donate_knowledge = (Button)findViewById(R.id.donate_btn);
+        listView = (ListView) findViewById(R.id.lvDonate);
 
         String answer_details = answer_detail.getText().toString();
         Typeface tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
@@ -94,6 +102,57 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
                 Log.d("TEST","item id is "+item_id);
             }
 
+        });
+
+        url2 = "http://dss.simohosio.com/api/getcriteria.php?question_id=" + url_queston_id;
+        client.get(url2, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.d("TEST", "1111");
+                try {
+                    String response = (new String(responseBody, "UTF-8"));
+                    JSONArray rateArray = new JSONArray(response);
+                    arrayOfRates = new ArrayList<>();
+                    for (int i = 0; i < rateArray.length(); i++) {
+                        try {
+                            rate = new Rate();
+                            JSONObject buffer = rateArray.getJSONObject(i);
+                            rate.setRate_body(buffer.getString("criterion_body"));
+                            rate.setRate_details(buffer.getString("criterion_details"));
+                            rate.setRate_id(buffer.getInt("criterion_id"));
+                            rate.setRate_Meta(buffer.getString("meta"));
+                            arrayOfRates.add(rate);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    CustomRatesAdapter adapter = new CustomRatesAdapter(getApplication(), arrayOfRates);
+
+                    // Attach the adapter to a ListView
+                    listView.setAdapter(adapter);
+
+                } catch (UnsupportedEncodingException | JSONException e1) {
+                    e1.printStackTrace();
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
         });
 
         if(answer_details== null || answer_details.length() == 0 || answer_details.equals("")){
