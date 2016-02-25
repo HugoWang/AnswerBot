@@ -2,7 +2,7 @@
     <string name="app_name">AnswerBot</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Update Info</string>
     <string name="title_activity_home">AnswerBot</string>
     <string name="title_activity_add_criteria">Add Criterion</string>
     <string name="title_activity_add_options">Add Answer</string>
