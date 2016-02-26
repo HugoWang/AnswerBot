@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         myListView = (ListView) findViewById(R.id.myListView);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
 
-        //mSwipeRefreshLayout.setColorSchemeColors(R.color.green,R.color.blue,R.color.ripple);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.ripple,R.color.green, R.color.blue);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
