@@ -1,7 +1,12 @@
 package com.example.kaiwang.answerbot;
 
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,8 +18,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -25,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -35,6 +45,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     String UserID;
     SearchView searchView;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    final Context context = this;
 
     App app;
     @Override
@@ -48,6 +59,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_home);
         myListView = (ListView) findViewById(R.id.myListView);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
+
+        //mSwipeRefreshLayout.setColorSchemeColors(R.color.green,R.color.blue,R.color.ripple);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -83,6 +96,122 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
             }
 
+        });
+
+        myListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Questions question = (Questions)parent.getItemAtPosition(position);
+                final int q_id = question.question_id;
+                String q_body = question.question_body;
+                String q_details = question.question_details;
+                final Animation shake = AnimationUtils.loadAnimation(HomeActivity.this, R.anim.shake);
+
+                final Bundle bundle = new Bundle();
+                bundle.putInt("position", q_id);
+                bundle.putString("question_body",q_body);
+                bundle.putString("question_details", q_details);
+                bundle.putString("user_id", UserID);
+
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.dialog);
+
+                final ImageButton addC = (ImageButton)dialog.findViewById(R.id.addC);
+                final ImageButton addO = (ImageButton)dialog.findViewById(R.id.addO);
+                final ImageButton rateO = (ImageButton)dialog.findViewById(R.id.rateO);
+                final ImageButton share = (ImageButton)dialog.findViewById(R.id.share);
+                //ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
+                dialog.show();
+
+                addC.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addC.startAnimation(shake);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                Intent toaddC = new Intent(getApplicationContext(), AddCriteriaActivity.class);
+                                toaddC.putExtras(bundle);
+                                startActivity(toaddC);
+                            }
+                        }, 1000);
+                    }
+                });
+
+                addO.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addO.startAnimation(shake);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                Intent toaddO = new Intent(getApplicationContext(), AddOptionsActivity.class);
+                                toaddO.putExtras(bundle);
+                                startActivity(toaddO);
+                            }
+                        }, 1000);
+                    }
+                });
+
+                rateO.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rateO.startAnimation(shake);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                Intent torateO = new Intent(getApplicationContext(), DonateKnowledgeActivity.class);
+                                torateO.putExtras(bundle);
+                                startActivity(torateO);
+                            }
+                        }, 1000);
+                    }
+                });
+
+                share.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        share.startAnimation(shake);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                String urlToShare = "http://dss.simohosio.com/new.php?type=s&qid=" + q_id;
+
+                                Intent intent = new Intent(Intent.ACTION_SEND);
+                                intent.setType("text/plain");
+                                intent.putExtra(Intent.EXTRA_TEXT, urlToShare);
+
+                                boolean facebookAppFound = false;
+                                List<ResolveInfo> matches = getPackageManager().queryIntentActivities(intent, 0);
+                                for (ResolveInfo info : matches) {
+                                    if (info.activityInfo.packageName.toLowerCase().startsWith("com.facebook.katana")) {
+                                        intent.setPackage(info.activityInfo.packageName);
+                                        facebookAppFound = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!facebookAppFound) {
+                                    String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + urlToShare;
+                                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sharerUrl));
+                                }
+                                startActivity(intent);
+                            }
+                        }, 500);
+                    }
+                });
+
+                /*
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                */
+
+                return true;
+            }
         });
         /*
         SearchView search = (SearchView) findViewById(R.id.input);
