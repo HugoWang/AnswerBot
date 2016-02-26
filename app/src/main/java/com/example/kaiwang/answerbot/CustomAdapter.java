@@ -31,6 +31,7 @@ class CustomAdapter extends ArrayAdapter<Questions>{
         Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "RobotoCondensed-Regular.ttf");
 
         TextView MainQuestion = (TextView) convertView.findViewById(R.id.qquestion);
+
         String question= plQuestion.question_body;
         MainQuestion.setText(question);
         MainQuestion.setTypeface(tf);

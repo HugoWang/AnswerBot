@@ -7,6 +7,10 @@
         android:id="@+id/result_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#111111"
-        android:padding="10dp" />
+        android:textColor="#ffffff"
+        android:padding="10dp"
+        android:background="#337AB7"
+        android:minHeight="60dp"
+        android:gravity="center_vertical"
+        android:textSize="18dp" />
 </LinearLayout>
