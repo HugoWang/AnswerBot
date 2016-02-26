@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Filter by adjust the seekbar:"
+            android:text="Filter by adjusting the seekbar:"
             android:paddingRight="6dp"
             android:id="@+id/tips1"
             android:textColor="#ffffff"

@@ -7,7 +7,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="android:itemTextAppearance">@style/TextAppearance</item>
 
+    </style>
+
+    <style name="TextAppearance">
+        <item name="android:textColor">@color/menu_item</item>
+        <item name="android:textSize">18dp</item>
     </style>
 
     <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">

@@ -2,6 +2,7 @@ package com.example.kaiwang.answerbot;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
@@ -10,6 +11,9 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -247,7 +251,12 @@ public class GetRecomendActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(GetRecomendActivity.this);
                 builder.setCancelable(true);
                 builder.setTitle("Recommendations:");
-                builder.setPositiveButton("OK", null);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"AnswerBot is smart!",Toast.LENGTH_SHORT).show();
+                    }
+                });
                 builder.setView(listResult);
                 AlertDialog dialog = builder.create();
                 dialog.show();
@@ -272,8 +281,32 @@ public class GetRecomendActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Typeface tf2 = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_get_recomend, menu);
+        MenuItem item1 = menu.findItem(R.id.add_criteria);
+        SpannableStringBuilder builder1 = new SpannableStringBuilder("*  Add Criteria");
+        // replace "*" with icon
+        builder1.setSpan(new ImageSpan(this, R.drawable.criteria), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item1.setTitle(builder1);
+
+        MenuItem item2 = menu.findItem(R.id.add_answer);
+        SpannableStringBuilder builder2 = new SpannableStringBuilder("*  Add Answer");
+        // replace "*" with icon
+        builder2.setSpan(new ImageSpan(this, R.drawable.answer), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item2.setTitle(builder2);
+
+        MenuItem item3 = menu.findItem(R.id.rate_answer);
+        SpannableStringBuilder builder3 = new SpannableStringBuilder("*  Rate Answer");
+        // replace "*" with icon
+        builder3.setSpan(new ImageSpan(this, R.drawable.rate), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item3.setTitle(builder3);
+
+        MenuItem item4 = menu.findItem(R.id.share_question);
+        SpannableStringBuilder builder4 = new SpannableStringBuilder("*  Share Question");
+        // replace "*" with icon
+        builder4.setSpan(new ImageSpan(this, R.drawable.share), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item4.setTitle(builder4);
         return true;
     }
 
