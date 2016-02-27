@@ -3,6 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.kaiwang.answerbot.GetRecomendActivity">
 
+    <item android:id="@+id/action_refresh" android:title="@string/action_settings"
+        android:icon="@drawable/more"
+        android:orderInCategory="1" app:showAsAction="ifRoom" >
+        <menu>
+            <item
+                android:id="@+id/add_criteria"
+                android:title="@string/addCriteria"
+                android:icon="@drawable/criteria_big"
+                android:showAsAction="never" />
+
+            <item
+                android:id="@+id/add_answer"
+                android:title="@string/addOptions"
+                android:showAsAction="never"
+                android:icon="@drawable/answer_big"/>
+
+            <item
+                android:id="@+id/rate_answer"
+                android:title="@string/rateAnswer"
+                android:icon="@drawable/rate_big"
+                android:showAsAction="never" />
+            <item
+                android:id="@+id/share_question"
+                android:title="@string/shareQuestion"
+                android:icon="@drawable/share_big"
+                android:showAsAction="never" />
+        </menu>
+
+    </item>
+
+
+
+    <!--
     <item android:id="@+id/add_criteria" android:title="@string/addCriteria"
         android:icon="@drawable/rate"
         android:orderInCategory="1" app:showAsAction="never" />
@@ -12,5 +45,6 @@
         android:orderInCategory="3" app:showAsAction="never" />
     <item android:id="@+id/share_question" android:title="@string/shareQuestion"
         android:orderInCategory="4" app:showAsAction="never" />
+    -->
 
 </menu>

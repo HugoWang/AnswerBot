@@ -11,9 +11,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -251,6 +248,8 @@ public class GetRecomendActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(GetRecomendActivity.this);
                 builder.setCancelable(true);
                 builder.setTitle("Recommendations:");
+                builder.setIcon(R.drawable.recommend);
+
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -281,9 +280,9 @@ public class GetRecomendActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Typeface tf2 = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_get_recomend, menu);
+        /*
         MenuItem item1 = menu.findItem(R.id.add_criteria);
         SpannableStringBuilder builder1 = new SpannableStringBuilder("*  Add Criteria");
         // replace "*" with icon
@@ -307,6 +306,7 @@ public class GetRecomendActivity extends AppCompatActivity {
         // replace "*" with icon
         builder4.setSpan(new ImageSpan(this, R.drawable.share), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         item4.setTitle(builder4);
+        */
         return true;
     }
 
