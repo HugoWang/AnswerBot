@@ -8,6 +8,15 @@
     android:background="#337AB7"
     android:orientation="vertical">
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/progressBar"
+        android:progressDrawable="@drawable/circle"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp" />
+
     <LinearLayout
         android:orientation="vertical"
         android:background="@drawable/background_question_rounded_single"

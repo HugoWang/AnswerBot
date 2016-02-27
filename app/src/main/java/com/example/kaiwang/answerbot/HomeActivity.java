@@ -25,7 +25,6 @@ import android.widget.ListView;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 

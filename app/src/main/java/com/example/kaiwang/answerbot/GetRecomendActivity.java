@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class GetRecomendActivity extends AppCompatActivity {
     ArrayList<String> arrayResults;
     Result result;
     Rate rate;
+    ProgressBar mProgressBar;
 
     public class Criteria {
         private String c_id;
@@ -79,6 +81,9 @@ public class GetRecomendActivity extends AppCompatActivity {
 
         mViewGroup = findViewById(R.id.viewsContainer);
         mViewGroup.setVisibility(View.GONE);
+
+        mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.GONE);
 
         listView = (ListView) findViewById(R.id.lvRates);
 
@@ -186,6 +191,7 @@ public class GetRecomendActivity extends AppCompatActivity {
         get_recommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgressBar.setVisibility(View.VISIBLE);
                 for (Rate r : arrayOfRates) {
                     //Log.d("TS", r.rate_id + "is" + r.seek_value);
                     String string_rate_id = String.valueOf(r.rate_id);
@@ -259,6 +265,7 @@ public class GetRecomendActivity extends AppCompatActivity {
                 builder.setView(listResult);
                 AlertDialog dialog = builder.create();
                 dialog.show();
+                mProgressBar.setVisibility(View.GONE);
 
                 listResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
