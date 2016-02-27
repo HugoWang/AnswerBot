@@ -14,4 +14,6 @@
     <color name="rounded_container">#e5e5e5</color>
     <color name="rounded_container_border">#ffffff</color>
     <color name="light_gray_header_color">#e5e5e5</color>
+    <color name="colorHighLight">#5CB85C</color>
+    <color name="colorLowLight">#91cf91</color>
 </resources>

@@ -4,8 +4,11 @@
     <selector>
         <item android:state_pressed="true">
             <shape>
-                <gradient android:startColor="@color/rounded_container" android:endColor="@color/rounded_container" android:angle="270.0" />
-                <corners android:radius="11.0dip" />
+                <!--
+                <gradient android:startColor="@color/colorLowLight" android:endColor="@color/colorHighLight" android:angle="270.0" />
+                -->
+                <solid android:color="@color/colorHighLight"></solid>
+                <corners android:radius="10.0dip" />
             </shape>
         </item>
         <item>
