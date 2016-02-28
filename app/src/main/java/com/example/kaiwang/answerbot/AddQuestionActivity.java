@@ -73,7 +73,7 @@ public class AddQuestionActivity extends AppCompatActivity {
             EditText NQD =  (EditText) findViewById(R.id.NewQuestionDetailsEditText);
             NQD.setTypeface(tf);
             String NewQuestionDetails = NQD.getText().toString();
-
+            NewQuestionBody=NewQuestionBody.trim();
             if (NewQuestionDetails.length() != 0) {
                 NewQuestionDetails = Character.toUpperCase(NewQuestionDetails.charAt(0)) + NewQuestionDetails.substring(1);
             }
