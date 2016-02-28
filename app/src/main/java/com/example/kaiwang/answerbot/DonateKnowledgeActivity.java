@@ -226,7 +226,7 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
         client.post("http://dss.simohosio.com/api/postrating.php", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
-
+                Log.d("success",responseBody.toString());
             }
         });
         Toast.makeText(getApplicationContext(),"Thank you for your contribution!",Toast.LENGTH_SHORT).show();

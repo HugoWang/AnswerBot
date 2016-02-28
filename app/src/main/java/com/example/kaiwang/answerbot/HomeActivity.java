@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     SearchView searchView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     final Context context = this;
+    AsyncHttpClient client;
 
     App app;
     @Override
@@ -59,7 +60,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         myListView = (ListView) findViewById(R.id.myListView);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
 
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.ripple,R.color.green, R.color.blue);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.ripple, R.color.green, R.color.blue);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -69,38 +70,12 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://dss.simohosio.com/api/getquestions.php", new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
-                app.allQuestions = new ArrayList<>();
-                for (int i = 0; i < responseBody.length(); i++) {
-                    try {
-                        Questions ques = new Questions();
-                        JSONObject buffer = responseBody.getJSONObject(i);
-                        ques.setQuality_score(buffer.getInt("quality_score"));
-                        ques.setUser_id(buffer.getString("user_id"));
-                        ques.setQuestion_id(buffer.getInt("question_id"));
-                        ques.setQuestion_body(buffer.getString("question_body"));
-                        ques.setQuestion_details(buffer.getString("question_details"));
-                        ques.setMeta(buffer.getString("meta"));
-
-                        app.allQuestions.add(ques);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    myAdapter = new CustomAdapter(HomeActivity.this, app.allQuestions);
-                    myListView.setAdapter(myAdapter);
-                    myListView.setOnItemClickListener(HomeActivity.this);
-                }
-            }
-
-        });
+        getQuestions();
 
         myListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Questions question = (Questions)parent.getItemAtPosition(position);
+                Questions question = (Questions) parent.getItemAtPosition(position);
                 final int q_id = question.question_id;
                 String q_body = question.question_body;
                 String q_details = question.question_details;
@@ -108,17 +83,17 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 final Bundle bundle = new Bundle();
                 bundle.putInt("position", q_id);
-                bundle.putString("question_body",q_body);
+                bundle.putString("question_body", q_body);
                 bundle.putString("question_details", q_details);
                 bundle.putString("user_id", UserID);
 
                 final Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog);
 
-                final ImageButton addC = (ImageButton)dialog.findViewById(R.id.addC);
-                final ImageButton addO = (ImageButton)dialog.findViewById(R.id.addO);
-                final ImageButton rateO = (ImageButton)dialog.findViewById(R.id.rateO);
-                final ImageButton share = (ImageButton)dialog.findViewById(R.id.share);
+                final ImageButton addC = (ImageButton) dialog.findViewById(R.id.addC);
+                final ImageButton addO = (ImageButton) dialog.findViewById(R.id.addO);
+                final ImageButton rateO = (ImageButton) dialog.findViewById(R.id.rateO);
+                final ImageButton share = (ImageButton) dialog.findViewById(R.id.share);
                 //ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
                 dialog.show();
 
@@ -244,7 +219,40 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
     }
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        getQuestions();
+    }
+    public void getQuestions(){
+        client = new AsyncHttpClient();
+        client.get("http://dss.simohosio.com/api/getquestions.php", new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
+                app.allQuestions = new ArrayList<>();
+                for (int i = 0; i < responseBody.length(); i++) {
+                    try {
+                        Questions ques = new Questions();
+                        JSONObject buffer = responseBody.getJSONObject(i);
+                        ques.setQuality_score(buffer.getInt("quality_score"));
+                        ques.setUser_id(buffer.getString("user_id"));
+                        ques.setQuestion_id(buffer.getInt("question_id"));
+                        ques.setQuestion_body(buffer.getString("question_body"));
+                        ques.setQuestion_details(buffer.getString("question_details"));
+                        ques.setMeta(buffer.getString("meta"));
 
+                        app.allQuestions.add(ques);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    myAdapter = new CustomAdapter(HomeActivity.this, app.allQuestions);
+                    myListView.setAdapter(myAdapter);
+                    myListView.setOnItemClickListener(HomeActivity.this);
+                }
+            }
+
+        });
+    }
     public void doSearch(String s) {
         newValues = new ArrayList<>();
         if (s.equals("")){
