@@ -15,7 +15,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,7 +48,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     SwipeRefreshLayout mSwipeRefreshLayout;
     final Context context = this;
     AsyncHttpClient client;
-    String upload_user_id;
     final private int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 1;
 
     App app;
@@ -94,7 +92,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 bundle.putString("question_body", q_body);
                 bundle.putString("question_details", q_details);
                 bundle.putString("user_id", UserID);
-                bundle.putString("upload_user_id", upload_user_id);
+                //bundle.putString("upload_user_id", upload_user_id);
 
                 final Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog);
@@ -237,12 +235,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                     MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
             return;
         }
-        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (tm != null) {
-            Log.d("tt", "there");
-            upload_user_id = tm.getDeviceId();
-        }
-
     }
 
     @Override
@@ -349,7 +341,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         bundle.putString("question_body",q_body);
         bundle.putString("question_details",q_details);
         bundle.putString("user_id", UserID);
-        bundle.putString("upload_user_id", upload_user_id);
+        //bundle.putString("upload_user_id", upload_user_id);
         toRecommend.putExtras(bundle);
         startActivity(toRecommend);
     }

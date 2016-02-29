@@ -3,6 +3,7 @@ package com.example.kaiwang.answerbot;
 
 import android.app.SearchManager;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,6 +83,12 @@ public class GetRecomendActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (tm != null) {
+            Log.d("tt", "there");
+            upload_user_id = tm.getDeviceId();
+        }
+
         mViewGroup = findViewById(R.id.viewsContainer);
         mViewGroup.setVisibility(View.GONE);
 
@@ -121,7 +129,7 @@ public class GetRecomendActivity extends AppCompatActivity {
             user_id = bundle.getString("user_id");
             ques_body = bundle.getString("question_body");
             ques_details = bundle.getString("question_details");
-            upload_user_id = bundle.getString("upload_user_id");
+            //upload_user_id = bundle.getString("upload_user_id");
             rques_body = "Question: " + ques_body;
             recommend_ques.setText(rques_body);
             rques_details = "Description: " + ques_details;
