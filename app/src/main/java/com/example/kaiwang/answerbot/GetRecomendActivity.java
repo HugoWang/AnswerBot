@@ -1,16 +1,18 @@
 package com.example.kaiwang.answerbot;
 
+
 import android.app.SearchManager;
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -119,6 +121,7 @@ public class GetRecomendActivity extends AppCompatActivity {
             user_id = bundle.getString("user_id");
             ques_body = bundle.getString("question_body");
             ques_details = bundle.getString("question_details");
+            upload_user_id = bundle.getString("upload_user_id");
             rques_body = "Question: " + ques_body;
             recommend_ques.setText(rques_body);
             rques_details = "Description: " + ques_details;
@@ -181,11 +184,6 @@ public class GetRecomendActivity extends AppCompatActivity {
                 // called when request is retried
             }
         });
-
-        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (tm != null) {
-            upload_user_id = tm.getDeviceId();
-        }
 
         get_recommend = (Button) findViewById(R.id.get_recommend_btn);
         get_recommend.setOnClickListener(new View.OnClickListener() {
