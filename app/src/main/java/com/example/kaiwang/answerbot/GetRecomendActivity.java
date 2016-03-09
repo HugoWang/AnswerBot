@@ -208,6 +208,10 @@ public class GetRecomendActivity extends AppCompatActivity {
 
                 String temp = "[";
                 for (Criteria c : allCriteria) {
+                    if(c.c_value.equals("0")){
+                        c.c_value = "-1";
+                    }
+                    Log.d("TEST","c value is "+c.c_value);
                     //Log.d("TS","["+c.c_id+","+c.c_value+"]");
                     temp += "[\"" + c.c_id + "\",\"" + c.c_value + "\"]" + ",";
                 }
@@ -352,7 +356,7 @@ public class GetRecomendActivity extends AppCompatActivity {
                 startActivity(toRateAnswer);
                 break;
             case R.id.share_question:
-                String urlToShare = "http://dss.simohosio.com/new.php?type=s&qid=" + url_queston_id;
+                String urlToShare = "http://dss.simohosio.com/collectdata.php?qid=" + url_queston_id;
 
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
