@@ -122,6 +122,7 @@ public class GetRecomendActivity extends AppCompatActivity {
             }
         });
 
+
         AsyncHttpClient client = new AsyncHttpClient();
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
