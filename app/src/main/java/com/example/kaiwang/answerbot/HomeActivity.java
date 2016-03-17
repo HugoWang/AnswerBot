@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
@@ -48,15 +49,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     SwipeRefreshLayout mSwipeRefreshLayout;
     final Context context = this;
     AsyncHttpClient client;
-    final private int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 1;
+    //final private int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 1;
 
     App app;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         app= (App)getApplication();
         super.onCreate(savedInstanceState);
-
-        getDevieID();
+        //if (Integer.valueOf(Build.VERSION.SDK_INT)==23) getDevieID();
 
         Bundle bun = getIntent().getExtras();
         if (bun != null) {
@@ -194,8 +194,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 return true;
             }
         });
-        /*
-        SearchView search = (SearchView) findViewById(R.id.input);
+/*
+        SearchView search = (SearchView)findViewById(R.id.input);
         search.setQueryHint("Search");
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -211,7 +211,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 return false;
             }
         });
-        */
+*/
 
             //Add question button
         FloatingActionButton FAB = (FloatingActionButton) findViewById(R.id.fab);
@@ -226,7 +226,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
     }
-
+    /*
     private void getDevieID() {
         Log.d("tt", "here");
         int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.READ_PHONE_STATE);
@@ -236,7 +236,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             return;
         }
     }
-
+    */
     @Override
     public void onRestart(){
         super.onRestart();
