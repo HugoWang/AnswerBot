@@ -48,7 +48,7 @@ public class GetRecomendActivity extends AppCompatActivity {
     Button get_recommend;
     TextView recommend_ques, recommend_detail, tips1, tips2;
     String user_id;
-    String upload_user_id;
+    //String upload_user_id;
     public String url;
     public int url_queston_id;
     public String ques_body, rques_body;
@@ -83,12 +83,12 @@ public class GetRecomendActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        /*TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         if (tm != null) {
             Log.d("tt", "there");
             upload_user_id = tm.getDeviceId();
         }
-
+        */
         mViewGroup = findViewById(R.id.viewsContainer);
         mViewGroup.setVisibility(View.GONE);
 
@@ -229,10 +229,10 @@ public class GetRecomendActivity extends AppCompatActivity {
     private void uploadCriteria(String temp) {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        Log.d("TEST", "here is id:" + upload_user_id);
+        Log.d("TEST", "here is id:" + user_id);
         params.put("criteria_importances", temp);
         params.put("question_id", url_queston_id);
-        params.put("user_id", upload_user_id);
+        params.put("user_id", user_id);
         params.put("meta", "");
 
         client.post("http://dss.simohosio.com/api/getrecommendations.php", params, new JsonHttpResponseHandler() {
