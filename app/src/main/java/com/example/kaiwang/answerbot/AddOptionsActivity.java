@@ -3,15 +3,28 @@ package com.example.kaiwang.answerbot;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class AddOptionsActivity extends AppCompatActivity {
     String question_body = "Passed Question Body";
@@ -19,6 +32,8 @@ public class AddOptionsActivity extends AppCompatActivity {
     String user_id = "Passed User_ID";
     String question_details;
     public Typeface tf;
+
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +62,59 @@ public class AddOptionsActivity extends AppCompatActivity {
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+        final ArrayList<String> AnswerList = new ArrayList<String>();
+        AsyncHttpClient client = new AsyncHttpClient();
+        url = "http://dss.simohosio.com/api/getsolutions.php?question_id=" + question_id;
+        client.get(url, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Log.d("TEST", "1111");
+                try {
+                    String response = (new String(responseBody, "UTF-8"));
+                    JSONArray rateArray = new JSONArray(response);
+                    Log.d("TEST", "2222");
+                    for (int i = 0; i < rateArray.length(); i++) {
+                        try {
+                            Log.d("TEST", "3333");
+                            JSONObject buffer = rateArray.getJSONObject(i);
+                            AnswerList.add(buffer.getString("solution_body"));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                } catch (UnsupportedEncodingException | JSONException e1) {
+                    e1.printStackTrace();
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, AnswerList);
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.NewOptionEditText);
+        textView.setAdapter(adapter);
+        textView.setCompletionHint("These answers have been given");
+
 
     }
 

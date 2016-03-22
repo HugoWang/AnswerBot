@@ -1,13 +1,22 @@
 package com.example.kaiwang.answerbot;
 
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import android.support.v7.widget.SearchView;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -40,7 +49,16 @@ public class AddQuestionActivity extends AppCompatActivity {
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        app = (App)getApplication();
+        ArrayList<Questions> ListOfQuestions = app.allQuestions;
+        ArrayList<String> QuestionList = new ArrayList<String>();
+        for (int i = 0; i < ListOfQuestions.size(); i++) {
+            QuestionList.add(ListOfQuestions.get(i).question_body);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, QuestionList);
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.NewQuestionEditText);
+        textView.setAdapter(adapter);
+        textView.setCompletionHint("These questions have been asked");
     }
 
     //Submit button click
@@ -109,4 +127,5 @@ public class AddQuestionActivity extends AppCompatActivity {
                 finish();
             }
     }}
+
 }
