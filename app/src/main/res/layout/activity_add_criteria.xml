@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="#337AB7"
-    tools:context="com.example.kaiwang.answerbot.AddCriteriaActivity">
+    tools:context=".AddCriteriaActivity">
 
     <Button
         android:layout_width="fill_parent"

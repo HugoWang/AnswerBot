@@ -1,4 +1,4 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,7 +22,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        setContentView(R.layout.activity_welcome);
+        setContentView(com.answerbot.mobile.R.layout.activity_welcome);
         db = new DataBaseOperations(this);
         ActionBar myActionBar=getSupportActionBar();
         if (myActionBar != null) {
@@ -30,10 +30,10 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         Typeface tf = Typeface.createFromAsset(getAssets(),"RobotoCondensed-Regular.ttf");
-        TextView tv = (TextView)findViewById(R.id.welcome_font);
+        TextView tv = (TextView)findViewById(com.answerbot.mobile.R.id.welcome_font);
         tv.setTypeface(tf);
 
-        explore = (Button)findViewById(R.id.explore);
+        explore = (Button)findViewById(com.answerbot.mobile.R.id.explore);
         explore.setTypeface(tf);
 
 

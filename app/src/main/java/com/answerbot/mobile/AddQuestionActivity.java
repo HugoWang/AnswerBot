@@ -1,14 +1,9 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile;
 
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.support.v7.widget.SearchView;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -34,14 +29,14 @@ public class AddQuestionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_question);
+        setContentView(com.answerbot.mobile.R.layout.activity_add_question);
         Bundle bundle = getIntent().getExtras();
         if(!bundle.isEmpty()) {
             user_id = bundle.getString("user_id");
         }
-        TextView text1 = (TextView)findViewById(R.id.addQ_1);
-        TextView text2 = (TextView)findViewById(R.id.addQ_2);
-        Button submit = (Button)findViewById(R.id.SubmitNewQuestionBtn);
+        TextView text1 = (TextView)findViewById(com.answerbot.mobile.R.id.addQ_1);
+        TextView text2 = (TextView)findViewById(com.answerbot.mobile.R.id.addQ_2);
+        Button submit = (Button)findViewById(com.answerbot.mobile.R.id.SubmitNewQuestionBtn);
         tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         text1.setTypeface(tf);
         text2.setTypeface(tf);
@@ -56,7 +51,7 @@ public class AddQuestionActivity extends AppCompatActivity {
             QuestionList.add(ListOfQuestions.get(i).question_body);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, QuestionList);
-        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.NewQuestionEditText);
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(com.answerbot.mobile.R.id.NewQuestionEditText);
         textView.setAdapter(adapter);
         textView.setCompletionHint("These questions have been asked");
     }
@@ -80,7 +75,7 @@ public class AddQuestionActivity extends AppCompatActivity {
 
     private void PostNewQuestionAsync(){
         AsyncHttpClient client = new AsyncHttpClient();
-        EditText NQB =  (EditText) findViewById(R.id.NewQuestionEditText);
+        EditText NQB =  (EditText) findViewById(com.answerbot.mobile.R.id.NewQuestionEditText);
         NQB.setTypeface(tf);
         String NewQuestionBody = NQB.getText().toString();
         if (NewQuestionBody.length() == 0 || NewQuestionBody.equals(" ")|| NewQuestionBody.equals("\n")){
@@ -88,7 +83,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         }
         else {
             NewQuestionBody = Character.toUpperCase(NewQuestionBody.charAt(0)) + NewQuestionBody.substring(1);
-            EditText NQD =  (EditText) findViewById(R.id.NewQuestionDetailsEditText);
+            EditText NQD =  (EditText) findViewById(com.answerbot.mobile.R.id.NewQuestionDetailsEditText);
             NQD.setTypeface(tf);
             String NewQuestionDetails = NQD.getText().toString();
             NewQuestionBody=NewQuestionBody.trim();

@@ -1,4 +1,4 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile;
 
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -26,25 +26,20 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class AddOptionsActivity extends AppCompatActivity {
+
+public class AddCriteriaActivity extends AppCompatActivity {
+
     String question_body = "Passed Question Body";
+    String question_details;
     String question_id = "Passed Question ID";
     String user_id = "Passed User_ID";
-    String question_details;
     public Typeface tf;
-
     String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_options);
-        TextView QuestionTextView = (TextView) findViewById(R.id.AddOptionsQuestionTextView);
-        TextView QuestionDetails = (TextView)findViewById(R.id.AddOQ_detail);
-        Button submit = (Button)findViewById(R.id.SubmitNewOptionBtn);
-        TextView text1 = (TextView)findViewById(R.id.addO_1);
-        TextView text2 = (TextView)findViewById(R.id.addO_2);
-        tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
+        setContentView(R.layout.activity_add_criteria);
         Bundle bundle = getIntent().getExtras();
         if(!bundle.isEmpty()) {
             question_id = Integer.toString(bundle.getInt("position"));
@@ -52,8 +47,14 @@ public class AddOptionsActivity extends AppCompatActivity {
             question_details = bundle.getString("question_details");
             user_id = bundle.getString("user_id");
         }
-        QuestionDetails.setTypeface(tf);
+        TextView QuestionTextView = (TextView) findViewById(R.id.AddCriteriaQuestionTextView);
+        TextView QuestionDetails = (TextView)findViewById(R.id.AddCQ_detail);
+        TextView text1 = (TextView)findViewById(R.id.add_c_1);
+        TextView text2 = (TextView)findViewById(R.id.add_c_2);
+        Button submit = (Button)findViewById(R.id.SubmitNewCriterionBtn);
+        tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         QuestionTextView.setTypeface(tf);
+        QuestionDetails.setTypeface(tf);
         text1.setTypeface(tf);
         text2.setTypeface(tf);
         submit.setTypeface(tf);
@@ -63,10 +64,9 @@ public class AddOptionsActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
-        final ArrayList<String> AnswerList = new ArrayList<String>();
+        final ArrayList<String> CriteriaList = new ArrayList<String>();
         AsyncHttpClient client = new AsyncHttpClient();
-        url = "http://dss.simohosio.com/api/getsolutions.php?question_id=" + question_id;
+        url = "http://dss.simohosio.com/api/getcriteria.php?question_id=" + question_id;
         client.get(url, new AsyncHttpResponseHandler() {
 
             @Override
@@ -85,7 +85,7 @@ public class AddOptionsActivity extends AppCompatActivity {
                         try {
                             Log.d("TEST", "3333");
                             JSONObject buffer = rateArray.getJSONObject(i);
-                            AnswerList.add(buffer.getString("solution_body"));
+                            CriteriaList.add(buffer.getString("criterion_body"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -110,43 +110,43 @@ public class AddOptionsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, AnswerList);
-        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.NewOptionEditText);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, CriteriaList);
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.NewCriterionEditText);
         textView.setAdapter(adapter);
-        textView.setCompletionHint("These answers have been given");
-
+        textView.setCompletionHint("These criteria have been added");
 
     }
 
     //Submit button click
-    public void SubmitOptionsBtnClick(View v) {
-        PostNewOptionsAsync();
+    public void SubmitCriterionBtnClick(View v) {
+        PostNewCriterionAsync();
     }
 
-    private void PostNewOptionsAsync(){
+    private void PostNewCriterionAsync() {
         AsyncHttpClient client = new AsyncHttpClient();
         tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
-        EditText NOB =  (EditText) findViewById(R.id.NewOptionEditText);
-        NOB.setTypeface(tf);
-        String NewOptionBody = NOB.getText().toString();
-        if (NewOptionBody.length() == 0 || NewOptionBody.equals(" ") || NewOptionBody.equals("\n")){
-            Toast.makeText(AddOptionsActivity.this, "Please specify an answer!", Toast.LENGTH_SHORT).show();
+        EditText NCB = (EditText) findViewById(R.id.NewCriterionEditText);
+        NCB.setTypeface(tf);
+        String NewCriterionBody = NCB.getText().toString();
+
+        if (NewCriterionBody.length() == 0 || NewCriterionBody.equals(" ") || NewCriterionBody.equals("\n")){
+            Toast.makeText(AddCriteriaActivity.this, "Please specify a criteria!", Toast.LENGTH_SHORT).show();
         }
         else {
-            NewOptionBody = Character.toUpperCase(NewOptionBody.charAt(0)) + NewOptionBody.substring(1);
-            EditText NOD =  (EditText) findViewById(R.id.NewOptionDetailsEditText);
-            NOD.setTypeface(tf);
-            String NewOptionDetails = NOD.getText().toString();
-            if (NewOptionDetails.length() != 0){
-                NewOptionDetails = Character.toUpperCase(NewOptionDetails.charAt(0)) + NewOptionDetails.substring(1);
+            NewCriterionBody = Character.toUpperCase(NewCriterionBody.charAt(0)) + NewCriterionBody.substring(1);
+            EditText NCD = (EditText) findViewById(R.id.NewCriterionDetailsEditText);
+            NCD.setTypeface(tf);
+            String NewCriterionDetails = NCD.getText().toString();
+            if (NewCriterionDetails.length() != 0){
+                NewCriterionDetails = Character.toUpperCase(NewCriterionDetails.charAt(0)) + NewCriterionDetails.substring(1);
             }
             com.loopj.android.http.RequestParams params = new RequestParams();
             params.add("user_id", user_id);
             params.add("question_id", question_id);
-            params.add("body", NewOptionBody);
-            params.add("details", NewOptionDetails);
+            params.add("body", NewCriterionBody);
+            params.add("details", NewCriterionDetails);
             params.add("meta", " ");
-            client.post("http://dss.simohosio.com/api/postsolution.php", params, new JsonHttpResponseHandler() {
+            client.post("http://dss.simohosio.com/api/postcriterion.php", params, new JsonHttpResponseHandler() {
 //            @Override
 //            public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
 //                Button b = (Button) findViewById(R.id.SubmitNewQuestionBtn);
@@ -159,7 +159,8 @@ public class AddOptionsActivity extends AppCompatActivity {
 //
 
         });
-        Toast.makeText(AddOptionsActivity.this, "New option added!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AddCriteriaActivity.this, "New criterion added!", Toast.LENGTH_SHORT).show();
         finish();
+    }
 }}
-}
+

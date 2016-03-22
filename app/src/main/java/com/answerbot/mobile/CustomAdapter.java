@@ -1,4 +1,4 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile;
 
 
 import android.content.Context;
@@ -14,13 +14,13 @@ import java.util.ArrayList;
 class CustomAdapter extends ArrayAdapter<Questions>{
 
     public CustomAdapter(Context context, ArrayList<Questions> placeHolders) {
-        super(context, R.layout.activity_home_question, placeHolders);
+        super(context, com.answerbot.mobile.R.layout.activity_home_question, placeHolders);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView==null){
-            convertView=LayoutInflater.from(getContext()).inflate(R.layout.activity_home_question,parent,false);
+            convertView=LayoutInflater.from(getContext()).inflate(com.answerbot.mobile.R.layout.activity_home_question,parent,false);
         }
         Questions plQuestion = getItem(position);
         if (plQuestion.sight){
@@ -30,7 +30,7 @@ class CustomAdapter extends ArrayAdapter<Questions>{
         }
         Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "RobotoCondensed-Regular.ttf");
 
-        TextView MainQuestion = (TextView) convertView.findViewById(R.id.qquestion);
+        TextView MainQuestion = (TextView) convertView.findViewById(com.answerbot.mobile.R.id.qquestion);
 
         String question= plQuestion.question_body;
         MainQuestion.setText(question);

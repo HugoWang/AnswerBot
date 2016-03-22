@@ -1,4 +1,4 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -33,7 +33,7 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_entry);
+        setContentView(com.answerbot.mobile.R.layout.activity_entry);
         MyDb = new DataBaseOperations(this);
         UserID= Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         Cursor res = MyDb.getAllData();
@@ -47,18 +47,18 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
         }catch (NullPointerException e){ e.printStackTrace();}
 
         Typeface tf = Typeface.createFromAsset(getAssets(),"RobotoCondensed-Regular.ttf");
-        start_text = (TextView)findViewById(R.id.start_text);
+        start_text = (TextView)findViewById(com.answerbot.mobile.R.id.start_text);
         start_text.setTypeface(tf);
 
-        start = (Button)findViewById(R.id.start_btn);
+        start = (Button)findViewById(com.answerbot.mobile.R.id.start_btn);
         start.setTypeface(tf);
 
-        male_check = (CheckBox)findViewById(R.id.male_check);
-        female_check = (CheckBox)findViewById(R.id.female_check);
+        male_check = (CheckBox)findViewById(com.answerbot.mobile.R.id.male_check);
+        female_check = (CheckBox)findViewById(com.answerbot.mobile.R.id.female_check);
         male_check.setTypeface(tf);
         female_check.setTypeface(tf);
 
-        input_age = (EditText)findViewById(R.id.editAge);
+        input_age = (EditText)findViewById(com.answerbot.mobile.R.id.editAge);
         input_age.setTypeface(tf);
 
 
@@ -108,7 +108,7 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
-            case R.id.male_check:
+            case com.answerbot.mobile.R.id.male_check:
                 if (male_check.isChecked() && isChecked) {
                     female_check.setChecked(false);
                     Gender = "male";
@@ -116,7 +116,7 @@ public class EntryActivity extends AppCompatActivity implements CompoundButton.O
                     return;
                 }
                 break;
-            case R.id.female_check:
+            case com.answerbot.mobile.R.id.female_check:
                 if (female_check.isChecked() && isChecked) {
                     male_check.setChecked(false);
                     Gender = "female";

@@ -1,4 +1,4 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile;
 
 import android.app.Application;
 

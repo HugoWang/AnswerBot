@@ -1,14 +1,11 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile;
 
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
@@ -62,11 +59,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         if (bun != null) {
             UserID = bun.getString("user_id");
         }
-        setContentView(R.layout.activity_home);
-        myListView = (ListView) findViewById(R.id.myListView);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
+        setContentView(com.answerbot.mobile.R.layout.activity_home);
+        myListView = (ListView) findViewById(com.answerbot.mobile.R.id.myListView);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(com.answerbot.mobile.R.id.activity_main_swipe_refresh_layout);
 
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.ripple, R.color.green, R.color.blue);
+        mSwipeRefreshLayout.setColorSchemeResources(com.answerbot.mobile.R.color.ripple, com.answerbot.mobile.R.color.green, com.answerbot.mobile.R.color.blue);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -85,7 +82,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 final int q_id = question.question_id;
                 String q_body = question.question_body;
                 String q_details = question.question_details;
-                final Animation shake = AnimationUtils.loadAnimation(HomeActivity.this, R.anim.shake);
+                final Animation shake = AnimationUtils.loadAnimation(HomeActivity.this, com.answerbot.mobile.R.anim.shake);
 
                 final Bundle bundle = new Bundle();
                 bundle.putInt("position", q_id);
@@ -95,12 +92,12 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 //bundle.putString("upload_user_id", upload_user_id);
 
                 final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.dialog);
+                dialog.setContentView(com.answerbot.mobile.R.layout.dialog);
 
-                final ImageButton addC = (ImageButton) dialog.findViewById(R.id.addC);
-                final ImageButton addO = (ImageButton) dialog.findViewById(R.id.addO);
-                final ImageButton rateO = (ImageButton) dialog.findViewById(R.id.rateO);
-                final ImageButton share = (ImageButton) dialog.findViewById(R.id.share);
+                final ImageButton addC = (ImageButton) dialog.findViewById(com.answerbot.mobile.R.id.addC);
+                final ImageButton addO = (ImageButton) dialog.findViewById(com.answerbot.mobile.R.id.addO);
+                final ImageButton rateO = (ImageButton) dialog.findViewById(com.answerbot.mobile.R.id.rateO);
+                final ImageButton share = (ImageButton) dialog.findViewById(com.answerbot.mobile.R.id.share);
                 //ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
                 dialog.show();
 
@@ -214,7 +211,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 */
 
             //Add question button
-        FloatingActionButton FAB = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton FAB = (FloatingActionButton) findViewById(com.answerbot.mobile.R.id.fab);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -294,8 +291,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        getMenuInflater().inflate(com.answerbot.mobile.R.menu.menu_home, menu);
+        MenuItem searchItem = menu.findItem(com.answerbot.mobile.R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -322,7 +319,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
+        if (id == com.answerbot.mobile.R.id.action_search) {
 
         }
 

@@ -1,9 +1,8 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile;
 
 
 import android.app.SearchManager;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -78,7 +76,7 @@ public class GetRecomendActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_recomend);
+        setContentView(com.answerbot.mobile.R.layout.activity_get_recomend);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -89,20 +87,20 @@ public class GetRecomendActivity extends AppCompatActivity {
             upload_user_id = tm.getDeviceId();
         }
         */
-        mViewGroup = findViewById(R.id.viewsContainer);
+        mViewGroup = findViewById(com.answerbot.mobile.R.id.viewsContainer);
         mViewGroup.setVisibility(View.GONE);
 
-        mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
+        mProgressBar = (ProgressBar)findViewById(com.answerbot.mobile.R.id.progressBar);
         mProgressBar.setVisibility(View.GONE);
 
-        listView = (ListView) findViewById(R.id.lvRates);
+        listView = (ListView) findViewById(com.answerbot.mobile.R.id.lvRates);
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
-        recommend_ques = (TextView) findViewById(R.id.recommend_ques);
-        recommend_detail = (TextView) findViewById(R.id.recommend_detail);
-        tips1 = (TextView) findViewById(R.id.tips1);
-        tips2 = (TextView) findViewById(R.id.tips2);
-        get_recommend = (Button) findViewById(R.id.get_recommend_btn);
+        recommend_ques = (TextView) findViewById(com.answerbot.mobile.R.id.recommend_ques);
+        recommend_detail = (TextView) findViewById(com.answerbot.mobile.R.id.recommend_detail);
+        tips1 = (TextView) findViewById(com.answerbot.mobile.R.id.tips1);
+        tips2 = (TextView) findViewById(com.answerbot.mobile.R.id.tips2);
+        get_recommend = (Button) findViewById(com.answerbot.mobile.R.id.get_recommend_btn);
 
         recommend_ques.setTypeface(tf);
         recommend_detail.setTypeface(tf);
@@ -194,7 +192,7 @@ public class GetRecomendActivity extends AppCompatActivity {
             }
         });
 
-        get_recommend = (Button) findViewById(R.id.get_recommend_btn);
+        get_recommend = (Button) findViewById(com.answerbot.mobile.R.id.get_recommend_btn);
         get_recommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -259,13 +257,13 @@ public class GetRecomendActivity extends AppCompatActivity {
 
                 //CustomSolutionAdapter adapter = new CustomSolutionAdapter(getApplication(), arrayOfResults);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_result, R.id.result_item, arrayResults);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), com.answerbot.mobile.R.layout.item_result, com.answerbot.mobile.R.id.result_item, arrayResults);
                 listResult.setAdapter(adapter);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(GetRecomendActivity.this);
                 builder.setCancelable(true);
                 builder.setTitle("Recommendations:");
-                builder.setIcon(R.drawable.recommend);
+                builder.setIcon(com.answerbot.mobile.R.drawable.recommend);
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -282,7 +280,7 @@ public class GetRecomendActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         ViewGroup vg = (ViewGroup) view;
-                        TextView txt = (TextView) vg.findViewById(R.id.result_item);
+                        TextView txt = (TextView) vg.findViewById(com.answerbot.mobile.R.id.result_item);
                         String search_txt = txt.getText().toString();
                         String search_text = search_txt.substring(4);
                         Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
@@ -299,7 +297,7 @@ public class GetRecomendActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_get_recomend, menu);
+        getMenuInflater().inflate(com.answerbot.mobile.R.menu.menu_get_recomend, menu);
         /*
         MenuItem item1 = menu.findItem(R.id.add_criteria);
         SpannableStringBuilder builder1 = new SpannableStringBuilder("*  Add Criteria");
@@ -341,22 +339,22 @@ public class GetRecomendActivity extends AppCompatActivity {
         bundle.putString("user_id", user_id);
         //noinspection SimplifiableIfStatement
         switch (id) {
-            case R.id.add_criteria:
+            case com.answerbot.mobile.R.id.add_criteria:
                 Intent toAddCriteria = new Intent(getApplicationContext(), AddCriteriaActivity.class);
                 toAddCriteria.putExtras(bundle);
                 startActivity(toAddCriteria);
                 break;
-            case R.id.add_answer:
+            case com.answerbot.mobile.R.id.add_answer:
                 Intent toAddAnswer = new Intent(getApplicationContext(), AddOptionsActivity.class);
                 toAddAnswer.putExtras(bundle);
                 startActivity(toAddAnswer);
                 break;
-            case R.id.rate_answer:
+            case com.answerbot.mobile.R.id.rate_answer:
                 Intent toRateAnswer = new Intent(getApplicationContext(), DonateKnowledgeActivity.class);
                 toRateAnswer.putExtras(bundle);
                 startActivity(toRateAnswer);
                 break;
-            case R.id.share_question:
+            case com.answerbot.mobile.R.id.share_question:
                 String urlToShare = "http://dss.simohosio.com/collectdata.php?qid=" + url_queston_id;
 
                 Intent intent = new Intent(Intent.ACTION_SEND);

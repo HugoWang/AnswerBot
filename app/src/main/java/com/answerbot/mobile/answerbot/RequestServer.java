@@ -1,4 +1,4 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile.answerbot;
 
 /**
  * Created by Juho on 12.12.2015.

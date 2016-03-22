@@ -1,4 +1,4 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -23,7 +23,7 @@ public class CustomRatesAdapter extends ArrayAdapter<Rate> {
     }
 
     public CustomRatesAdapter(Context context, ArrayList<Rate> rates) {
-        super(context, R.layout.item_rate, rates);
+        super(context, com.answerbot.mobile.R.layout.item_rate, rates);
         this.context = context;
         this.rates.addAll(rates);
     }
@@ -38,11 +38,11 @@ public class CustomRatesAdapter extends ArrayAdapter<Rate> {
         if (convertView == null) {
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_rate, null);
+            convertView = inflater.inflate(com.answerbot.mobile.R.layout.item_rate, null);
             holder = new ViewHolder();
-            holder.seekBar = (SeekBar) convertView.findViewById(R.id.seekBar);
-            holder.tvBody = (TextView) convertView.findViewById(R.id.tvBody);
-            holder.tvDetail = (TextView) convertView.findViewById(R.id.tvDetails);
+            holder.seekBar = (SeekBar) convertView.findViewById(com.answerbot.mobile.R.id.seekBar);
+            holder.tvBody = (TextView) convertView.findViewById(com.answerbot.mobile.R.id.tvBody);
+            holder.tvDetail = (TextView) convertView.findViewById(com.answerbot.mobile.R.id.tvDetails);
             convertView.setTag(holder);
 
         }

@@ -1,4 +1,4 @@
-package com.example.kaiwang.answerbot;
+package com.answerbot.mobile;
 
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -65,12 +65,12 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_donate_knowledge);
+        setContentView(com.answerbot.mobile.R.layout.activity_donate_knowledge);
 
-        answer_content = (TextView)findViewById(R.id.answer_content);
-        answer_detail = (TextView)findViewById(R.id.answer_details);
-        donate_knowledge = (Button)findViewById(R.id.donate_btn);
-        listView = (ListView) findViewById(R.id.lvDonate);
+        answer_content = (TextView)findViewById(com.answerbot.mobile.R.id.answer_content);
+        answer_detail = (TextView)findViewById(com.answerbot.mobile.R.id.answer_details);
+        donate_knowledge = (Button)findViewById(com.answerbot.mobile.R.id.donate_btn);
+        listView = (ListView) findViewById(com.answerbot.mobile.R.id.lvDonate);
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Regular.ttf");
         answer_content.setTypeface(tf);
@@ -237,7 +237,7 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_donate_knowledge, menu);
+        getMenuInflater().inflate(com.answerbot.mobile.R.menu.menu_donate_knowledge, menu);
         return true;
     }
 
@@ -249,7 +249,7 @@ public class DonateKnowledgeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_refresh) {
+        if (id == com.answerbot.mobile.R.id.action_refresh) {
             finish();
             startActivity(getIntent());
         }
