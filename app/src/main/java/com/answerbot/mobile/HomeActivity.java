@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     App app;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        app= (App)getApplication();
+        //app= (App)getApplication();
         super.onCreate(savedInstanceState);
         //if (Integer.valueOf(Build.VERSION.SDK_INT)==23) getDevieID();
 
@@ -244,7 +244,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         client.get("http://dss.simohosio.com/api/getquestions.php", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseBody) {
-                app.allQuestions = new ArrayList<>();
+                app = new App();
                 for (int i = 0; i < responseBody.length(); i++) {
                     try {
                         Questions ques = new Questions();
@@ -256,11 +256,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                         ques.setQuestion_details(buffer.getString("question_details"));
                         ques.setMeta(buffer.getString("meta"));
 
-                        app.allQuestions.add(ques);
+                        app.addQuestion(ques);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    myAdapter = new CustomAdapter(HomeActivity.this, app.allQuestions);
+                    myAdapter = new CustomAdapter(HomeActivity.this, app.getQuestions());
                     myListView.setAdapter(myAdapter);
                     myListView.setOnItemClickListener(HomeActivity.this);
                 }
@@ -271,11 +271,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     public void doSearch(String s) {
         newValues = new ArrayList<>();
         if (s.equals("")){
-            newValues=app.allQuestions;
+            newValues=app.getQuestions();
         } else {
-            for (int i=0;i<app.allQuestions.size();i++){
-                if (app.allQuestions.get(i).question_body.toLowerCase().contains(s.toLowerCase())){
-                    newValues.add(app.allQuestions.get(i));
+            for (int i=0;i<app.getSize();i++){
+                if (app.getQuestion(i).question_body.toLowerCase().contains(s.toLowerCase())){
+                    newValues.add(app.getQuestion(i));
                 }
             }
         }

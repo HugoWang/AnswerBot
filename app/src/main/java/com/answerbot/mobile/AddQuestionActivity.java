@@ -45,7 +45,7 @@ public class AddQuestionActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         app = (App)getApplication();
-        ArrayList<Questions> ListOfQuestions = app.allQuestions;
+        ArrayList<Questions> ListOfQuestions = app.getQuestions();
         ArrayList<String> QuestionList = new ArrayList<String>();
         for (int i = 0; i < ListOfQuestions.size(); i++) {
             QuestionList.add(ListOfQuestions.get(i).question_body);
@@ -64,7 +64,7 @@ public class AddQuestionActivity extends AppCompatActivity {
 
     private boolean QuestionAlreadyExists(String question){
         app = (App)getApplication();
-        ArrayList<Questions> ListOfQuestions = app.allQuestions;
+        ArrayList<Questions> ListOfQuestions = app.getQuestions();
         for (int i = 0; i < ListOfQuestions.size(); i++) {
             if (ListOfQuestions.get(i).question_body.equals(question)){
                 return true;
